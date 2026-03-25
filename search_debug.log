@@ -1,0 +1,1325 @@
+[2026-03-17T09:47:11.879Z] --- Search Start: "any video related to healthcare" ---
+[2026-03-17T09:47:11.881Z] Optimized Query: "any video related to healthcare"
+[2026-03-17T09:47:14.635Z] Keyword Matches: 0
+[2026-03-17T09:47:19.655Z] Candidate: AI in healthcare.mp4 | Dist: undefined | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-17T09:47:19.656Z] Candidate: AI Agents Usecases.docx | Dist: undefined | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-17T09:47:19.657Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | Dist: undefined | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-17T09:47:19.658Z] Candidate: AI Automation.mp4 | Dist: undefined | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-17T09:47:19.658Z] Candidate: 10xVoice- AI Conversation.mp3 | Dist: undefined | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-17T09:47:19.659Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | Dist: undefined | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-17T09:47:19.660Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | Dist: undefined | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-17T09:47:19.661Z] Candidate: Ignite_Low_Code_AI_And_Agents_Announcements_1764582335.pdf | Dist: undefined | ID: DMfwVKZVhOz1dN2Gh97W
+[2026-03-17T09:47:19.661Z] Semantic Candidates: 8
+[2026-03-17T09:47:21.344Z] AI Verify Error: [VertexAI.ClientError]: got status: 404 Not Found. {"error":{"code":404,"message":"Publisher Model `projects/tenxds-agents-idp/locations/us-central1/publishers/google/models/gemini-1.5-flash` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions","status":"NOT_FOUND"}}
+[2026-03-17T09:47:54.544Z] --- Search Start: "any video related to healthcare" ---
+[2026-03-17T09:47:54.546Z] Optimized Query: "any video related to healthcare"
+[2026-03-17T09:47:55.832Z] Keyword Matches: 0
+[2026-03-17T09:48:00.281Z] Candidate: AI in healthcare.mp4 | Dist: undefined | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-17T09:48:00.282Z] Candidate: AI Agents Usecases.docx | Dist: undefined | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-17T09:48:00.283Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | Dist: undefined | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-17T09:48:00.285Z] Candidate: AI Automation.mp4 | Dist: undefined | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-17T09:48:00.285Z] Candidate: 10xVoice- AI Conversation.mp3 | Dist: undefined | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-17T09:48:00.287Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | Dist: undefined | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-17T09:48:00.288Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | Dist: undefined | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-17T09:48:00.289Z] Candidate: Ignite_Low_Code_AI_And_Agents_Announcements_1764582335.pdf | Dist: undefined | ID: DMfwVKZVhOz1dN2Gh97W
+[2026-03-17T09:48:00.289Z] Semantic Candidates: 8
+[2026-03-17T09:48:02.016Z] AI Verify Error: [VertexAI.ClientError]: got status: 404 Not Found. {"error":{"code":404,"message":"Publisher Model `projects/tenxds-agents-idp/locations/us-central1/publishers/google/models/gemini-1.5-flash` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions","status":"NOT_FOUND"}}
+[2026-03-17T09:48:12.383Z] --- Search Start: "which document " ---
+[2026-03-17T09:48:12.384Z] Optimized Query: "which document "
+[2026-03-17T09:48:13.629Z] Keyword Matches: 0
+[2026-03-17T09:48:15.730Z] --- Search Start: "which document describe about a" ---
+[2026-03-17T09:48:15.731Z] Optimized Query: "which document describe about a"
+[2026-03-17T09:48:17.828Z] Keyword Matches: 0
+[2026-03-17T09:48:18.397Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | Dist: undefined | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-17T09:48:18.399Z] Candidate: 10xVoice- AI Conversation.mp3 | Dist: undefined | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-17T09:48:18.400Z] Candidate: AI Agents Usecases.docx | Dist: undefined | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-17T09:48:18.401Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | Dist: undefined | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-17T09:48:18.402Z] Candidate: AI in healthcare.mp4 | Dist: undefined | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-17T09:48:18.403Z] Candidate: Ignite_Low_Code_AI_And_Agents_Announcements_1764582335.pdf | Dist: undefined | ID: DMfwVKZVhOz1dN2Gh97W
+[2026-03-17T09:48:18.404Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | Dist: undefined | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-17T09:48:18.404Z] Candidate: AI Automation.mp4 | Dist: undefined | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-17T09:48:18.405Z] Semantic Candidates: 8
+[2026-03-17T09:48:18.818Z] AI Verify Error: [VertexAI.ClientError]: got status: 404 Not Found. {"error":{"code":404,"message":"Publisher Model `projects/tenxds-agents-idp/locations/us-central1/publishers/google/models/gemini-1.5-flash` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions","status":"NOT_FOUND"}}
+[2026-03-17T09:48:20.031Z] --- Search Start: "which document describe about agent usecase" ---
+[2026-03-17T09:48:20.032Z] Optimized Query: "which document describe about agent usecase"
+[2026-03-17T09:48:21.248Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | Dist: undefined | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-17T09:48:21.249Z] Candidate: AI Agents Usecases.docx | Dist: undefined | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-17T09:48:21.249Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | Dist: undefined | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-17T09:48:21.250Z] Candidate: 10xVoice- AI Conversation.mp3 | Dist: undefined | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-17T09:48:21.251Z] Candidate: AI in healthcare.mp4 | Dist: undefined | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-17T09:48:21.251Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | Dist: undefined | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-17T09:48:21.252Z] Candidate: AI Automation.mp4 | Dist: undefined | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-17T09:48:21.253Z] Candidate: Ignite_Low_Code_AI_And_Agents_Announcements_1764582335.pdf | Dist: undefined | ID: DMfwVKZVhOz1dN2Gh97W
+[2026-03-17T09:48:21.254Z] Semantic Candidates: 8
+[2026-03-17T09:48:21.651Z] AI Verify Error: [VertexAI.ClientError]: got status: 404 Not Found. {"error":{"code":404,"message":"Publisher Model `projects/tenxds-agents-idp/locations/us-central1/publishers/google/models/gemini-1.5-flash` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions","status":"NOT_FOUND"}}
+[2026-03-17T09:48:22.242Z] Keyword Matches: 0
+[2026-03-17T09:48:25.341Z] Candidate: AI Agents Usecases.docx | Dist: undefined | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-17T09:48:25.342Z] Candidate: Ignite_Low_Code_AI_And_Agents_Announcements_1764582335.pdf | Dist: undefined | ID: DMfwVKZVhOz1dN2Gh97W
+[2026-03-17T09:48:25.343Z] Candidate: 10xVoice- AI Conversation.mp3 | Dist: undefined | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-17T09:48:25.344Z] Candidate: AI Automation.mp4 | Dist: undefined | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-17T09:48:25.345Z] Candidate: AI in healthcare.mp4 | Dist: undefined | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-17T09:48:25.346Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | Dist: undefined | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-17T09:48:25.347Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | Dist: undefined | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-17T09:48:25.347Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | Dist: undefined | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-17T09:48:25.348Z] Semantic Candidates: 8
+[2026-03-17T09:48:25.786Z] AI Verify Error: [VertexAI.ClientError]: got status: 404 Not Found. {"error":{"code":404,"message":"Publisher Model `projects/tenxds-agents-idp/locations/us-central1/publishers/google/models/gemini-1.5-flash` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions","status":"NOT_FOUND"}}
+[2026-03-17T11:20:00.673Z] --- Search Start: "any document related to" ---
+[2026-03-17T11:20:00.674Z] Optimized Query: "any document related to"
+[2026-03-17T11:20:01.003Z] --- Search Start: "any document related to " ---
+[2026-03-17T11:20:01.004Z] Optimized Query: "any document related to "
+[2026-03-17T11:20:01.874Z] --- Search Start: "any document related to leave " ---
+[2026-03-17T11:20:01.875Z] Optimized Query: "any document related to leave "
+[2026-03-17T11:20:01.955Z] Keyword Matches: 0
+[2026-03-17T11:20:02.108Z] --- Search Start: "any document related to lea" ---
+[2026-03-17T11:20:02.109Z] Optimized Query: "any document related to lea"
+[2026-03-17T11:20:03.147Z] Keyword Matches: 0
+[2026-03-17T11:20:03.484Z] Keyword Matches: 0
+[2026-03-17T11:20:04.020Z] --- Search Start: "any document related to leave policy" ---
+[2026-03-17T11:20:04.021Z] Optimized Query: "any document related to leave policy"
+[2026-03-17T11:20:04.369Z] Keyword Matches: 0
+[2026-03-17T11:20:06.664Z] Keyword Matches: 0
+[2026-03-17T11:20:07.954Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | Dist: undefined | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-17T11:20:07.955Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | Dist: undefined | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-17T11:20:07.956Z] Candidate: 10xVoice- AI Conversation.mp3 | Dist: undefined | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-17T11:20:07.957Z] Candidate: AI Agents Usecases.docx | Dist: undefined | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-17T11:20:07.958Z] Candidate: AI in healthcare.mp4 | Dist: undefined | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-17T11:20:07.959Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | Dist: undefined | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-17T11:20:07.960Z] Candidate: AI Automation.mp4 | Dist: undefined | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-17T11:20:07.961Z] Candidate: Ignite_Low_Code_AI_And_Agents_Announcements_1764582335.pdf | Dist: undefined | ID: DMfwVKZVhOz1dN2Gh97W
+[2026-03-17T11:20:07.962Z] Semantic Candidates: 8
+[2026-03-17T11:20:08.453Z] AI Verify Error: [VertexAI.ClientError]: got status: 404 Not Found. {"error":{"code":404,"message":"Publisher Model `projects/tenxds-agents-idp/locations/us-central1/publishers/google/models/gemini-1.5-flash` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions","status":"NOT_FOUND"}}
+[2026-03-17T11:20:08.626Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | Dist: undefined | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-17T11:20:08.627Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | Dist: undefined | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-17T11:20:08.628Z] Candidate: 10xVoice- AI Conversation.mp3 | Dist: undefined | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-17T11:20:08.629Z] Candidate: AI Agents Usecases.docx | Dist: undefined | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-17T11:20:08.630Z] Candidate: AI in healthcare.mp4 | Dist: undefined | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-17T11:20:08.630Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | Dist: undefined | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-17T11:20:08.631Z] Candidate: AI Automation.mp4 | Dist: undefined | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-17T11:20:08.632Z] Candidate: Ignite_Low_Code_AI_And_Agents_Announcements_1764582335.pdf | Dist: undefined | ID: DMfwVKZVhOz1dN2Gh97W
+[2026-03-17T11:20:08.633Z] Semantic Candidates: 8
+[2026-03-17T11:20:09.425Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | Dist: undefined | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-17T11:20:09.426Z] Candidate: AI Agents Usecases.docx | Dist: undefined | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-17T11:20:09.427Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | Dist: undefined | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-17T11:20:09.428Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | Dist: undefined | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-17T11:20:09.429Z] Candidate: 10xVoice- AI Conversation.mp3 | Dist: undefined | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-17T11:20:09.431Z] Candidate: Ignite_Low_Code_AI_And_Agents_Announcements_1764582335.pdf | Dist: undefined | ID: DMfwVKZVhOz1dN2Gh97W
+[2026-03-17T11:20:09.431Z] Candidate: AI Automation.mp4 | Dist: undefined | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-17T11:20:09.432Z] Candidate: AI in healthcare.mp4 | Dist: undefined | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-17T11:20:09.433Z] Semantic Candidates: 8
+[2026-03-17T11:20:09.585Z] --- Search Start: "any document related to " ---
+[2026-03-17T11:20:09.585Z] Optimized Query: "any document related to "
+[2026-03-17T11:20:09.780Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | Dist: undefined | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-17T11:20:09.781Z] Candidate: AI Agents Usecases.docx | Dist: undefined | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-17T11:20:09.781Z] Candidate: AI in healthcare.mp4 | Dist: undefined | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-17T11:20:09.782Z] Candidate: Ignite_Low_Code_AI_And_Agents_Announcements_1764582335.pdf | Dist: undefined | ID: DMfwVKZVhOz1dN2Gh97W
+[2026-03-17T11:20:09.782Z] Candidate: 10xVoice- AI Conversation.mp3 | Dist: undefined | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-17T11:20:09.783Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | Dist: undefined | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-17T11:20:09.784Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | Dist: undefined | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-17T11:20:09.785Z] Candidate: AI Automation.mp4 | Dist: undefined | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-17T11:20:09.785Z] Semantic Candidates: 8
+[2026-03-17T11:20:10.050Z] --- Search Start: "any document related to sick leave" ---
+[2026-03-17T11:20:10.051Z] Optimized Query: "any document related to sick leave"
+[2026-03-17T11:20:10.383Z] AI Verify Error: [VertexAI.ClientError]: got status: 404 Not Found. {"error":{"code":404,"message":"Publisher Model `projects/tenxds-agents-idp/locations/us-central1/publishers/google/models/gemini-1.5-flash` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions","status":"NOT_FOUND"}}
+[2026-03-17T11:20:10.938Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | Dist: undefined | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-17T11:20:10.939Z] Candidate: AI Agents Usecases.docx | Dist: undefined | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-17T11:20:10.940Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | Dist: undefined | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-17T11:20:10.941Z] Candidate: 10xVoice- AI Conversation.mp3 | Dist: undefined | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-17T11:20:10.941Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | Dist: undefined | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-17T11:20:10.942Z] Candidate: AI in healthcare.mp4 | Dist: undefined | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-17T11:20:10.944Z] Candidate: Ignite_Low_Code_AI_And_Agents_Announcements_1764582335.pdf | Dist: undefined | ID: DMfwVKZVhOz1dN2Gh97W
+[2026-03-17T11:20:10.945Z] Candidate: AI Automation.mp4 | Dist: undefined | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-17T11:20:10.945Z] Semantic Candidates: 8
+[2026-03-17T11:20:11.169Z] AI Verify Error: [VertexAI.ClientError]: got status: 404 Not Found. {"error":{"code":404,"message":"Publisher Model `projects/tenxds-agents-idp/locations/us-central1/publishers/google/models/gemini-1.5-flash` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions","status":"NOT_FOUND"}}
+[2026-03-17T11:20:11.364Z] AI Verify Error: [VertexAI.ClientError]: got status: 404 Not Found. {"error":{"code":404,"message":"Publisher Model `projects/tenxds-agents-idp/locations/us-central1/publishers/google/models/gemini-1.5-flash` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions","status":"NOT_FOUND"}}
+[2026-03-17T11:20:11.544Z] AI Verify Error: [VertexAI.ClientError]: got status: 404 Not Found. {"error":{"code":404,"message":"Publisher Model `projects/tenxds-agents-idp/locations/us-central1/publishers/google/models/gemini-1.5-flash` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions","status":"NOT_FOUND"}}
+[2026-03-17T11:20:12.013Z] Keyword Matches: 0
+[2026-03-17T11:20:12.165Z] Keyword Matches: 0
+[2026-03-17T11:20:14.829Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | Dist: undefined | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-17T11:20:14.830Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | Dist: undefined | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-17T11:20:14.831Z] Candidate: 10xVoice- AI Conversation.mp3 | Dist: undefined | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-17T11:20:14.832Z] Candidate: AI Agents Usecases.docx | Dist: undefined | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-17T11:20:14.832Z] Candidate: AI in healthcare.mp4 | Dist: undefined | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-17T11:20:14.833Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | Dist: undefined | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-17T11:20:14.834Z] Candidate: AI Automation.mp4 | Dist: undefined | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-17T11:20:14.834Z] Candidate: Ignite_Low_Code_AI_And_Agents_Announcements_1764582335.pdf | Dist: undefined | ID: DMfwVKZVhOz1dN2Gh97W
+[2026-03-17T11:20:14.835Z] Semantic Candidates: 8
+[2026-03-17T11:20:15.302Z] AI Verify Error: [VertexAI.ClientError]: got status: 404 Not Found. {"error":{"code":404,"message":"Publisher Model `projects/tenxds-agents-idp/locations/us-central1/publishers/google/models/gemini-1.5-flash` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions","status":"NOT_FOUND"}}
+[2026-03-17T11:20:15.661Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | Dist: undefined | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-17T11:20:15.662Z] Candidate: AI Agents Usecases.docx | Dist: undefined | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-17T11:20:15.663Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | Dist: undefined | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-17T11:20:15.664Z] Candidate: AI in healthcare.mp4 | Dist: undefined | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-17T11:20:15.664Z] Candidate: 10xVoice- AI Conversation.mp3 | Dist: undefined | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-17T11:20:15.665Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | Dist: undefined | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-17T11:20:15.665Z] Candidate: Ignite_Low_Code_AI_And_Agents_Announcements_1764582335.pdf | Dist: undefined | ID: DMfwVKZVhOz1dN2Gh97W
+[2026-03-17T11:20:15.666Z] Candidate: AI Automation.mp4 | Dist: undefined | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-17T11:20:15.666Z] Semantic Candidates: 8
+[2026-03-17T11:20:16.532Z] AI Verify Error: [VertexAI.ClientError]: got status: 404 Not Found. {"error":{"code":404,"message":"Publisher Model `projects/tenxds-agents-idp/locations/us-central1/publishers/google/models/gemini-1.5-flash` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions","status":"NOT_FOUND"}}
+[2026-03-17T11:44:58.738Z] --- Search Start: "healthcare" ---
+[2026-03-17T11:44:58.743Z] Optimized Query: "healthcare"
+[2026-03-17T11:45:01.662Z] Keyword Matches: 2
+[2026-03-17T11:45:07.360Z] Semantic Candidates: 0
+[2026-03-17T11:45:07.362Z] Total Results (Keywords): 2
+[2026-03-17T11:49:58.562Z] --- Search Start: "healthcare" ---
+[2026-03-17T11:49:58.564Z] Optimized Query: "healthcare"
+[2026-03-17T11:50:01.180Z] Keyword Matches: 2
+[2026-03-17T11:50:06.043Z] Semantic Candidates: 0
+[2026-03-17T11:50:06.044Z] Total Results (Keywords): 2
+[2026-03-17T11:59:27.552Z] --- Search Start: "healthcare" ---
+[2026-03-17T11:59:27.554Z] Optimized Query: "healthcare"
+[2026-03-17T11:59:30.196Z] Keyword Matches: 2
+[2026-03-17T11:59:35.047Z] Semantic Candidates: 0
+[2026-03-17T11:59:35.048Z] Total Results: 2
+[2026-03-18T03:42:41.892Z] --- Search Start: "which document cob" ---
+[2026-03-18T03:42:41.894Z] Optimized Query: "document cob"
+[2026-03-18T03:42:42.901Z] --- Search Start: "which document cove" ---
+[2026-03-18T03:42:42.902Z] Optimized Query: "document cove"
+[2026-03-18T03:42:43.127Z] Keyword Matches: 0
+[2026-03-18T03:42:43.163Z] --- Search Start: "which document covers " ---
+[2026-03-18T03:42:43.164Z] Optimized Query: "document covers"
+[2026-03-18T03:42:44.216Z] Keyword Matches: 0
+[2026-03-18T03:42:45.196Z] Keyword Matches: 0
+[2026-03-18T03:42:48.350Z] Semantic Candidates: 0
+[2026-03-18T03:42:48.351Z] Zero Results.
+[2026-03-18T03:42:48.612Z] --- Search Start: "which document covers leave policies" ---
+[2026-03-18T03:42:48.613Z] Optimized Query: "document leave policies"
+[2026-03-18T03:42:48.960Z] Semantic Candidates: 0
+[2026-03-18T03:42:48.961Z] Zero Results.
+[2026-03-18T03:42:50.098Z] Semantic Candidates: 0
+[2026-03-18T03:42:50.099Z] Zero Results.
+[2026-03-18T03:42:50.332Z] Keyword Matches: 0
+[2026-03-18T03:42:53.464Z] Semantic Candidates: 0
+[2026-03-18T03:42:53.464Z] Zero Results.
+[2026-03-18T03:50:22.895Z] --- Search Start: "cybersecurity" ---
+[2026-03-18T03:50:22.896Z] Optimized Query: "cybersecurity"
+[2026-03-18T03:50:24.066Z] Keyword Matches: 1
+[2026-03-18T03:50:28.563Z] Semantic Candidates: 0
+[2026-03-18T03:50:28.564Z] Total Results: 1
+[2026-03-18T03:50:41.190Z] --- Search Start: "which" ---
+[2026-03-18T03:50:41.191Z] Optimized Query: "[Empty]"
+[2026-03-18T03:50:41.927Z] --- Search Start: "which " ---
+[2026-03-18T03:50:41.928Z] Optimized Query: "Empty (because "which" is not a keyword and provides no information)."
+[2026-03-18T03:50:42.329Z] Keyword Matches: 2
+[2026-03-18T03:50:43.508Z] Keyword Matches: 2
+[2026-03-18T03:50:47.547Z] Semantic Candidates: 0
+[2026-03-18T03:50:47.548Z] Total Results: 2
+[2026-03-18T03:50:47.809Z] Semantic Candidates: 0
+[2026-03-18T03:50:47.810Z] Total Results: 2
+[2026-03-18T03:50:51.687Z] --- Search Start: "which document covers abo" ---
+[2026-03-18T03:50:51.688Z] Optimized Query: "document covers"
+[2026-03-18T03:50:52.870Z] Keyword Matches: 0
+[2026-03-18T03:50:52.888Z] --- Search Start: "which document covers about a" ---
+[2026-03-18T03:50:52.889Z] Optimized Query: "document covers"
+[2026-03-18T03:50:53.291Z] --- Search Start: "which document covers about agent " ---
+[2026-03-18T03:50:53.291Z] Optimized Query: "document agent"
+[2026-03-18T03:50:54.058Z] Keyword Matches: 0
+[2026-03-18T03:50:55.211Z] Keyword Matches: 0
+[2026-03-18T03:50:55.490Z] --- Search Start: "which document covers about agent use case" ---
+[2026-03-18T03:50:55.491Z] Optimized Query: "document agent use case"
+[2026-03-18T03:50:56.755Z] Semantic Candidates: 0
+[2026-03-18T03:50:56.756Z] Zero Results.
+[2026-03-18T03:50:56.814Z] Keyword Matches: 0
+[2026-03-18T03:50:57.458Z] Semantic Candidates: 0
+[2026-03-18T03:50:57.459Z] Zero Results.
+[2026-03-18T03:50:57.918Z] Semantic Candidates: 0
+[2026-03-18T03:50:57.919Z] Zero Results.
+[2026-03-18T03:50:58.660Z] Semantic Candidates: 0
+[2026-03-18T03:50:58.661Z] Zero Results.
+[2026-03-18T03:51:07.085Z] --- Search Start: "agent " ---
+[2026-03-18T03:51:07.086Z] Optimized Query: "agent"
+[2026-03-18T03:51:07.751Z] Keyword Matches: 1
+[2026-03-18T03:51:08.119Z] --- Search Start: "agent use case" ---
+[2026-03-18T03:51:08.120Z] Optimized Query: "agent use case"
+[2026-03-18T03:51:08.829Z] Keyword Matches: 1
+[2026-03-18T03:51:10.988Z] Semantic Candidates: 0
+[2026-03-18T03:51:10.989Z] Total Results: 1
+[2026-03-18T03:51:12.158Z] Semantic Candidates: 0
+[2026-03-18T03:51:12.159Z] Total Results: 1
+[2026-03-18T03:51:23.503Z] --- Search Start: "healthcare" ---
+[2026-03-18T03:51:23.504Z] Optimized Query: "healthcare"
+[2026-03-18T03:51:24.180Z] Keyword Matches: 2
+[2026-03-18T03:51:27.286Z] Semantic Candidates: 0
+[2026-03-18T03:51:27.287Z] Total Results: 2
+[2026-03-18T03:51:53.630Z] --- Search Start: "indus" ---
+[2026-03-18T03:51:53.630Z] Optimized Query: "indus"
+[2026-03-18T03:51:54.315Z] Keyword Matches: 2
+[2026-03-18T03:51:56.358Z] --- Search Start: "voice" ---
+[2026-03-18T03:51:56.359Z] Optimized Query: "voice"
+[2026-03-18T03:51:57.030Z] Keyword Matches: 1
+[2026-03-18T03:51:57.523Z] Semantic Candidates: 0
+[2026-03-18T03:51:57.524Z] Total Results: 2
+[2026-03-18T03:51:58.928Z] Semantic Candidates: 0
+[2026-03-18T03:51:58.929Z] Total Results: 1
+[2026-03-18T03:52:13.049Z] --- Search Start: "provide all the " ---
+[2026-03-18T03:52:13.050Z] Optimized Query: "provide all the "
+Output ONLY the keywords: 
+"""
+[2026-03-18T03:52:15.015Z] --- Search Start: "provide all the voice relate" ---
+[2026-03-18T03:52:15.016Z] Optimized Query: "voice relate"
+[2026-03-18T03:52:15.346Z] Keyword Matches: 0
+[2026-03-18T03:52:16.193Z] Keyword Matches: 0
+[2026-03-18T03:52:16.679Z] --- Search Start: "provide all the voice related asse" ---
+[2026-03-18T03:52:16.679Z] Optimized Query: "voice asse"
+[2026-03-18T03:52:17.806Z] Keyword Matches: 0
+[2026-03-18T03:52:18.484Z] --- Search Start: "provide all the voice related asset" ---
+[2026-03-18T03:52:18.486Z] Optimized Query: "voice asset"
+[2026-03-18T03:52:20.489Z] Keyword Matches: 0
+[2026-03-18T03:52:20.818Z] Semantic Candidates: 0
+[2026-03-18T03:52:20.819Z] Zero Results.
+[2026-03-18T03:52:21.225Z] Semantic Candidates: 0
+[2026-03-18T03:52:21.226Z] Zero Results.
+[2026-03-18T03:52:21.642Z] Semantic Candidates: 0
+[2026-03-18T03:52:21.643Z] Zero Results.
+[2026-03-18T03:52:23.700Z] Semantic Candidates: 0
+[2026-03-18T03:52:23.700Z] Zero Results.
+[2026-03-18T05:15:32.701Z] --- Search Start: "healthcare" ---
+[2026-03-18T05:15:32.702Z] Optimized Query: "healthcare"
+[2026-03-18T05:15:35.194Z] Keyword Matches: 2
+[2026-03-18T05:15:39.933Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-18T05:15:39.935Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-18T05:15:39.936Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-18T05:15:39.937Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-18T05:15:39.939Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-18T05:15:39.941Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-18T05:15:39.942Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-18T05:15:39.943Z] Semantic Candidates: 7
+[2026-03-18T05:15:45.722Z] AI Raw: []
+[2026-03-18T05:15:45.722Z] Final Verified Count: 2
+[2026-03-18T05:15:45.723Z] Total Results: 2
+[2026-03-18T05:36:49.211Z] --- Search Start: "cybersecur" ---
+[2026-03-18T05:36:49.212Z] Optimized Query: "cybersecur"
+[2026-03-18T05:36:50.382Z] --- Search Start: "cybersecurity" ---
+[2026-03-18T05:36:50.382Z] Optimized Query: "cybersecurity"
+[2026-03-18T05:36:51.754Z] Keyword Matches: 1
+[2026-03-18T05:36:51.767Z] Keyword Matches: 1
+[2026-03-18T05:36:56.156Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-18T05:36:56.157Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-18T05:36:56.158Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-18T05:36:56.159Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-18T05:36:56.159Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-18T05:36:56.160Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-18T05:36:56.161Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-18T05:36:56.161Z] Semantic Candidates: 7
+[2026-03-18T05:36:57.186Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-18T05:36:57.187Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-18T05:36:57.187Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-18T05:36:57.188Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-18T05:36:57.189Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-18T05:36:57.189Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-18T05:36:57.190Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-18T05:36:57.190Z] Semantic Candidates: 7
+[2026-03-18T05:36:59.642Z] AI Raw: ["Lq01N5lce9xoGw4cDK4Y"]
+[2026-03-18T05:36:59.643Z] Final Verified Count: 2
+[2026-03-18T05:36:59.643Z] Total Results: 2
+[2026-03-18T05:37:01.658Z] AI Raw: ```json
+[
+  "Lq01N5lce9xoGw4cDK4Y"
+]
+```
+[2026-03-18T05:37:01.659Z] Final Verified Count: 2
+[2026-03-18T05:37:01.659Z] Total Results: 2
+[2026-03-18T05:37:32.293Z] --- Search Start: "which document covers ba" ---
+[2026-03-18T05:37:32.293Z] Optimized Query: "ba"
+[2026-03-18T05:37:33.476Z] Keyword Matches: 0
+[2026-03-18T05:37:35.835Z] --- Search Start: "which document covers about leave " ---
+[2026-03-18T05:37:35.835Z] Optimized Query: "leave"
+[2026-03-18T05:37:37.451Z] Keyword Matches: 0
+[2026-03-18T05:37:38.289Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-18T05:37:38.290Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-18T05:37:38.291Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-18T05:37:38.291Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-18T05:37:38.292Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-18T05:37:38.293Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-18T05:37:38.294Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-18T05:37:38.294Z] Semantic Candidates: 7
+[2026-03-18T05:37:40.035Z] --- Search Start: "which document covers a" ---
+[2026-03-18T05:37:40.035Z] Optimized Query: "document"
+[2026-03-18T05:37:41.298Z] Keyword Matches: 0
+[2026-03-18T05:37:41.750Z] --- Search Start: "which document covers about leave policy" ---
+[2026-03-18T05:37:41.751Z] Optimized Query: "document, leave, policy"
+[2026-03-18T05:37:42.518Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-18T05:37:42.519Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-18T05:37:42.520Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-18T05:37:42.521Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-18T05:37:42.522Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-18T05:37:42.523Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-18T05:37:42.524Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-18T05:37:42.525Z] Semantic Candidates: 7
+[2026-03-18T05:37:42.682Z] AI Raw: ["qyulYVADlRZ0ArGLRHQb"]
+[2026-03-18T05:37:42.683Z] Final Verified Count: 1
+[2026-03-18T05:37:42.684Z] Total Results: 1
+[2026-03-18T05:37:42.916Z] Keyword Matches: 0
+[2026-03-18T05:37:45.826Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-18T05:37:45.827Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-18T05:37:45.828Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-18T05:37:45.829Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-18T05:37:45.830Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-18T05:37:45.830Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-18T05:37:45.831Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-18T05:37:45.832Z] Semantic Candidates: 7
+[2026-03-18T05:37:47.309Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-18T05:37:47.309Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-18T05:37:47.310Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-18T05:37:47.311Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-18T05:37:47.312Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-18T05:37:47.312Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-18T05:37:47.313Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-18T05:37:47.313Z] Semantic Candidates: 7
+[2026-03-18T05:37:54.753Z] AI Raw: ```json
+[
+  "Cvy8gi1Ajh3kn1DAnT5U",
+  "qBMCNM0ReV6qofCHwdsa"
+]
+```
+[2026-03-18T05:37:54.754Z] Final Verified Count: 2
+[2026-03-18T05:37:54.754Z] Total Results: 2
+[2026-03-18T05:37:55.494Z] AI Raw: ```json
+[
+  "Cvy8gi1Ajh3kn1DAnT5U",
+  "qBMCNM0ReV6qofCHwdsa"
+]
+```
+[2026-03-18T05:37:55.495Z] Final Verified Count: 2
+[2026-03-18T05:37:55.495Z] Total Results: 2
+[2026-03-18T05:37:56.045Z] AI Raw: ```json
+[
+  "qyulYVADlRZ0ArGLRHQb",
+  "2pBzCjNvIGCaTTPYkNPT",
+  "qBMCNM0ReV6qofCHwdsa",
+  "Lq01N5lce9xoGw4cDK4Y",
+  "NPCuVkg1BRClqfDUpvqg"
+]
+```
+[2026-03-18T05:37:56.045Z] Final Verified Count: 5
+[2026-03-18T05:37:56.046Z] Total Results: 5
+[2026-03-18T05:44:49.035Z] --- Search Start: "provide all the voice related assets" ---
+[2026-03-18T05:44:49.036Z] Optimized Query: "voice, assets"
+[2026-03-18T05:44:50.184Z] Keyword Matches: 0
+[2026-03-18T05:44:54.323Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-18T05:44:54.324Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-18T05:44:54.326Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-18T05:44:54.326Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-18T05:44:54.327Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-18T05:44:54.328Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-18T05:44:54.329Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-18T05:44:54.329Z] Semantic Candidates: 7
+[2026-03-18T05:44:57.110Z] --- Search Start: "provide all the voice related asset" ---
+[2026-03-18T05:44:57.111Z] Optimized Query: "voice, asset"
+[2026-03-18T05:44:58.248Z] Keyword Matches: 0
+[2026-03-18T05:44:59.276Z] AI Raw: ```json
+[
+  "qyulYVADlRZ0ArGLRHQb"
+]
+```
+[2026-03-18T05:44:59.277Z] Final Verified Count: 1
+[2026-03-18T05:44:59.278Z] Total Results: 1
+[2026-03-18T05:45:03.489Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-18T05:45:03.490Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-18T05:45:03.490Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-18T05:45:03.491Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-18T05:45:03.492Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-18T05:45:03.492Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-18T05:45:03.493Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-18T05:45:03.494Z] Semantic Candidates: 7
+[2026-03-18T05:45:18.530Z] AI Raw: ```json
+[
+  "qyulYVADlRZ0ArGLRHQb",
+  "NPCuVkg1BRClfDUpvqg",
+  "Lq01N5lce9xoGw4cDK4Y"
+]
+```
+[2026-03-18T05:45:18.531Z] Final Verified Count: 2
+[2026-03-18T05:45:18.532Z] Total Results: 2
+[2026-03-18T05:45:38.359Z] --- Search Start: "which document" ---
+[2026-03-18T05:45:38.360Z] Optimized Query: "document"
+[2026-03-18T05:45:39.237Z] --- Search Start: "which document " ---
+[2026-03-18T05:45:39.238Z] Optimized Query: "document"
+[2026-03-18T05:45:39.508Z] Keyword Matches: 0
+[2026-03-18T05:45:39.598Z] --- Search Start: "which document cover" ---
+[2026-03-18T05:45:39.599Z] Optimized Query: "document cover"
+[2026-03-18T05:45:40.667Z] Keyword Matches: 0
+[2026-03-18T05:45:41.551Z] Keyword Matches: 0
+[2026-03-18T05:45:44.854Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-18T05:45:44.855Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-18T05:45:44.856Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-18T05:45:44.857Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-18T05:45:44.858Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-18T05:45:44.859Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-18T05:45:44.860Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-18T05:45:44.860Z] Semantic Candidates: 7
+[2026-03-18T05:45:45.045Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-18T05:45:45.046Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-18T05:45:45.046Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-18T05:45:45.047Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-18T05:45:45.048Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-18T05:45:45.049Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-18T05:45:45.049Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-18T05:45:45.050Z] Semantic Candidates: 7
+[2026-03-18T05:45:45.736Z] --- Search Start: "which document covers a" ---
+[2026-03-18T05:45:45.737Z] Optimized Query: "document"
+[2026-03-18T05:45:46.076Z] --- Search Start: "which document covers " ---
+[2026-03-18T05:45:46.077Z] Optimized Query: "which document covers "
+[2026-03-18T05:45:46.094Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-18T05:45:46.095Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-18T05:45:46.096Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-18T05:45:46.097Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-18T05:45:46.098Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-18T05:45:46.099Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-18T05:45:46.100Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-18T05:45:46.101Z] Semantic Candidates: 7
+[2026-03-18T05:45:46.922Z] Keyword Matches: 0
+[2026-03-18T05:45:48.068Z] Keyword Matches: 0
+[2026-03-18T05:45:48.150Z] --- Search Start: "which document covers about sick leave" ---
+[2026-03-18T05:45:48.151Z] Optimized Query: "document covers sick leave"
+[2026-03-18T05:45:49.320Z] Keyword Matches: 0
+[2026-03-18T05:45:50.003Z] AI Raw: [
+  "cqiIkKXpebDkrAeCLlnw",
+  "qyulYVADlRZ0ArGLRHQb",
+  "Cvy8gi1Ajh3kn1DAnT5U",
+  "qBMCNM0ReV6qofCHwdsa",
+  "2pBzCjNvIGCaTTPYkNPT",
+  "Lq01N5lce9xoGw4cDK4Y",
+  "NPCuVkg1BRClqfDUpvqg"
+]
+[2026-03-18T05:45:50.004Z] Final Verified Count: 7
+[2026-03-18T05:45:50.005Z] Total Results: 7
+[2026-03-18T05:45:52.237Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-18T05:45:52.238Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-18T05:45:52.239Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-18T05:45:52.239Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-18T05:45:52.240Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-18T05:45:52.241Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-18T05:45:52.242Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-18T05:45:52.242Z] Semantic Candidates: 7
+[2026-03-18T05:45:52.423Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-18T05:45:52.424Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-18T05:45:52.425Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-18T05:45:52.426Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-18T05:45:52.427Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-18T05:45:52.428Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-18T05:45:52.429Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-18T05:45:52.429Z] Semantic Candidates: 7
+[2026-03-18T05:45:52.550Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-18T05:45:52.551Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-18T05:45:52.551Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-18T05:45:52.552Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-18T05:45:52.553Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-18T05:45:52.554Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-18T05:45:52.554Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-18T05:45:52.555Z] Semantic Candidates: 7
+[2026-03-18T05:45:52.884Z] AI Raw: ```json
+[
+  "qyulYVADlRZ0ArGLRHQb",
+  "Cvy8gi1Ajh3kn1DAnT5U",
+  "cqiIkKXpebDkrAeCLlnw",
+  "2pBzCjNvIGCaTTPYkNPT",
+  "qBMCNM0ReV6qofCHwdsa",
+  "Lq01N5lce9xoGw4cDK4Y",
+  "NPCuVkg1BRClqfDUpvqg"
+]
+```
+[2026-03-18T05:45:52.885Z] Final Verified Count: 7
+[2026-03-18T05:45:52.885Z] Total Results: 7
+[2026-03-18T05:45:53.470Z] AI Raw: I cannot fulfill this request. The query "which document covers" is incomplete. Please provide the topic you are interested in.
+[2026-03-18T05:45:53.566Z] Final Verified Count: 0
+[2026-03-18T05:45:53.627Z] Total Results: 0
+[2026-03-18T05:45:56.106Z] AI Raw: ```json
+[
+  "Cvy8gi1Ajh3kn1DAnT5U"
+]
+```
+[2026-03-18T05:45:56.107Z] Final Verified Count: 1
+[2026-03-18T05:45:56.107Z] Total Results: 1
+[2026-03-18T05:46:00.004Z] AI Raw: ```json
+[
+  "qyulYVADlRZ0ArGLRHQb",
+  "Cvy8gi1Ajh3kn1DAnT5U",
+  "cqiIkKXpebDkrAeCLlnw",
+  "2pBzCjNvIGCaTTPYkNPT",
+  "qBMCNM0ReV6qofCHwdsa",
+  "Lq01N5lce9xoGw4cDK4Y",
+  "NPCuVkg1BRClqfDUpvqg"
+]
+```
+[2026-03-18T05:46:00.005Z] Final Verified Count: 7
+[2026-03-18T05:46:00.005Z] Total Results: 7
+[2026-03-18T05:46:11.106Z] AI Raw: ```json
+[
+  "qyulYVADlRZ0ArGLRHQb",
+  "2pBzCjNvIGCaTTPYkNPT",
+  "qBMCNM0ReV6qofCHwdsa",
+  "NPCuVkg1BRClqfDUpvqg"
+]
+```
+[2026-03-18T05:46:11.108Z] Final Verified Count: 4
+[2026-03-18T05:46:11.109Z] Total Results: 4
+[2026-03-18T08:24:52.958Z] --- Search Start: "which document " ---
+[2026-03-18T08:24:52.961Z] Optimized Query: "which document "
+[2026-03-18T08:24:54.232Z] Keyword Matches: 0
+[2026-03-18T08:24:54.319Z] --- Search Start: "which document covers ab" ---
+[2026-03-18T08:24:54.320Z] Optimized Query: "which document covers ab"
+[2026-03-18T08:24:55.556Z] Keyword Matches: 0
+[2026-03-18T08:24:58.286Z] --- Search Start: "which document covers about sick leave" ---
+[2026-03-18T08:24:58.286Z] Optimized Query: "which document covers about sick leave"
+[2026-03-18T08:24:59.899Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-18T08:24:59.900Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-18T08:24:59.902Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-18T08:24:59.903Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-18T08:24:59.904Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-18T08:24:59.905Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-18T08:24:59.906Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-18T08:24:59.907Z] Semantic Candidates: 7
+[2026-03-18T08:25:00.210Z] Keyword Matches: 0
+[2026-03-18T08:25:00.327Z] AI Verify Error: [VertexAI.ClientError]: got status: 404 Not Found. {"error":{"code":404,"message":"Publisher Model `projects/tenxds-agents-idp/locations/us-central1/publishers/google/models/gemini-1.5-flash` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions","status":"NOT_FOUND"}}
+[2026-03-18T08:25:00.328Z] Total Results: 5
+[2026-03-18T08:25:00.983Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-18T08:25:00.984Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-18T08:25:00.985Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-18T08:25:00.986Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-18T08:25:00.987Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-18T08:25:00.988Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-18T08:25:00.988Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-18T08:25:00.989Z] Semantic Candidates: 7
+[2026-03-18T08:25:01.525Z] AI Verify Error: [VertexAI.ClientError]: got status: 404 Not Found. {"error":{"code":404,"message":"Publisher Model `projects/tenxds-agents-idp/locations/us-central1/publishers/google/models/gemini-1.5-flash` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions","status":"NOT_FOUND"}}
+[2026-03-18T08:25:01.526Z] Total Results: 5
+[2026-03-18T08:25:03.467Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-18T08:25:03.468Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-18T08:25:03.469Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-18T08:25:03.470Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-18T08:25:03.471Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-18T08:25:03.471Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-18T08:25:03.472Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-18T08:25:03.473Z] Semantic Candidates: 7
+[2026-03-18T08:25:03.896Z] AI Verify Error: [VertexAI.ClientError]: got status: 404 Not Found. {"error":{"code":404,"message":"Publisher Model `projects/tenxds-agents-idp/locations/us-central1/publishers/google/models/gemini-1.5-flash` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions","status":"NOT_FOUND"}}
+[2026-03-18T08:25:03.897Z] Total Results: 5
+[2026-03-18T08:25:26.964Z] --- Search Start: "any " ---
+[2026-03-18T08:25:26.965Z] Optimized Query: "any "
+[2026-03-18T08:25:28.179Z] Keyword Matches: 1
+[2026-03-18T08:25:30.044Z] --- Search Start: "any healthcare rela" ---
+[2026-03-18T08:25:30.045Z] Optimized Query: "any healthcare rela"
+[2026-03-18T08:25:31.178Z] Keyword Matches: 0
+[2026-03-18T08:25:31.493Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-18T08:25:31.494Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-18T08:25:31.494Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-18T08:25:31.495Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-18T08:25:31.496Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-18T08:25:31.497Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-18T08:25:31.498Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-18T08:25:31.499Z] Semantic Candidates: 7
+[2026-03-18T08:25:31.841Z] AI Verify Error: [VertexAI.ClientError]: got status: 404 Not Found. {"error":{"code":404,"message":"Publisher Model `projects/tenxds-agents-idp/locations/us-central1/publishers/google/models/gemini-1.5-flash` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions","status":"NOT_FOUND"}}
+[2026-03-18T08:25:31.842Z] Total Results: 6
+[2026-03-18T08:25:33.064Z] --- Search Start: "any healthcare related video" ---
+[2026-03-18T08:25:33.065Z] Optimized Query: "any healthcare related video"
+[2026-03-18T08:25:34.077Z] Keyword Matches: 0
+[2026-03-18T08:25:34.475Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-18T08:25:34.476Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-18T08:25:34.477Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-18T08:25:34.478Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-18T08:25:34.479Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-18T08:25:34.480Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-18T08:25:34.481Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-18T08:25:34.481Z] Semantic Candidates: 7
+[2026-03-18T08:25:34.874Z] AI Verify Error: [VertexAI.ClientError]: got status: 404 Not Found. {"error":{"code":404,"message":"Publisher Model `projects/tenxds-agents-idp/locations/us-central1/publishers/google/models/gemini-1.5-flash` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions","status":"NOT_FOUND"}}
+[2026-03-18T08:25:34.875Z] Total Results: 5
+[2026-03-18T08:25:36.202Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-18T08:25:36.203Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-18T08:25:36.204Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-18T08:25:36.205Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-18T08:25:36.206Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-18T08:25:36.206Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-18T08:25:36.207Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-18T08:25:36.207Z] Semantic Candidates: 7
+[2026-03-18T08:25:36.606Z] AI Verify Error: [VertexAI.ClientError]: got status: 404 Not Found. {"error":{"code":404,"message":"Publisher Model `projects/tenxds-agents-idp/locations/us-central1/publishers/google/models/gemini-1.5-flash` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions","status":"NOT_FOUND"}}
+[2026-03-18T08:25:36.607Z] Total Results: 5
+[2026-03-18T10:13:27.209Z] --- Search Start: "whi" ---
+[2026-03-18T10:13:27.215Z] Optimized Query: "whi"
+[2026-03-18T10:13:30.046Z] --- Search Start: "whixh doument covers " ---
+[2026-03-18T10:13:30.047Z] Optimized Query: "whixh doument covers "
+[2026-03-18T10:13:30.482Z] Keyword Matches: 3
+[2026-03-18T10:13:31.666Z] Keyword Matches: 0
+[2026-03-18T10:13:33.280Z] --- Search Start: "whixh doument covers sick leave" ---
+[2026-03-18T10:13:33.280Z] Optimized Query: "whixh doument covers sick leave"
+[2026-03-18T10:13:35.175Z] Keyword Matches: 0
+[2026-03-18T10:13:36.034Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-18T10:13:36.035Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-18T10:13:36.037Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-18T10:13:36.038Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-18T10:13:36.039Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-18T10:13:36.040Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-18T10:13:36.041Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-18T10:13:36.042Z] Candidate: Agents Research.docx | RawDist: undefined | Used: 0.1 | ID: YFGWZ8MLFBpnO08XICsS
+[2026-03-18T10:13:36.043Z] Semantic Candidates: 8
+[2026-03-18T10:13:36.816Z] AI Verify Error: [VertexAI.ClientError]: got status: 404 Not Found. {"error":{"code":404,"message":"Publisher Model `projects/tenxds-agents-idp/locations/us-central1/publishers/google/models/gemini-1.5-flash` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions","status":"NOT_FOUND"}}
+[2026-03-18T10:13:36.819Z] Total Results: 8
+[2026-03-18T10:13:38.667Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-18T10:13:38.669Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-18T10:13:38.672Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-18T10:13:38.674Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-18T10:13:38.676Z] Candidate: Agents Research.docx | RawDist: undefined | Used: 0.1 | ID: YFGWZ8MLFBpnO08XICsS
+[2026-03-18T10:13:38.678Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-18T10:13:38.680Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-18T10:13:38.682Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-18T10:13:38.684Z] Semantic Candidates: 8
+[2026-03-18T10:13:39.109Z] AI Verify Error: [VertexAI.ClientError]: got status: 404 Not Found. {"error":{"code":404,"message":"Publisher Model `projects/tenxds-agents-idp/locations/us-central1/publishers/google/models/gemini-1.5-flash` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions","status":"NOT_FOUND"}}
+[2026-03-18T10:13:39.150Z] Total Results: 5
+[2026-03-18T10:13:40.193Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-18T10:13:40.194Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-18T10:13:40.195Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-18T10:13:40.196Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-18T10:13:40.197Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-18T10:13:40.198Z] Candidate: Agents Research.docx | RawDist: undefined | Used: 0.1 | ID: YFGWZ8MLFBpnO08XICsS
+[2026-03-18T10:13:40.198Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-18T10:13:40.199Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-18T10:13:40.200Z] Semantic Candidates: 8
+[2026-03-18T10:13:40.619Z] AI Verify Error: [VertexAI.ClientError]: got status: 404 Not Found. {"error":{"code":404,"message":"Publisher Model `projects/tenxds-agents-idp/locations/us-central1/publishers/google/models/gemini-1.5-flash` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions","status":"NOT_FOUND"}}
+[2026-03-18T10:13:40.620Z] Total Results: 5
+[2026-03-18T11:53:09.303Z] --- Search Start: "which " ---
+[2026-03-18T11:53:09.305Z] Optimized Query: "which "
+[2026-03-18T11:53:10.786Z] Keyword Matches: 2
+[2026-03-18T11:53:15.408Z] --- Search Start: "provide all the ai " ---
+[2026-03-18T11:53:15.409Z] Optimized Query: "ai"
+[2026-03-18T11:53:16.846Z] Keyword Matches: 0
+[2026-03-18T11:53:18.409Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-18T11:53:18.410Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-18T11:53:18.411Z] Candidate: Agents Research.docx | RawDist: undefined | Used: 0.1 | ID: YFGWZ8MLFBpnO08XICsS
+[2026-03-18T11:53:18.412Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-18T11:53:18.412Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-18T11:53:18.413Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-18T11:53:18.414Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-18T11:53:18.415Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-18T11:53:18.415Z] Semantic Candidates: 8
+[2026-03-18T11:53:18.793Z] --- Search Start: "provide all the ai related gtms" ---
+[2026-03-18T11:53:18.794Z] Optimized Query: "ai gtms"
+[2026-03-18T11:53:20.299Z] Keyword Matches: 0
+[2026-03-18T11:53:21.970Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-18T11:53:21.971Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-18T11:53:21.972Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-18T11:53:21.973Z] Candidate: Agents Research.docx | RawDist: undefined | Used: 0.1 | ID: YFGWZ8MLFBpnO08XICsS
+[2026-03-18T11:53:21.974Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-18T11:53:21.975Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-18T11:53:21.976Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-18T11:53:21.977Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-18T11:53:21.977Z] Semantic Candidates: 8
+[2026-03-18T11:53:24.415Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-18T11:53:24.416Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-18T11:53:24.417Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-18T11:53:24.418Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-18T11:53:24.418Z] Candidate: Agents Research.docx | RawDist: undefined | Used: 0.1 | ID: YFGWZ8MLFBpnO08XICsS
+[2026-03-18T11:53:24.419Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-18T11:53:24.420Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-18T11:53:24.421Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-18T11:53:24.422Z] Semantic Candidates: 8
+[2026-03-18T11:53:25.958Z] AI Raw: []
+[2026-03-18T11:53:25.960Z] Final Verified Count: 2
+[2026-03-18T11:53:25.960Z] Total Results: 2
+[2026-03-18T11:53:26.216Z] AI Raw: ["2pBzCjNvIGCaTTPYkNPT", "NPCuVkg1BRClqfDUpvqg", "qBMCNM0ReV6qofCHwdsa", "YFGWZ8MLFBpnO08XICsS", "Lq01N5lce9xoGw4cDK4Y", "qyulYVADlRZ0ArGLRHQb"]
+[2026-03-18T11:53:26.217Z] Final Verified Count: 6
+[2026-03-18T11:53:26.217Z] Total Results: 6
+[2026-03-18T11:53:31.387Z] AI Raw: ```json
+[
+  "2pBzCjNvIGCaTTPYkNPT",
+  "qyulYVADlRZ0ArGLRHQb",
+  "NPCuVkg1BRClfDUpvqg",
+  "Lq01N5lceNxoGw4cDK4Y"
+]
+```
+[2026-03-18T11:53:31.388Z] Final Verified Count: 2
+[2026-03-18T11:53:31.388Z] Total Results: 2
+[2026-03-18T11:53:53.476Z] --- Search Start: "provide video related to healthcare" ---
+[2026-03-18T11:53:53.476Z] Optimized Query: "provide healthcare"
+[2026-03-18T11:53:55.021Z] Keyword Matches: 0
+[2026-03-18T11:53:59.954Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-18T11:53:59.955Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-18T11:53:59.956Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-18T11:53:59.957Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-18T11:53:59.958Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-18T11:53:59.958Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-18T11:53:59.959Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-18T11:53:59.959Z] Candidate: Agents Research.docx | RawDist: undefined | Used: 0.1 | ID: YFGWZ8MLFBpnO08XICsS
+[2026-03-18T11:53:59.960Z] Semantic Candidates: 8
+[2026-03-18T11:54:04.656Z] AI Raw: ["2pBzCjNvIGCaTTPYkNPT", "qBMCNM0ReV6qofCHwdsa"]
+[2026-03-18T11:54:04.657Z] Final Verified Count: 2
+[2026-03-18T11:54:04.658Z] Total Results: 2
+[2026-03-18T11:54:31.917Z] --- Search Start: "which document covers about sick leave" ---
+[2026-03-18T11:54:31.917Z] Optimized Query: "sick leave"
+[2026-03-18T11:54:32.861Z] Keyword Matches: 0
+[2026-03-18T11:54:33.233Z] --- Search Start: "which document covers about " ---
+[2026-03-18T11:54:33.233Z] Optimized Query: "document"
+[2026-03-18T11:54:34.196Z] Keyword Matches: 0
+[2026-03-18T11:54:36.655Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-18T11:54:36.657Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-18T11:54:36.657Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-18T11:54:36.658Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-18T11:54:36.659Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-18T11:54:36.659Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-18T11:54:36.660Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-18T11:54:36.660Z] Candidate: Agents Research.docx | RawDist: undefined | Used: 0.1 | ID: YFGWZ8MLFBpnO08XICsS
+[2026-03-18T11:54:36.661Z] Semantic Candidates: 8
+[2026-03-18T11:54:37.861Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-18T11:54:37.861Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-18T11:54:37.862Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-18T11:54:37.863Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-18T11:54:37.864Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-18T11:54:37.864Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-18T11:54:37.865Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-18T11:54:37.866Z] Candidate: Agents Research.docx | RawDist: undefined | Used: 0.1 | ID: YFGWZ8MLFBpnO08XICsS
+[2026-03-18T11:54:37.866Z] Semantic Candidates: 8
+[2026-03-18T11:54:40.452Z] AI Raw: ```json
+[
+  "Cvy8gi1Ajh3kn1DAnT5U"
+]
+```
+[2026-03-18T11:54:40.453Z] Final Verified Count: 1
+[2026-03-18T11:54:40.453Z] Total Results: 1
+[2026-03-18T11:54:47.636Z] AI Raw: ```json
+[
+  "qyulYVADlRZ0ArGLRHQb",
+  "2pBzCjNvIGCaTTPYkNPT",
+  "qBMCNM0ReV6qofCHwdsa",
+  "Lq01N5lce9xoGw4cDK4Y",
+  "NPCuVkg1BRClqfDUpvqg",
+  "YFGWZ8MLFBpnO08XICsS"
+]
+```
+[2026-03-18T11:54:47.637Z] Final Verified Count: 6
+[2026-03-18T11:54:47.637Z] Total Results: 6
+[2026-03-19T11:45:28.237Z] --- Search Start: "which documen" ---
+[2026-03-19T11:45:28.239Z] Optimized Query: "which documen"
+[2026-03-19T11:45:28.602Z] --- Search Start: "which docum" ---
+[2026-03-19T11:45:28.603Z] Optimized Query: "docum"
+[2026-03-19T11:45:29.493Z] Keyword Matches: 0
+[2026-03-19T11:45:29.785Z] --- Search Start: "which document cob" ---
+[2026-03-19T11:45:29.786Z] Optimized Query: "document cob"
+[2026-03-19T11:45:30.648Z] Keyword Matches: 0
+[2026-03-19T11:45:30.836Z] --- Search Start: "which document covers " ---
+[2026-03-19T11:45:30.837Z] Optimized Query: "which document covers "
+[2026-03-19T11:45:31.007Z] Keyword Matches: 0
+[2026-03-19T11:45:32.129Z] Keyword Matches: 0
+[2026-03-19T11:45:32.492Z] --- Search Start: "which document covers rese" ---
+[2026-03-19T11:45:32.493Z] Optimized Query: "which document covers rese"
+[2026-03-19T11:45:34.655Z] Keyword Matches: 0
+[2026-03-19T11:45:34.668Z] --- Search Start: "which document covers research" ---
+[2026-03-19T11:45:34.668Z] Optimized Query: "research"
+[2026-03-19T11:45:34.793Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-19T11:45:34.794Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-19T11:45:34.795Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-19T11:45:34.796Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-19T11:45:34.797Z] Candidate: Agents Research.docx | RawDist: undefined | Used: 0.1 | ID: YFGWZ8MLFBpnO08XICsS
+[2026-03-19T11:45:34.798Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-19T11:45:34.799Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-19T11:45:34.801Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-19T11:45:34.801Z] Semantic Candidates: 8
+[2026-03-19T11:45:35.132Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-19T11:45:35.133Z] Candidate: Agents Research.docx | RawDist: undefined | Used: 0.1 | ID: YFGWZ8MLFBpnO08XICsS
+[2026-03-19T11:45:35.134Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-19T11:45:35.135Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-19T11:45:35.136Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-19T11:45:35.137Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-19T11:45:35.138Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-19T11:45:35.139Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-19T11:45:35.139Z] Semantic Candidates: 8
+[2026-03-19T11:45:35.320Z] AI Verify Error: [VertexAI.ClientError]: got status: 429 Too Many Requests. {"error":{"code":429,"message":"Resource exhausted. Please try again later. Please refer to https://cloud.google.com/vertex-ai/generative-ai/docs/error-code-429 for more details.","status":"RESOURCE_EXHAUSTED"}}
+[2026-03-19T11:45:35.321Z] Total Results: 5
+[2026-03-19T11:45:35.937Z] Keyword Matches: 0
+[2026-03-19T11:45:35.963Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-19T11:45:35.964Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-19T11:45:35.965Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-19T11:45:35.967Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-19T11:45:35.968Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-19T11:45:35.969Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-19T11:45:35.970Z] Candidate: Agents Research.docx | RawDist: undefined | Used: 0.1 | ID: YFGWZ8MLFBpnO08XICsS
+[2026-03-19T11:45:35.971Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-19T11:45:35.972Z] Semantic Candidates: 8
+[2026-03-19T11:45:36.081Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-19T11:45:36.082Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-19T11:45:36.083Z] Candidate: Agents Research.docx | RawDist: undefined | Used: 0.1 | ID: YFGWZ8MLFBpnO08XICsS
+[2026-03-19T11:45:36.084Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-19T11:45:36.086Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-19T11:45:36.088Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-19T11:45:36.089Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-19T11:45:36.096Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-19T11:45:36.099Z] Semantic Candidates: 8
+[2026-03-19T11:45:36.436Z] AI Verify Error: [VertexAI.ClientError]: got status: 429 Too Many Requests. {"error":{"code":429,"message":"Resource exhausted. Please try again later. Please refer to https://cloud.google.com/vertex-ai/generative-ai/docs/error-code-429 for more details.","status":"RESOURCE_EXHAUSTED"}}
+[2026-03-19T11:45:36.437Z] Total Results: 5
+[2026-03-19T11:45:37.372Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-19T11:45:37.372Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-19T11:45:37.373Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-19T11:45:37.374Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-19T11:45:37.375Z] Candidate: Agents Research.docx | RawDist: undefined | Used: 0.1 | ID: YFGWZ8MLFBpnO08XICsS
+[2026-03-19T11:45:37.376Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-19T11:45:37.377Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-19T11:45:37.377Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-19T11:45:37.378Z] Semantic Candidates: 8
+[2026-03-19T11:45:37.884Z] Candidate: Agents Research.docx | RawDist: undefined | Used: 0.1 | ID: YFGWZ8MLFBpnO08XICsS
+[2026-03-19T11:45:37.885Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-19T11:45:37.886Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-19T11:45:37.887Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-19T11:45:37.888Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-19T11:45:37.888Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-19T11:45:37.889Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-19T11:45:37.890Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-19T11:45:37.890Z] Semantic Candidates: 8
+[2026-03-19T11:45:38.127Z] AI Verify Error: [VertexAI.ClientError]: got status: 429 Too Many Requests. {"error":{"code":429,"message":"Resource exhausted. Please try again later. Please refer to https://cloud.google.com/vertex-ai/generative-ai/docs/error-code-429 for more details.","status":"RESOURCE_EXHAUSTED"}}
+[2026-03-19T11:45:38.128Z] Total Results: 5
+[2026-03-19T11:45:38.453Z] AI Verify Error: [VertexAI.ClientError]: got status: 429 Too Many Requests. {"error":{"code":429,"message":"Resource exhausted. Please try again later. Please refer to https://cloud.google.com/vertex-ai/generative-ai/docs/error-code-429 for more details.","status":"RESOURCE_EXHAUSTED"}}
+[2026-03-19T11:45:38.453Z] Total Results: 5
+[2026-03-19T11:45:39.626Z] AI Verify Error: [VertexAI.ClientError]: got status: 429 Too Many Requests. {"error":{"code":429,"message":"Resource exhausted. Please try again later. Please refer to https://cloud.google.com/vertex-ai/generative-ai/docs/error-code-429 for more details.","status":"RESOURCE_EXHAUSTED"}}
+[2026-03-19T11:45:39.626Z] Total Results: 5
+[2026-03-19T11:45:49.001Z] AI Raw: ```json
+[
+  "qBMCNM0ReV6qofCHwdsa",
+  "YFGWZ8MLFBpnO08XICsS",
+  "cqiIkKXpebDkrAeCLlnw",
+  "Cvy8gi1Ajh3kn1DAnT5U"
+]
+```
+[2026-03-19T11:45:49.002Z] Final Verified Count: 4
+[2026-03-19T11:45:49.003Z] Total Results: 4
+[2026-03-19T11:45:52.317Z] --- Search Start: "which document " ---
+[2026-03-19T11:45:52.318Z] Optimized Query: "which document "
+[2026-03-19T11:45:52.986Z] Keyword Matches: 0
+[2026-03-19T11:45:53.395Z] --- Search Start: "which document covers " ---
+[2026-03-19T11:45:53.396Z] Optimized Query: "which document covers "
+[2026-03-19T11:45:54.077Z] Keyword Matches: 0
+[2026-03-19T11:45:56.117Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-19T11:45:56.118Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-19T11:45:56.119Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-19T11:45:56.120Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-19T11:45:56.120Z] Candidate: Agents Research.docx | RawDist: undefined | Used: 0.1 | ID: YFGWZ8MLFBpnO08XICsS
+[2026-03-19T11:45:56.121Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-19T11:45:56.122Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-19T11:45:56.123Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-19T11:45:56.123Z] Semantic Candidates: 8
+[2026-03-19T11:45:57.188Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-19T11:45:57.189Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-19T11:45:57.189Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-19T11:45:57.190Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-19T11:45:57.192Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-19T11:45:57.193Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-19T11:45:57.193Z] Candidate: Agents Research.docx | RawDist: undefined | Used: 0.1 | ID: YFGWZ8MLFBpnO08XICsS
+[2026-03-19T11:45:57.194Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-19T11:45:57.195Z] Semantic Candidates: 8
+[2026-03-19T11:46:00.709Z] --- Search Start: "which document covers about leave policies" ---
+[2026-03-19T11:46:00.710Z] Optimized Query: "leave policies"
+[2026-03-19T11:46:01.353Z] Keyword Matches: 0
+[2026-03-19T11:46:02.005Z] AI Raw: ```json
+[
+  "Cvy8gi1Ajh3kn1DAnT5U",
+  "qyulYVADlRZ0ArGLRHQb",
+  "qBMCNM0Re6qofCHwdsa",
+  "cqiIkKXpebDkrAeCLlnw",
+  "YFGWZ8MLFBpnO08XICsS",
+  "2pBzCjNvIGCaTTPYkNPT",
+  "Lq01N5lce9xoGw4cDK4Y",
+  "NPCuVkg1BRClqfDUpvqg"
+]
+```
+[2026-03-19T11:46:02.007Z] Final Verified Count: 7
+[2026-03-19T11:46:02.008Z] Total Results: 7
+[2026-03-19T11:46:03.617Z] AI Raw: ```json
+[
+  "qBMCNM0ReV6qofCHwdsa",
+  "qyulYVADlRZ0ArGLRHQb",
+  "YFGWZ8MLFBpnO08XICsS",
+  "NPCuVkg1BRClqfDUpvqg"
+]
+```
+[2026-03-19T11:46:03.618Z] Final Verified Count: 4
+[2026-03-19T11:46:03.619Z] Total Results: 4
+[2026-03-19T11:46:04.376Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-19T11:46:04.377Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-19T11:46:04.378Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-19T11:46:04.379Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-19T11:46:04.379Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-19T11:46:04.380Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-19T11:46:04.381Z] Candidate: Agents Research.docx | RawDist: undefined | Used: 0.1 | ID: YFGWZ8MLFBpnO08XICsS
+[2026-03-19T11:46:04.382Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-19T11:46:04.383Z] Semantic Candidates: 8
+[2026-03-19T11:46:07.543Z] AI Raw: ```json
+[
+  "Cvy8gi1Ajh3kn1DAnT5U"
+]
+```
+[2026-03-19T11:46:07.544Z] Final Verified Count: 1
+[2026-03-19T11:46:07.544Z] Total Results: 1
+[2026-03-23T03:51:26.493Z] --- Search Start: "which document covers leav" ---
+[2026-03-23T03:51:26.495Z] Optimized Query: "leav"
+[2026-03-23T03:51:27.851Z] Keyword Matches: 0
+[2026-03-23T03:51:28.945Z] --- Search Start: "which document covers sick leave" ---
+[2026-03-23T03:51:28.946Z] Optimized Query: "sick leave"
+[2026-03-23T03:51:29.763Z] --- Search Start: "which document covers " ---
+[2026-03-23T03:51:29.763Z] Optimized Query: "which document covers "
+[2026-03-23T03:51:30.323Z] Keyword Matches: 0
+[2026-03-23T03:51:31.427Z] Keyword Matches: 0
+[2026-03-23T03:51:34.628Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-23T03:51:34.629Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-23T03:51:34.630Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-23T03:51:34.631Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-23T03:51:34.632Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-23T03:51:34.634Z] Candidate: AI_in_Hospitality_2026_Expanded.docx | RawDist: undefined | Used: 0.1 | ID: t2hszwFwVhdxs1rol5Lk
+[2026-03-23T03:51:34.635Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-23T03:51:34.636Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-23T03:51:34.638Z] Semantic Candidates: 8
+[2026-03-23T03:51:35.241Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-23T03:51:35.244Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-23T03:51:35.245Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-23T03:51:35.246Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-23T03:51:35.247Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-23T03:51:35.248Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-23T03:51:35.249Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-23T03:51:35.250Z] Candidate: AI_in_Hospitality_2026_Expanded.docx | RawDist: undefined | Used: 0.1 | ID: t2hszwFwVhdxs1rol5Lk
+[2026-03-23T03:51:35.251Z] Semantic Candidates: 8
+[2026-03-23T03:51:35.524Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-23T03:51:35.526Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-23T03:51:35.527Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-23T03:51:35.528Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-23T03:51:35.528Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-23T03:51:35.529Z] Candidate: AI_in_Hospitality_2026_Expanded.docx | RawDist: undefined | Used: 0.1 | ID: t2hszwFwVhdxs1rol5Lk
+[2026-03-23T03:51:35.530Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-23T03:51:35.531Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-23T03:51:35.532Z] Semantic Candidates: 8
+[2026-03-23T03:51:38.765Z] AI Raw: ```json
+[
+  "Cvy8gi1Ajh3kn1DAnT5U"
+]
+```
+[2026-03-23T03:51:38.766Z] Final Verified Count: 1
+[2026-03-23T03:51:38.768Z] Total Results: 1
+[2026-03-23T03:51:39.006Z] AI Raw: ["Cvy8gi1Ajh3kn1DAnT5U", "qBMCNM0ReV6qofCHwdsa"]
+[2026-03-23T03:51:39.007Z] Final Verified Count: 2
+[2026-03-23T03:51:39.008Z] Total Results: 2
+[2026-03-23T03:51:42.993Z] AI Raw: []
+[2026-03-23T03:51:42.994Z] Final Verified Count: 0
+[2026-03-23T03:51:42.995Z] Total Results: 0
+[2026-03-23T03:51:51.791Z] --- Search Start: "cyberse" ---
+[2026-03-23T03:51:51.792Z] Optimized Query: "cyberse"
+[2026-03-23T03:51:52.544Z] --- Search Start: "cybersecu" ---
+[2026-03-23T03:51:52.545Z] Optimized Query: "cybersecu"
+[2026-03-23T03:51:53.796Z] --- Search Start: "cybersecurity" ---
+[2026-03-23T03:51:53.797Z] Optimized Query: "cybersecurity"
+[2026-03-23T03:51:54.245Z] Keyword Matches: 2
+[2026-03-23T03:51:54.408Z] Keyword Matches: 2
+[2026-03-23T03:51:55.076Z] Keyword Matches: 2
+[2026-03-23T03:51:56.474Z] --- Search Start: "which document covers " ---
+[2026-03-23T03:51:56.475Z] Optimized Query: "document"
+[2026-03-23T03:51:58.611Z] Keyword Matches: 0
+[2026-03-23T03:51:59.577Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-23T03:51:59.578Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-23T03:51:59.580Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-23T03:51:59.581Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-23T03:51:59.582Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-23T03:51:59.584Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-23T03:51:59.586Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-23T03:51:59.588Z] Candidate: AI_in_Hospitality_2026_Expanded.docx | RawDist: undefined | Used: 0.1 | ID: t2hszwFwVhdxs1rol5Lk
+[2026-03-23T03:51:59.590Z] Semantic Candidates: 8
+[2026-03-23T03:52:00.035Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-23T03:52:00.037Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-23T03:52:00.039Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-23T03:52:00.040Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-23T03:52:00.041Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-23T03:52:00.042Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-23T03:52:00.043Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-23T03:52:00.044Z] Candidate: AI_in_Hospitality_2026_Expanded.docx | RawDist: undefined | Used: 0.1 | ID: t2hszwFwVhdxs1rol5Lk
+[2026-03-23T03:52:00.045Z] Semantic Candidates: 8
+[2026-03-23T03:52:01.255Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-23T03:52:01.257Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-23T03:52:01.258Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-23T03:52:01.259Z] Candidate: AI_in_Hospitality_2026_Expanded.docx | RawDist: undefined | Used: 0.1 | ID: t2hszwFwVhdxs1rol5Lk
+[2026-03-23T03:52:01.259Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-23T03:52:01.260Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-23T03:52:01.261Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-23T03:52:01.262Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-23T03:52:01.264Z] Semantic Candidates: 8
+[2026-03-23T03:52:03.157Z] AI Raw: ```json
+[
+  "Lq01N5lce9xoGw4cDK4Y"
+]
+```
+[2026-03-23T03:52:03.158Z] Final Verified Count: 3
+[2026-03-23T03:52:03.159Z] Total Results: 3
+[2026-03-23T03:52:03.207Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-23T03:52:03.208Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-23T03:52:03.209Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-23T03:52:03.210Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-23T03:52:03.211Z] Candidate: AI_in_Hospitality_2026_Expanded.docx | RawDist: undefined | Used: 0.1 | ID: t2hszwFwVhdxs1rol5Lk
+[2026-03-23T03:52:03.212Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-23T03:52:03.214Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-23T03:52:03.216Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-23T03:52:03.218Z] Semantic Candidates: 8
+[2026-03-23T03:52:04.504Z] AI Raw: ```json
+[
+  "Lq01N5lce9xoGw4cDK4Y"
+]
+```
+[2026-03-23T03:52:04.505Z] Final Verified Count: 3
+[2026-03-23T03:52:04.506Z] Total Results: 3
+[2026-03-23T03:52:06.338Z] AI Raw: ```json
+[
+  "Lq01N5lce9xoGw4cDK4Y"
+]
+```
+[2026-03-23T03:52:06.338Z] Final Verified Count: 3
+[2026-03-23T03:52:06.339Z] Total Results: 3
+[2026-03-23T03:52:10.909Z] AI Raw: ```json
+[
+  "qyulYVADlRZ0ArGLRHQb",
+  "Cvy8gi1Ajh3kn1DAnT5U",
+  "cqiIkKXpebDkrAeCLlnw",
+  "2pBzCjNvIGCaTTPYkNPT",
+  "t2hszwFwVhdxs1rol5Lk",
+  "qBMCNM0ReV6qofCHwdsa",
+  "Lq01N5lce9xoGw4cDK4Y",
+  "NPCuVkg1BRClqfDUpvqg"
+]
+```
+[2026-03-23T03:52:10.910Z] Final Verified Count: 8
+[2026-03-23T03:52:10.911Z] Total Results: 8
+[2026-03-23T07:22:06.677Z] --- Search Start: "any " ---
+[2026-03-23T07:22:06.679Z] Optimized Query: "any "
+[2026-03-23T07:22:07.974Z] Keyword Matches: 1
+[2026-03-23T07:22:12.756Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-23T07:22:12.757Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-23T07:22:12.758Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-23T07:22:12.759Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-23T07:22:12.760Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-23T07:22:12.760Z] Candidate: AI_in_Hospitality_2026_Expanded.docx | RawDist: undefined | Used: 0.1 | ID: t2hszwFwVhdxs1rol5Lk
+[2026-03-23T07:22:12.761Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-23T07:22:12.762Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-23T07:22:12.763Z] Semantic Candidates: 8
+[2026-03-23T07:22:16.273Z] --- Search Start: "any asset related to cybersecur" ---
+[2026-03-23T07:22:16.273Z] Optimized Query: "asset, cybersecur"
+[2026-03-23T07:22:16.626Z] --- Search Start: "any asset related to cybersecurity" ---
+[2026-03-23T07:22:16.627Z] Optimized Query: "asset, cybersecurity"
+[2026-03-23T07:22:17.575Z] Keyword Matches: 0
+[2026-03-23T07:22:18.011Z] AI Raw: []
+[2026-03-23T07:22:18.012Z] Final Verified Count: 1
+[2026-03-23T07:22:18.013Z] Total Results: 1
+[2026-03-23T07:22:18.770Z] Keyword Matches: 0
+[2026-03-23T07:22:22.338Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-23T07:22:22.339Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-23T07:22:22.339Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-23T07:22:22.340Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-23T07:22:22.341Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-23T07:22:22.341Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-23T07:22:22.342Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-23T07:22:22.343Z] Candidate: AI_in_Hospitality_2026_Expanded.docx | RawDist: undefined | Used: 0.1 | ID: t2hszwFwVhdxs1rol5Lk
+[2026-03-23T07:22:22.343Z] Semantic Candidates: 8
+[2026-03-23T07:22:24.947Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-23T07:22:24.948Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-23T07:22:24.949Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-23T07:22:24.951Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-23T07:22:24.953Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-23T07:22:24.954Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-23T07:22:24.955Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-23T07:22:24.956Z] Candidate: AI_in_Hospitality_2026_Expanded.docx | RawDist: undefined | Used: 0.1 | ID: t2hszwFwVhdxs1rol5Lk
+[2026-03-23T07:22:24.956Z] Semantic Candidates: 8
+[2026-03-23T07:22:30.320Z] AI Raw: ```json
+[
+  "cqiIkKXpebDkrAeCLlnw",
+  "t2hszwFwVhdxs1rol5Lk"
+]
+```
+[2026-03-23T07:22:30.321Z] Final Verified Count: 2
+[2026-03-23T07:22:30.322Z] Total Results: 2
+[2026-03-23T07:22:30.656Z] AI Raw: ["cqiIkKXpebDkrAeCLlnw", "Lq01N5lce9xoGw4cDK4Y", "t2hszwFwVhdxs1rol5Lk"]
+[2026-03-23T07:22:30.657Z] Final Verified Count: 3
+[2026-03-23T07:22:30.657Z] Total Results: 3
+[2026-03-23T08:59:20.252Z] --- Search Start: "which video explains aboud f" ---
+[2026-03-23T08:59:20.254Z] Optimized Query: "aboud f"
+[2026-03-23T08:59:21.792Z] --- Search Start: "which video explains aboud fraud m" ---
+[2026-03-23T08:59:21.794Z] Optimized Query: "fraud"
+[2026-03-23T08:59:22.891Z] Keyword Matches: 0
+[2026-03-23T08:59:23.140Z] Keyword Matches: 0
+[2026-03-23T08:59:26.896Z] --- Search Start: "which video explains abou" ---
+[2026-03-23T08:59:26.897Z] Optimized Query: "explains"
+[2026-03-23T08:59:28.544Z] Keyword Matches: 0
+[2026-03-23T08:59:29.093Z] --- Search Start: "which video explains about fraud monotoring" ---
+[2026-03-23T08:59:29.093Z] Optimized Query: "fraud monitoring"
+[2026-03-23T08:59:29.544Z] Candidate: Fraud monitoring - First-cut v1.4.mp4 | RawDist: undefined | Used: 0.1 | ID: slz2QB583lq2jiADahZW
+[2026-03-23T08:59:29.545Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-23T08:59:29.546Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-23T08:59:29.547Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-23T08:59:29.548Z] Candidate: AI_in_Hospitality_2026_Expanded.docx | RawDist: undefined | Used: 0.1 | ID: t2hszwFwVhdxs1rol5Lk
+[2026-03-23T08:59:29.549Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-23T08:59:29.550Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-23T08:59:29.550Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-23T08:59:29.552Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-23T08:59:29.554Z] Semantic Candidates: 9
+[2026-03-23T08:59:29.898Z] Candidate: Fraud monitoring - First-cut v1.4.mp4 | RawDist: undefined | Used: 0.1 | ID: slz2QB583lq2jiADahZW
+[2026-03-23T08:59:29.900Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-23T08:59:29.905Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-23T08:59:29.910Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-23T08:59:29.911Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-23T08:59:29.912Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-23T08:59:29.914Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-23T08:59:29.915Z] Candidate: AI_in_Hospitality_2026_Expanded.docx | RawDist: undefined | Used: 0.1 | ID: t2hszwFwVhdxs1rol5Lk
+[2026-03-23T08:59:29.916Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-23T08:59:29.917Z] Semantic Candidates: 9
+[2026-03-23T08:59:31.561Z] Keyword Matches: 0
+[2026-03-23T08:59:31.812Z] --- Search Start: "which video explains aboud fraud monotoring" ---
+[2026-03-23T08:59:31.813Z] Optimized Query: "fraud monotoring"
+[2026-03-23T08:59:32.250Z] AI Raw: []
+[2026-03-23T08:59:32.251Z] Final Verified Count: 0
+[2026-03-23T08:59:32.253Z] Total Results: 0
+[2026-03-23T08:59:32.464Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-23T08:59:32.465Z] Candidate: Fraud monitoring - First-cut v1.4.mp4 | RawDist: undefined | Used: 0.1 | ID: slz2QB583lq2jiADahZW
+[2026-03-23T08:59:32.465Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-23T08:59:32.466Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-23T08:59:32.467Z] Candidate: AI_in_Hospitality_2026_Expanded.docx | RawDist: undefined | Used: 0.1 | ID: t2hszwFwVhdxs1rol5Lk
+[2026-03-23T08:59:32.469Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-23T08:59:32.471Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-23T08:59:32.473Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-23T08:59:32.474Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-23T08:59:32.475Z] Semantic Candidates: 9
+[2026-03-23T08:59:32.766Z] Keyword Matches: 0
+[2026-03-23T08:59:34.562Z] Candidate: Fraud monitoring - First-cut v1.4.mp4 | RawDist: undefined | Used: 0.1 | ID: slz2QB583lq2jiADahZW
+[2026-03-23T08:59:34.563Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-23T08:59:34.564Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-23T08:59:34.565Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-23T08:59:34.566Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-23T08:59:34.567Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-23T08:59:34.569Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-23T08:59:34.571Z] Candidate: AI_in_Hospitality_2026_Expanded.docx | RawDist: undefined | Used: 0.1 | ID: t2hszwFwVhdxs1rol5Lk
+[2026-03-23T08:59:34.573Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-23T08:59:34.574Z] Semantic Candidates: 9
+[2026-03-23T08:59:34.729Z] AI Raw: ```json
+[
+  "slz2QB583lq2jiADahZW"
+]
+```
+[2026-03-23T08:59:34.730Z] Final Verified Count: 1
+[2026-03-23T08:59:34.730Z] Total Results: 1
+[2026-03-23T08:59:35.293Z] --- Search Start: "which video explains about fraud monitoring" ---
+[2026-03-23T08:59:35.294Z] Optimized Query: "fraud monitoring"
+[2026-03-23T08:59:35.457Z] Candidate: Fraud monitoring - First-cut v1.4.mp4 | RawDist: undefined | Used: 0.1 | ID: slz2QB583lq2jiADahZW
+[2026-03-23T08:59:35.458Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-23T08:59:35.459Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-23T08:59:35.460Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-23T08:59:35.461Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-23T08:59:35.462Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-23T08:59:35.463Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-23T08:59:35.464Z] Candidate: AI_in_Hospitality_2026_Expanded.docx | RawDist: undefined | Used: 0.1 | ID: t2hszwFwVhdxs1rol5Lk
+[2026-03-23T08:59:35.465Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-23T08:59:35.465Z] Semantic Candidates: 9
+[2026-03-23T08:59:35.610Z] AI Raw: []
+[2026-03-23T08:59:35.611Z] Final Verified Count: 0
+[2026-03-23T08:59:35.611Z] Total Results: 0
+[2026-03-23T08:59:36.058Z] Keyword Matches: 0
+[2026-03-23T08:59:38.260Z] AI Raw: ["slz2QB583lq2jiADahZW"]
+[2026-03-23T08:59:38.261Z] Final Verified Count: 1
+[2026-03-23T08:59:38.262Z] Total Results: 1
+[2026-03-23T08:59:38.342Z] Candidate: Fraud monitoring - First-cut v1.4.mp4 | RawDist: undefined | Used: 0.1 | ID: slz2QB583lq2jiADahZW
+[2026-03-23T08:59:38.343Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-23T08:59:38.343Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-23T08:59:38.344Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-23T08:59:38.345Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-23T08:59:38.346Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-23T08:59:38.347Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-23T08:59:38.348Z] Candidate: AI_in_Hospitality_2026_Expanded.docx | RawDist: undefined | Used: 0.1 | ID: t2hszwFwVhdxs1rol5Lk
+[2026-03-23T08:59:38.348Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-23T08:59:38.349Z] Semantic Candidates: 9
+[2026-03-23T08:59:39.044Z] AI Raw: ["slz2QB583lq2jiADahZW"]
+[2026-03-23T08:59:39.045Z] Final Verified Count: 1
+[2026-03-23T08:59:39.046Z] Total Results: 1
+[2026-03-23T08:59:42.744Z] AI Raw: ["slz2QB583lq2jiADahZW"]
+[2026-03-23T08:59:42.746Z] Final Verified Count: 1
+[2026-03-23T08:59:42.748Z] Total Results: 1
+[2026-03-23T12:28:40.118Z] --- Search Start: "Hindi" ---
+[2026-03-23T12:28:40.141Z] Optimized Query: "Hindi"
+[2026-03-23T12:28:43.181Z] Keyword Matches: 0
+[2026-03-23T12:28:48.425Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-23T12:28:48.427Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-23T12:28:48.428Z] Candidate: Fraud monitoring - First-cut v1.4.mp4 | RawDist: undefined | Used: 0.1 | ID: slz2QB583lq2jiADahZW
+[2026-03-23T12:28:48.428Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-23T12:28:48.429Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-23T12:28:48.430Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-23T12:28:48.431Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-23T12:28:48.431Z] Candidate: AI_in_Hospitality_2026_Expanded.docx | RawDist: undefined | Used: 0.1 | ID: t2hszwFwVhdxs1rol5Lk
+[2026-03-23T12:28:48.432Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-23T12:28:48.433Z] Semantic Candidates: 9
+[2026-03-23T12:28:50.352Z] AI Verify Error: [VertexAI.ClientError]: got status: 429 Too Many Requests. {"error":{"code":429,"message":"Resource exhausted. Please try again later. Please refer to https://cloud.google.com/vertex-ai/generative-ai/docs/error-code-429 for more details.","status":"RESOURCE_EXHAUSTED"}}
+[2026-03-23T12:28:50.353Z] Total Results: 5
+[2026-03-23T12:30:33.712Z] --- Search Start: "hindi" ---
+[2026-03-23T12:30:33.736Z] Optimized Query: "hindi"
+[2026-03-23T12:30:35.156Z] Keyword Matches: 0
+[2026-03-23T12:30:39.901Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 0.1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-23T12:30:39.902Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 0.1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-23T12:30:39.903Z] Candidate: Fraud monitoring - First-cut v1.4.mp4 | RawDist: undefined | Used: 0.1 | ID: slz2QB583lq2jiADahZW
+[2026-03-23T12:30:39.905Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 0.1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-23T12:30:39.907Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 0.1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-23T12:30:39.908Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 0.1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-23T12:30:39.910Z] Candidate: AI_in_Hospitality_2026_Expanded.docx | RawDist: undefined | Used: 0.1 | ID: t2hszwFwVhdxs1rol5Lk
+[2026-03-23T12:30:39.911Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 0.1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-23T12:30:39.912Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 0.1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-23T12:30:39.913Z] Semantic Candidates: 9
+[2026-03-23T12:30:41.876Z] AI Verify Error: [VertexAI.ClientError]: got status: 429 Too Many Requests. {"error":{"code":429,"message":"Resource exhausted. Please try again later. Please refer to https://cloud.google.com/vertex-ai/generative-ai/docs/error-code-429 for more details.","status":"RESOURCE_EXHAUSTED"}}
+[2026-03-23T12:30:41.877Z] Total Results: 5
+[2026-03-23T12:43:24.661Z] --- Search Start: "cybers" ---
+[2026-03-23T12:43:24.662Z] Optimized Query: "cybers"
+[2026-03-23T12:43:24.727Z] --- Search Start: "cyber" ---
+[2026-03-23T12:43:24.727Z] Optimized Query: "cyber"
+[2026-03-23T12:43:25.956Z] Keyword Matches: 2
+[2026-03-23T12:43:26.534Z] --- Search Start: "cybersecurity" ---
+[2026-03-23T12:43:26.535Z] Optimized Query: "cybersecurity"
+[2026-03-23T12:43:26.665Z] --- Search Start: "cybersecur" ---
+[2026-03-23T12:43:26.666Z] Optimized Query: "cybersecur"
+[2026-03-23T12:43:27.256Z] Keyword Matches: 2
+[2026-03-23T12:43:27.902Z] Keyword Matches: 2
+[2026-03-23T12:43:29.074Z] Keyword Matches: 2
+[2026-03-23T12:43:32.401Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-23T12:43:32.403Z] Candidate: Fraud monitoring - First-cut v1.4.mp4 | RawDist: undefined | Used: 1 | ID: slz2QB583lq2jiADahZW
+[2026-03-23T12:43:32.405Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-23T12:43:32.407Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-23T12:43:32.409Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-23T12:43:32.410Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-23T12:43:32.411Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-23T12:43:32.412Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-23T12:43:32.413Z] Candidate: AI_in_Hospitality_2026_Expanded.docx | RawDist: undefined | Used: 1 | ID: t2hszwFwVhdxs1rol5Lk
+[2026-03-23T12:43:32.414Z] Semantic Candidates: 0
+[2026-03-23T12:43:32.415Z] Total Results: 2
+[2026-03-23T12:43:33.597Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-23T12:43:33.698Z] Candidate: Fraud monitoring - First-cut v1.4.mp4 | RawDist: undefined | Used: 1 | ID: slz2QB583lq2jiADahZW
+[2026-03-23T12:43:33.699Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-23T12:43:33.701Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-23T12:43:33.703Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-23T12:43:33.705Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-23T12:43:33.707Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-23T12:43:33.710Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-23T12:43:33.711Z] Candidate: AI_in_Hospitality_2026_Expanded.docx | RawDist: undefined | Used: 1 | ID: t2hszwFwVhdxs1rol5Lk
+[2026-03-23T12:43:33.712Z] Semantic Candidates: 0
+[2026-03-23T12:43:33.713Z] Total Results: 2
+[2026-03-23T12:43:33.743Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-23T12:43:33.747Z] Candidate: Fraud monitoring - First-cut v1.4.mp4 | RawDist: undefined | Used: 1 | ID: slz2QB583lq2jiADahZW
+[2026-03-23T12:43:33.749Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-23T12:43:33.773Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-23T12:43:33.778Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-23T12:43:33.780Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-23T12:43:33.793Z] Candidate: AI_in_Hospitality_2026_Expanded.docx | RawDist: undefined | Used: 1 | ID: t2hszwFwVhdxs1rol5Lk
+[2026-03-23T12:43:33.794Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-23T12:43:33.795Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-23T12:43:33.796Z] Semantic Candidates: 0
+[2026-03-23T12:43:33.797Z] Total Results: 2
+[2026-03-23T12:43:34.432Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-23T12:43:34.435Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-23T12:43:34.436Z] Candidate: Fraud monitoring - First-cut v1.4.mp4 | RawDist: undefined | Used: 1 | ID: slz2QB583lq2jiADahZW
+[2026-03-23T12:43:34.437Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-23T12:43:34.439Z] Candidate: AI_in_Hospitality_2026_Expanded.docx | RawDist: undefined | Used: 1 | ID: t2hszwFwVhdxs1rol5Lk
+[2026-03-23T12:43:34.441Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-23T12:43:34.442Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-23T12:43:34.443Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-23T12:43:34.444Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-23T12:43:34.445Z] Semantic Candidates: 0
+[2026-03-23T12:43:34.445Z] Total Results: 2
+[2026-03-23T12:44:04.252Z] --- Search Start: "BTS" ---
+[2026-03-23T12:44:04.253Z] Optimized Query: "BTS"
+[2026-03-23T12:44:05.619Z] Keyword Matches: 0
+[2026-03-23T12:44:10.333Z] Candidate: EP 2 10xVision_ AI-Powered Manufacturing for Security, Efficiency, and QHSE.wav | RawDist: undefined | Used: 1 | ID: Lq01N5lce9xoGw4cDK4Y
+[2026-03-23T12:44:10.335Z] Candidate: Fraud monitoring - First-cut v1.4.mp4 | RawDist: undefined | Used: 1 | ID: slz2QB583lq2jiADahZW
+[2026-03-23T12:44:10.336Z] Candidate: 10xDS Employee Leave Policy 2024.pdf | RawDist: undefined | Used: 1 | ID: Cvy8gi1Ajh3kn1DAnT5U
+[2026-03-23T12:44:10.337Z] Candidate: AI in healthcare.mp4 | RawDist: undefined | Used: 1 | ID: 2pBzCjNvIGCaTTPYkNPT
+[2026-03-23T12:44:10.338Z] Candidate: 10xVoice- AI Conversation.mp3 | RawDist: undefined | Used: 1 | ID: qyulYVADlRZ0ArGLRHQb
+[2026-03-23T12:44:10.338Z] Candidate: AI Agents Usecases.docx | RawDist: undefined | Used: 1 | ID: qBMCNM0ReV6qofCHwdsa
+[2026-03-23T12:44:10.339Z] Candidate: AI_in_Hospitality_2026_Expanded.docx | RawDist: undefined | Used: 1 | ID: t2hszwFwVhdxs1rol5Lk
+[2026-03-23T12:44:10.340Z] Candidate: Cybersecurity_Best_Practices_10xDS.pptx | RawDist: undefined | Used: 1 | ID: cqiIkKXpebDkrAeCLlnw
+[2026-03-23T12:44:10.341Z] Candidate: AI Automation.mp4 | RawDist: undefined | Used: 1 | ID: NPCuVkg1BRClqfDUpvqg
+[2026-03-23T12:44:10.341Z] Semantic Candidates: 0
+[2026-03-23T12:44:10.342Z] Zero Results.

@@ -1,0 +1,148 @@
+﻿--- EXHAUSTIVE DISTANCE DEBUG ---
+Found document: cqiIkKXpebDkrAeCLlnw
+
+--- Property Keys ---
+[
+  '_fieldsProto',
+  '_ref',
+  '_serializer',
+  '_readTime',
+  '_createTime',
+  '_updateTime'
+]
+
+--- Proto Keys ---
+[]
+
+--- Internal State ---
+
+--- get('distance_test_field') ---
+undefined
+
+--- data() ---
+{
+  content: 'Cybersecurity Best Practices for Employees\n' +
+    '10xDS\n' +
+    '---\n' +
+    'Password Hygiene\n' +
+    'ΓÇó Use strong, unique passwords\n' +
+    'ΓÇó Change passwords regularly\n' +
+    'ΓÇó Use a password manager\n' +
+    '10xDS\n' +
+    '---\n' +
+    'Phishing Awareness\n' +
+    'ΓÇó Be cautious of suspicious emails\n' +
+    'ΓÇó Do not click on unknown links\n' +
+    'ΓÇó Verify sender information\n' +
+    '10xDS\n' +
+    '---\n' +
+    'Secure Browsing\n' +
+    'ΓÇó Use secure (HTTPS) websites\n' +
+    'ΓÇó Avoid downloading from untrusted sources\n' +
+    'ΓÇó Keep browser updated\n' +
+    '10xDS\n' +
+    '---\n' +
+    'Device Security\n' +
+    'ΓÇó Lock devices when not in use\n' +
+    'ΓÇó Install antivirus software\n' +
+    'ΓÇó Keep operating systems updated\n' +
+    '10xDS\n' +
+    '---\n' +
+    'Reporting Incidents\n' +
+    'ΓÇó Report suspicious activity immediately\n' +
+    'ΓÇó Follow company protocols\n' +
+    'ΓÇó Contact IT support for help\n' +
+    '10xDS\n',
+  summary: "This comprehensive guide from 10xDS outlines essential cybersecurity best practices for employees, designed to significantly enhance organizational security and mitigate digital risks across the enterprise. It provides actionable advice across several critical domains, starting with robust Password Hygiene, which emphasizes creating strong, unique credentials, regular password changes, and leveraging password managers for efficiency and security. Phishing Awareness is another cornerstone, educating employees to identify and cautiously handle suspicious emails, avoid clicking unknown links, and diligently verify sender identities. The document also details Secure Browsing habits, advocating for the exclusive use of HTTPS websites, avoiding downloads from untrusted sources, and regularly updating web browsers. Furthermore, crucial Device Security measures are highlighted, including the imperative to lock devices when unattended, install and maintain antivirus software, and keep operating systems current. Finally, it establishes clear protocols for Reporting Incidents, underscoring the importance of immediately flagging suspicious activity, adhering to company guidelines, and promptly contacting IT support. This strategy empowers every employee to be an active participant in protecting sensitive data and systems, thereby fortifying the company's overall cybersecurity posture.",
+  embedding: VectorValue {
+    _values: [
+       -0.030254632234573364,   0.024871651083230972, -0.011865350417792797,
+        0.035618629306554794,  -0.020728664472699165,   0.04564834386110306,
+         -0.0370231457054615,   0.021697504445910454, -0.030980292707681656,
+       -0.011489602737128735,   -0.05272066593170166,  -0.02062053792178631,
+         0.03484341874718666,  -0.037679869681596756,    0.0943557396531105,
+        -0.09524776041507721,    0.08419850468635559, -0.051619887351989746,
+         0.01984892599284649, -0.0031939337495714426,  0.023297805339097977,
+       -0.038138389587402344,   0.006766274105757475, -0.015363086014986038,
+       -0.056090839207172394,   -0.00764273339882493,  0.002214213367551565,
+       -0.021117256954312325,   -0.05343408137559891,   0.06630849093198776,
+       -0.002596108475700021,    0.06412649154663086,  0.013201684691011906,
+         0.02365071326494217,   0.011670419946312904,  0.049798961728811264,
+         0.04418855160474777,   -0.08561626076698303, -0.014134765602648258,
+        -0.08134669065475464,   0.018818559125065804,  -0.04295532777905464,
+        0.006616533733904362,   -0.04083915799856186,  0.022722307592630386,
+         0.05184231325984001,  -0.001907936530187726,   0.05582258477807045,
+        0.000789807119872421, -0.0026796378660947084, -0.013013197109103203,
+        0.024668453261256218,  -0.026424262672662735, -0.005788649432361126,
+        -0.07101178169250488,   0.015948990359902382, -0.017641142010688782,
+        -0.03376888856291771,  -0.016817383468151093,   0.04331038519740105,
+      -0.0060517992824316025,  -0.014825728721916676, -0.003591247834265232,
+         -0.0175935011357069,   -0.03146684542298317, -0.031105460599064827,
+        0.036666106432676315,   0.012701460160315037,  0.004774470813572407,
+        -0.03927745670080185,   -0.09210382401943207,   0.01690370962023735,
+       -0.025277746841311455,   -0.03995056450366974,  0.006997476331889629,
+        -0.04438075050711632,   0.046555694192647934,   0.02323017455637455,
+       -0.004400915466248989,    0.05790071561932564,  -0.05451514571905136,
+       -0.011908238753676414,  -0.034904614090919495,   0.07914329320192337,
+        -0.03994504362344742,  -0.025454124435782433,  -0.01547191571444273,
+       -0.025947969406843185,   -0.05696532130241394,   0.04604340344667435,
+       -0.008944031782448292,    0.02067943476140499,   0.01755061186850071,
+       -0.006264607887715101,   0.013915699906647205,     0.052463348954916,
+        0.014388328418135643,    0.04962783306837082,  -0.09788943827152252,
+         0.05109484866261482,
+      ... 668 more items
+    ]
+  },
+  metadata_embedding: VectorValue {
+    _values: [
+       -0.021089348942041397,   0.014176802709698677,  -0.013152200728654861,
+        0.020977061241865158,   -0.01664697378873825,    0.03812424838542938,
+        -0.02942599169909954,   0.018223602324724197,  -0.022898320108652115,
+       -0.029187723994255066,  -0.046813301742076874,  -0.017851417884230614,
+         0.03150861710309982,   -0.07033665478229523,    0.10498833656311035,
+        -0.09871311485767365,    0.07406709343194962,  -0.037852898240089417,
+        0.014714176766574383,    0.01006053201854229,     0.0269976444542408,
+         -0.0440630242228508,  -0.018835725262761116,  -0.015026682056486607,
+        -0.02554432488977909,  -0.017752045765519142,  0.0012890462530776858,
+       -0.017097260802984238,    -0.0802878811955452,    0.07332175225019455,
+       -0.011353541165590286,    0.06264942139387131,   0.011861947365105152,
+        0.018823949620127678,  -0.001831343281082809,    0.05316798761487007,
+         0.03746670112013817,    -0.0756780356168747,  -0.013944825157523155,
+        -0.08752677589654922,   0.033765118569135666,  -0.023263080045580864,
+        0.015477603301405907,   -0.05530800297856331,    0.03976787254214287,
+         0.06747445464134216, -0.0002739561896305531,    0.06847013533115387,
+        0.022027475759387016,   0.009946968406438828, -0.0011758108157664537,
+          0.0393424890935421,   -0.01678813435137272,   0.014586789533495903,
+        -0.07442563027143478,   0.009261873550713062,  -0.025071343407034874,
+        -0.04854852333664894,  -0.017541535198688507,    0.04220309481024742,
+       -0.016809985041618347,   -0.03256457298994064,  -0.005341717042028904,
+       -0.028129711747169495,   -0.03498634696006775,  -0.015136639587581158,
+         0.02809920720756054,  -0.004102233797311783,  -0.011086669750511646,
+        -0.04940924793481827,   -0.10190881043672562,   0.013762257993221283,
+       -0.020266523584723473,  -0.050693973898887634,    0.02014637179672718,
+       -0.028202509507536888,    0.06119544059038162,   0.020919479429721832,
+       -0.013126807287335396,   0.034770771861076355,  -0.058328524231910706,
+       -0.006631589028984308,   -0.03956516832113266,    0.07121867686510086,
+        -0.03679901733994484,  -0.024139845743775368,  -0.007609708234667778,
+        -0.02317657321691513,   -0.05155085772275925,      0.046026811003685,
+      -0.0029937915969640017,   0.023556707426905632,  0.0009637582115828991,
+       -0.011780873872339725,   0.020013248547911644,    0.05902670696377754,
+         0.01428905501961708,    0.04341418296098709,   -0.08017247170209885,
+           0.038836769759655,
+      ... 668 more items
+    ]
+  },
+  name: 'Cybersecurity_Best_Practices_10xDS.pptx',
+  url: 'https://storage.googleapis.com/tenxds-agents-idp-docuchat/gtm-assets/1773728598301-Cybersecurity_Best_Practices_10xDS.pptx',
+  category: 'Technical',
+  tags: [
+    'Cybersecurity',
+    'Employee Training',
+    'Information Security',
+    'Data Protection',
+    'Risk Management'
+  ],
+  thumbnail_url: 'https://storage.googleapis.com/tenxds-agents-idp-docuchat/gtm-assets/thumbnails/thumb-1773728600256-Cybersecurity_Best_Practices_10xDS.jpg',
+  type: 'PPT',
+  created_at: Timestamp { _seconds: 1773728574, _nanoseconds: 506000000 }
+}
