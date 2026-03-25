@@ -11,9 +11,15 @@ export const generativeModel = vertexAI.getGenerativeModel({
     model: 'gemini-2.0-flash-001',
 })
 
-const auth = new GoogleAuth({
+const authOptions: any = {
     scopes: 'https://www.googleapis.com/auth/cloud-platform',
-})
+}
+
+if (process.env.FIREBASE_SERVICE_ACCOUNT_JSON) {
+    authOptions.credentials = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_JSON)
+}
+
+const auth = new GoogleAuth(authOptions)
 
 /**
  * Helper to generate embeddings for multiple text chunks in a single batch.
