@@ -1,23 +1,37 @@
 import { VertexAI } from '@google-cloud/vertexai'
 import { GoogleAuth } from 'google-auth-library'
 
-const project = process.env.GOOGLE_CLOUD_PROJECT!
+let project = process.env.GOOGLE_CLOUD_PROJECT!
 const location = process.env.GOOGLE_CLOUD_LOCATION || 'us-central1'
 
-export const vertexAI = new VertexAI({ project, location })
-
-// Verified model: gemini-2.0-flash-001 is the working version for this project
-export const generativeModel = vertexAI.getGenerativeModel({
-    model: 'gemini-2.0-flash-001',
-})
-
+// Reusable auth options
 const authOptions: any = {
     scopes: 'https://www.googleapis.com/auth/cloud-platform',
 }
 
 if (process.env.FIREBASE_SERVICE_ACCOUNT_JSON) {
-    authOptions.credentials = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_JSON)
+    try {
+        const credentials = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_JSON);
+        authOptions.credentials = credentials;
+        // Fallback to project_id from credentials if environment variable is missing
+        if (!project && credentials.project_id) {
+            project = credentials.project_id;
+        }
+    } catch (e) {
+        console.error('Error parsing FIREBASE_SERVICE_ACCOUNT_JSON:', e);
+    }
 }
+
+export const vertexAI = new VertexAI({ 
+    project, 
+    location,
+    googleAuthOptions: authOptions
+})
+
+// Verified model: gemini-2.0-flash-001 is the working version for this project
+export const generativeModel = vertexAI.getGenerativeModel({
+    model: 'gemini-2.0-flash-001',
+})
 
 const auth = new GoogleAuth(authOptions)
 
