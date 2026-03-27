@@ -18,6 +18,7 @@ export async function GET(req: Request) {
 
         if (query && query.trim().length > 0) {
             const queryLower = query.toLowerCase();
+            debugLog(`--- Search Start: "${query}" ---`);
 
             // 1. Query Intent Extraction (Strip filler words for better vector search)
             let optimizedQuery = query;
@@ -33,7 +34,6 @@ Output ONLY the keywords:`;
                 console.warn('Intent extraction failed, using original query');
             }
 
-            debugLog(`--- Search Start: "${query}" ---`);
             debugLog(`Optimized Query: "${optimizedQuery}"`);
 
             // 2. Fetch all assets for keyword fallback
@@ -76,42 +76,53 @@ Output ONLY the keywords:`;
                         distanceResultField: 'distance'
                     } as any).get();
 
-                const combinedDocs = [...metaSnapshot.docs, ...contentSnapshot.docs];
-                const uniqueDocs = Array.from(new Map(combinedDocs.map(d => [d.id, d])).values());
+                const allDocs = [...metaSnapshot.docs, ...contentSnapshot.docs];
+                const uniqueDocs = Array.from(new Map(allDocs.map(d => [d.id, d])).values());
+
+                debugLog(`Raw Docs Found: ${allDocs.length} (Unique: ${uniqueDocs.length})`);
 
                 semanticCandidates = uniqueDocs
-                    .map((doc: any) => {
+                    .map((doc: any, index) => {
                         const data = doc.data();
                         
-                        // Try multiple field names for distance (SDK differences)
+                        // Log first doc thoroughly
+                        if (index === 0) {
+                            debugLog(`Sample Doc ID: ${doc.id} | Keys: ${Object.keys(data).join(',')}`);
+                        }
+
+                        // Try multiple field names for distance
                         const rawDistance = doc.get('distance') ?? 
                                            data.distance ?? 
+                                           doc.get('vectorDistance') ?? 
+                                           data.vectorDistance ??
                                            doc.get('__distance__') ?? 
                                            data.__distance__ ??
                                            doc.get('vector_distance') ?? 
                                            data.vector_distance;
 
-                        // Fallback: If returned by findNearest but distance is missing, assume it's NOT relevant (1.0)
-                        // If it's truly not a number, we treat it as 1.0 (maximum distance)
-                        const distValue = typeof rawDistance === 'number' ? rawDistance : 1.0;
+                        // NEW: In some SDK versions, it's a top-level property of the doc snapshot
+                        const topLevelDistance = (doc as any).distance ?? (doc as any).vectorDistance;
+                        const distValue = typeof rawDistance === 'number' ? rawDistance : 
+                                         typeof topLevelDistance === 'number' ? topLevelDistance : 
+                                         undefined;
                         
-                        debugLog(`Candidate: ${data.name} | RawDist: ${rawDistance} | Used: ${distValue} | ID: ${doc.id}`);
+                        debugLog(`Candidate: ${data.name} | RawDist: ${rawDistance} | TopDist: ${topLevelDistance} | ID: ${doc.id}`);
                         
                         return { 
                             id: doc.id, 
                             ...data,
                             created_at: data.created_at?.toDate ? data.created_at.toDate().toISOString() : new Date().toISOString(),
-                            similarity: 1 - distValue,
+                            similarity: distValue !== undefined ? 1 - distValue : 0.5, // Fallback to 0.5 if missing but returned by findNearest
                             matchType: 'semantic',
                             rawDistance: distValue
                         };
                     })
-                    // Filter by similarity (0.5 cosine distance = 0.5 similarity)
-                    .filter((c: any) => c.rawDistance <= 0.5);
+                    // Filter by similarity (Relaxed for debugging)
+                    .filter((c: any) => c.rawDistance === undefined || c.rawDistance <= 0.6);
 
             } catch (searchError: any) {
-                debugLog(`Vector Error: ${searchError.message}`);
-                console.warn('[Search] Vector search failed:', searchError.message);
+                console.error('[Search] Vector search failed:', searchError);
+                debugLog(`Vector Error: ${searchError.message} \nStack: ${searchError.stack}`);
             }
 
             // 5. Merge & Deduplicate
