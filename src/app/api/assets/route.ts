@@ -17,177 +17,100 @@ export async function GET(req: Request) {
         const query = searchParams.get('q');
 
         if (query && query.trim().length > 0) {
-            const queryLower = query.toLowerCase();
+            const startTime = Date.now();
             debugLog(`--- Search Start: "${query}" ---`);
 
-            // 1. Query Intent Extraction (Strip filler words for better vector search)
+            // 1. Faster Query Intent Extraction (Minimal or Skip for speed)
             let optimizedQuery = query;
             try {
-                const intentPrompt = `Clean this search query for a vector database by extracting only the core keywords. Remove filler words like 'any', 'video', 'about', 'related to', 'find'. 
-Query: "${query}"
-Output ONLY the keywords:`;
-                const intentResult = await generativeModel.generateContent(intentPrompt);
-                const intentText = intentResult.response.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
-                if (intentText && intentText.length > 0) optimizedQuery = intentText;
-                console.log(`Original Query: "${query}" | Optimized: "${optimizedQuery}"`);
+                // Only optimize if the query is long/complex to save time
+                if (query.split(' ').length > 4) {
+                    const intentPrompt = `Extract core search keywords. Query: "${query}" Output ONLY keywords:`;
+                    const intentResult = await generativeModel.generateContent(intentPrompt);
+                    const intentText = intentResult.response.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+                    if (intentText && intentText.length > 0) optimizedQuery = intentText;
+                }
+                debugLog(`Optimized Query: "${optimizedQuery}" (${Date.now() - startTime}ms)`);
             } catch (intentErr) {
-                console.warn('Intent extraction failed, using original query');
+                console.warn('Intent extraction failed or timed out, skipping optimization');
             }
 
-            debugLog(`Optimized Query: "${optimizedQuery}"`);
+            // 2. Parallel Semantic & Keyword Search (Much faster than sequential)
+            const queryEmbeddingPromise = getEmbedding(optimizedQuery);
+            const allAssetsSnapshotPromise = adminDb.collection('gtm_assets').orderBy('created_at', 'desc').limit(50).get();
 
-            // 2. Fetch all assets for keyword fallback
-            const allSnapshot = await adminDb.collection('gtm_assets').orderBy('created_at', 'desc').get();
-            const allAssets = allSnapshot.docs.map((doc: any) => {
-                const data = doc.data();
-                return { 
-                    id: doc.id, 
-                    ...data,
-                    created_at: data.created_at?.toDate ? data.created_at.toDate().toISOString() : new Date().toISOString()
-                };
-            });
+            const [queryEmbedding, allSnapshot] = await Promise.all([queryEmbeddingPromise, allAssetsSnapshotPromise]);
+            debugLog(`Embeddings & Keyword data fetched (${Date.now() - startTime}ms)`);
+
+            const allAssets = allSnapshot.docs.map((doc: any) => ({
+                id: doc.id,
+                ...doc.data(),
+                created_at: doc.data().created_at?.toDate ? doc.data().created_at.toDate().toISOString() : new Date().toISOString()
+            }));
 
             // 3. Keyword Matching (Fallback)
+            const queryLower = query.toLowerCase();
             const keywordMatches = allAssets.filter((a: any) => 
                 a.name.toLowerCase().includes(queryLower) || 
                 (a.summary || '').toLowerCase().includes(queryLower)
             ).map((a: any) => ({ ...a, similarity: 1.0, matchType: 'keyword' }));
 
-            debugLog(`Keyword Matches: ${keywordMatches.length}`);
+            // 4. Semantic Search in Parallel
+            const [metaSnapshot, contentSnapshot] = await Promise.all([
+                adminDb.collection('gtm_assets').findNearest('metadata_embedding', FieldValue.vector(queryEmbedding), {
+                    limit: 8, distanceMeasure: 'COSINE', distanceResultField: 'distance'
+                } as any).get(),
+                adminDb.collection('gtm_assets').findNearest('embedding', FieldValue.vector(queryEmbedding), {
+                    limit: 8, distanceMeasure: 'COSINE', distanceResultField: 'distance'
+                } as any).get()
+            ]);
+            debugLog(`Vector searches completed (${Date.now() - startTime}ms)`);
 
-            // 4. Hybrid Semantic Vector Search (Metadata + Deep Content)
-            let semanticCandidates: any[] = [];
-            try {
-                const queryEmbedding = await getEmbedding(optimizedQuery);
+            const uniqueDocs = Array.from(new Map([...metaSnapshot.docs, ...contentSnapshot.docs].map(d => [d.id, d])).values());
+
+            let semanticCandidates = uniqueDocs.map((doc: any) => {
+                const data = doc.data();
+                const dist = doc.get('distance') ?? data.distance ?? (doc as any).distance ?? (doc as any).vectorDistance;
+                const distValue = typeof dist === 'number' ? dist : undefined;
                 
-                // Search in Metadata (Names/Summaries)
-                const metaSnapshot = await adminDb.collection('gtm_assets')
-                    .findNearest('metadata_embedding', FieldValue.vector(queryEmbedding), {
-                        limit: 10,
-                        distanceMeasure: 'COSINE',
-                        distanceResultField: 'distance'
-                    } as any).get();
+                return { 
+                    id: doc.id, 
+                    ...data,
+                    created_at: data.created_at?.toDate ? data.created_at.toDate().toISOString() : new Date().toISOString(),
+                    similarity: distValue !== undefined ? 1 - distValue : 0.6,
+                    matchType: 'semantic',
+                    rawDistance: distValue
+                };
+            }).filter((c: any) => c.rawDistance === undefined || c.rawDistance <= 0.55);
 
-                // Search in Deep Content (Transcripts/Text)
-                const contentSnapshot = await adminDb.collection('gtm_assets')
-                    .findNearest('embedding', FieldValue.vector(queryEmbedding), {
-                        limit: 10,
-                        distanceMeasure: 'COSINE',
-                        distanceResultField: 'distance'
-                    } as any).get();
-
-                const allDocs = [...metaSnapshot.docs, ...contentSnapshot.docs];
-                const uniqueDocs = Array.from(new Map(allDocs.map(d => [d.id, d])).values());
-
-                debugLog(`Raw Docs Found: ${allDocs.length} (Unique: ${uniqueDocs.length})`);
-
-                semanticCandidates = uniqueDocs
-                    .map((doc: any, index) => {
-                        const data = doc.data();
-                        
-                        // Log first doc thoroughly
-                        if (index === 0) {
-                            debugLog(`Sample Doc ID: ${doc.id} | Keys: ${Object.keys(data).join(',')}`);
-                        }
-
-                        // Try multiple field names for distance
-                        const rawDistance = doc.get('distance') ?? 
-                                           data.distance ?? 
-                                           doc.get('vectorDistance') ?? 
-                                           data.vectorDistance ??
-                                           doc.get('__distance__') ?? 
-                                           data.__distance__ ??
-                                           doc.get('vector_distance') ?? 
-                                           data.vector_distance;
-
-                        // NEW: In some SDK versions, it's a top-level property of the doc snapshot
-                        const topLevelDistance = (doc as any).distance ?? (doc as any).vectorDistance;
-                        const distValue = typeof rawDistance === 'number' ? rawDistance : 
-                                         typeof topLevelDistance === 'number' ? topLevelDistance : 
-                                         undefined;
-                        
-                        debugLog(`Candidate: ${data.name} | RawDist: ${rawDistance} | TopDist: ${topLevelDistance} | ID: ${doc.id}`);
-                        
-                        return { 
-                            id: doc.id, 
-                            ...data,
-                            created_at: data.created_at?.toDate ? data.created_at.toDate().toISOString() : new Date().toISOString(),
-                            similarity: distValue !== undefined ? 1 - distValue : 0.5, // Fallback to 0.5 if missing but returned by findNearest
-                            matchType: 'semantic',
-                            rawDistance: distValue
-                        };
-                    })
-                    // Filter by similarity (Relaxed for debugging)
-                    .filter((c: any) => c.rawDistance === undefined || c.rawDistance <= 0.6);
-
-            } catch (searchError: any) {
-                console.error('[Search] Vector search failed:', searchError);
-                debugLog(`Vector Error: ${searchError.message} \nStack: ${searchError.stack}`);
-            }
-
-            // 5. Merge & Deduplicate
+            // 5. Faster Merge & Deduction
             const seenIds = new Set(keywordMatches.map((m: any) => m.id));
             const mergedResults = [...keywordMatches];
-            
-            debugLog(`Semantic Candidates: ${semanticCandidates.length}`);
+            semanticCandidates.forEach(c => { if (!seenIds.has(c.id)) { mergedResults.push(c); seenIds.add(c.id); } });
 
-            semanticCandidates.forEach(c => {
-                if (!seenIds.has(c.id)) {
-                    mergedResults.push(c);
-                    seenIds.add(c.id);
-                }
-            });
-
-            if (mergedResults.length === 0) {
-                debugLog(`Zero Results.`);
-                return NextResponse.json([]);
-            }
-
-            // 6. Verification & Final Filtering
-            // We want to be strict here to avoid "listing the whole database"
-            const semanticOnly = mergedResults.filter(r => r.matchType === 'semantic');
-            let finalResults: any[] = [...keywordMatches];
-
-            if (semanticOnly.length > 0) {
-                const verificationPrompt = `You are a precision-focused Search Assistant.
-User Query: "${query}"
-
-Guidelines:
-1. Review the documents below.
-2. ONLY include documents that are TRULY RELEVANT to the user's query.
-3. If a document is just a general file or unrelated, EXCLUDE it.
-4. Reply ONLY with a JSON array of the IDs.
-
-Documents:
-${semanticOnly.map((c: any) => `ID: ${c.id} | Name: ${c.name} | Summary: ${c.summary}`).join('\n')}
-
-Response Format: ["id1", "id2", ...]`;
+            // 6. Very Fast Verification (Only if we have too many results)
+            let finalResults = mergedResults;
+            if (mergedResults.length > 5 && semanticCandidates.length > 0) {
+                const candidatesForAI = mergedResults.filter(r => r.matchType === 'semantic').slice(0, 10);
+                const verificationPrompt = `Reply ONLY with a JSON array of the IDs relevant to "${query}":\n` + 
+                    candidatesForAI.map((c: any) => `ID: ${c.id} | Name: ${c.name}`).join('\n');
                 
                 try {
                     const aiResult = await generativeModel.generateContent(verificationPrompt);
                     const aiText = aiResult.response.candidates?.[0]?.content?.parts?.[0]?.text || '[]';
-                    debugLog(`AI Raw: ${aiText.trim()}`);
-
-                    const verifiedIdsMatch = aiText.match(/\[[\s\S]*\]/);
-                    const verifiedIds = verifiedIdsMatch ? JSON.parse(verifiedIdsMatch[0]) : [];
-                    
-                    const verifiedSemantics = semanticOnly.filter(r => verifiedIds.includes(r.id));
-                    finalResults = [...finalResults, ...verifiedSemantics];
-                    
-                    debugLog(`Final Verified Count: ${finalResults.length}`);
-                } catch (e: any) {
-                    debugLog(`AI Verify Error: ${e.message}`);
-                    // If AI fails, we fall back to a subset of the best semantics to avoid flooding
-                    // We only take results with rawDistance <= 0.4 (high confidence)
-                    const highConfidenceSemantics = semanticOnly.filter(r => r.rawDistance <= 0.4);
-                    finalResults = [...finalResults, ...highConfidenceSemantics.slice(0, 3)];
+                    const match = aiText.match(/\[[\s\S]*\]/);
+                    const verifiedIds = match ? JSON.parse(match[0]) : [];
+                    if (verifiedIds.length > 0) {
+                        finalResults = [...keywordMatches, ...mergedResults.filter(r => r.matchType === 'semantic' && verifiedIds.includes(r.id))];
+                    }
+                } catch (e) {
+                    debugLog('Verification skipped/failed');
+                    finalResults = mergedResults.slice(0, 5); 
                 }
             }
 
-            // 7. Sort by Similarity (Highest First)
             finalResults.sort((a, b) => (b.similarity || 0) - (a.similarity || 0));
-
-            debugLog(`Total Results: ${finalResults.length}`);
+            debugLog(`Total Search Time: ${Date.now() - startTime}ms | Results: ${finalResults.length}`);
             return NextResponse.json(finalResults);
         }
 
