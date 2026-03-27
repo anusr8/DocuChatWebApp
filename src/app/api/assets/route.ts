@@ -2,13 +2,10 @@ import { NextResponse } from 'next/server';
 import { adminDb } from '@/lib/firebase-admin';
 import { FieldValue } from 'firebase-admin/firestore';
 import { getEmbedding, generativeModel } from '@/lib/vertex';
-import fs from 'fs';
-import path from 'path';
-
 function debugLog(msg: string) {
-    const logPath = path.join(process.cwd(), 'search_debug.log');
-    const timestamp = new Date().toISOString();
-    fs.appendFileSync(logPath, `[${timestamp}] ${msg}\n`);
+    if (process.env.NODE_ENV === 'development') {
+        console.log(`[DEBUG] ${msg}`);
+    }
 }
 
 export async function GET(req: Request) {
