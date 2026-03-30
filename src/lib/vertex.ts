@@ -30,7 +30,7 @@ export const vertexAI = new VertexAI({
 
 // Verified model: gemini-2.0-flash-001 is the working version for this project
 export const generativeModel = vertexAI.getGenerativeModel({
-    model: 'gemini-2.0-flash-001',
+    model: 'gemini-2.5-flash',
 })
 
 const auth = new GoogleAuth(authOptions)
