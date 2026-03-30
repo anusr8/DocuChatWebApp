@@ -40,8 +40,8 @@ export async function POST(req: NextRequest) {
                                        doc.get('vector_distance') ?? 
                                        data.vector_distance;
 
-                    // Fallback: If returned by findNearest but distance is missing, assume it's relevant (0.1)
-                    const distValue = typeof rawDistance === 'number' ? rawDistance : 0.1;
+                    // Fallback: If distance is missing, assume neutral relevance (0.4)
+                    const distValue = typeof rawDistance === 'number' ? rawDistance : 0.4;
 
                     return {
                         id: doc.id,
@@ -65,26 +65,33 @@ export async function POST(req: NextRequest) {
             });
         }
 
-        // 2. Faster AI Verification (The "Auditor" Step) - Only if we have many candidates
+        // 2. Focused AI Verification (The "Auditor" Step)
         let verifiedDocs = candidates;
-        if (candidates.length > 3) {
-            const verificationPrompt = `Query: "${message}"\nSelect IDs that answer this exactly:\n` + 
-                candidates.map((c: any) => `ID: ${c.id} | Name: ${c.name} | Summary: ${c.summary}`).join('\n');
+        const verificationPrompt = `As a strict Search Auditor, evaluate these documents for the query: "${message}"
+Return ONLY IDs that directly and specifically answer the query. 
+If a document is only tangentially related, EXCLUDE it.
+
+Documents:
+${candidates.map((c: any) => `ID: ${c.id} | Name: ${c.name} | Summary: ${c.summary}`).join('\n')}
+
+Response Format: ["id1", "id2", ...]
+If none are strictly relevant, respond with [].`;
+
+        try {
+            const aiVerifyResult = await generativeModel.generateContent(verificationPrompt);
+            const aiVerifyText = aiVerifyResult.response.candidates?.[0]?.content?.parts?.[0]?.text || '[]';
+            const verifiedIdsMatch = aiVerifyText.match(/\[.*\]/);
+            const verifiedIds = verifiedIdsMatch ? JSON.parse(verifiedIdsMatch[0]) : [];
             
-            try {
-                const aiVerifyResult = await generativeModel.generateContent(verificationPrompt);
-                const aiVerifyText = aiVerifyResult.response.candidates?.[0]?.content?.parts?.[0]?.text || '[]';
-                const verifiedIdsMatch = aiVerifyText.match(/\[.*\]/);
-                const verifiedIds = verifiedIdsMatch ? JSON.parse(verifiedIdsMatch[0]) : [];
-                if (verifiedIds.length > 0) {
-                    verifiedDocs = candidates.filter(c => verifiedIds.includes(c.id));
-                } else {
-                    verifiedDocs = candidates.slice(0, 3); // Fallback to top 3 if AI is too strict or fails
-                }
-            } catch (pErr) {
-                console.error('[Chat] AI Verification Error, falling back to top candidates');
-                verifiedDocs = candidates.slice(0, 3);
+            if (verifiedIds.length > 0) {
+                verifiedDocs = candidates.filter(c => verifiedIds.includes(c.id));
+            } else {
+                // If AI finds nothing, we are very strict and only keep the single best match IF it has high confidence
+                verifiedDocs = candidates[0].rawDistance <= 0.3 ? [candidates[0]] : [];
             }
+        } catch (pErr) {
+            console.error('[Chat] AI Verification Error, falling back to top candidates');
+            verifiedDocs = candidates.slice(0, 1);
         }
 
         // 3. Construct Context for LLM Answer
