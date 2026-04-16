@@ -22,8 +22,8 @@ if (process.env.FIREBASE_SERVICE_ACCOUNT_JSON) {
     }
 }
 
-export const vertexAI = new VertexAI({ 
-    project, 
+export const vertexAI = new VertexAI({
+    project,
     location,
     googleAuthOptions: authOptions
 })
@@ -60,16 +60,62 @@ export async function getEmbeddings(texts: string[], retries = 3): Promise<numbe
     } catch (error: any) {
         // Retry logic for quota limits or transient network resets
         const isRetryable = (error.code === 429) || (error.code === 'ECONNRESET') || (error.message?.includes('ECONNRESET'));
-        
+
         if (isRetryable && retries > 0) {
             const delay = error.code === 429 ? 5000 : 1000;
-            console.warn(`Vertex AI Transient Error (${error.code || 'ECONNRESET'}), retrying in ${delay/1000}s... (${retries} attempts left)`);
+            console.warn(`Vertex AI Transient Error (${error.code || 'ECONNRESET'}), retrying in ${delay / 1000}s... (${retries} attempts left)`);
             await new Promise(resolve => setTimeout(resolve, delay));
             return getEmbeddings(texts, retries - 1);
         }
 
         console.error('Vertex AI Batch Embedding Error:', error);
         throw error;
+    }
+}
+
+/**
+ * Multimodal embedding helper (New for March 2026)
+ * Supports text, images, and documents.
+ */
+export async function getMultimodalEmbedding(input: { text?: string, imageUri?: string, mimeType?: string, taskType?: 'RETRIEVAL_QUERY' | 'RETRIEVAL_DOCUMENT' }): Promise<number[]> {
+    try {
+        const client = await auth.getClient();
+        const url = `https://${location}-aiplatform.googleapis.com/v1/projects/${project}/locations/${location}/publishers/google/models/multimodalembedding@001:predict`;
+
+        const instance: any = {};
+        if (input.text) {
+            // Truncate text to 1000 chars (limit is 1024 total including surrounding structures)
+            instance.text = input.text.slice(0, 1000);
+        }
+        if (input.imageUri) {
+            instance.image = { gcsUri: input.imageUri };
+        }
+
+        const res = await client.request({
+            url,
+            method: 'POST',
+            data: {
+                instances: [instance],
+                parameters: {
+                    dimension: 1408
+                }
+            },
+        });
+
+        const data = res.data as any;
+        if (!data.predictions || data.predictions.length === 0) {
+            throw new Error('No multimodal embeddings returned');
+        }
+
+        const prediction = data.predictions[0];
+        return prediction.imageEmbedding || prediction.textEmbedding || [];
+    } catch (error: any) {
+        let errorMsg = error.message;
+        if (error.response?.data?.error?.message) {
+            errorMsg = error.response.data.error.message;
+        }
+        console.error('Vertex AI Multimodal Embedding Error:', errorMsg);
+        throw new Error(`Multimodal embedding failed with the following error: ${errorMsg}`);
     }
 }
 

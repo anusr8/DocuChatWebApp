@@ -13,7 +13,11 @@ import {
     Calendar,
     ArrowLeft,
     Loader2,
-    X
+    X,
+    Trash2,
+    Camera,
+    AlignLeft,
+    ChevronDown
 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -25,7 +29,7 @@ function cn(...inputs: ClassValue[]) {
 }
 
 interface GTMAsset {
-    id: number;
+    id: string; // Changed to string for Firestore compatibility
     name: string;
     url: string;
     type: 'PDF' | 'PPT' | 'Word' | 'Video' | 'Audio';
@@ -39,11 +43,92 @@ interface GTMAsset {
 
 export default function ExploreGTM() {
     const [isSearching, setIsSearching] = useState(false);
+    const [isVisualSearching, setIsVisualSearching] = useState(false);
+    const [isMultiLine, setIsMultiLine] = useState(false);
     const [assets, setAssets] = useState<GTMAsset[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
+    const [searchImagePreview, setSearchImagePreview] = useState<string | null>(null);
+
+    const handleClearSearch = () => {
+        setSearchQuery('');
+        setSearchImagePreview(null);
+        setIsSearching(false);
+        setIsVisualSearching(false);
+        // Effects will trigger re-fetch of all assets
+    };
+
+    const handleDelete = async (id: string) => {
+        if (!window.confirm('Are you sure you want to delete this asset? This will also remove all indexed slides.')) return;
+
+        setLoading(true);
+        try {
+            const res = await fetch(`/api/assets/${id}`, {
+                method: 'DELETE'
+            });
+            if (!res.ok) throw new Error('Delete failed');
+            
+            // Update UI
+            setAssets(prev => prev.filter(a => a.id !== id));
+            alert('Asset deleted successfully.');
+        } catch (err) {
+            console.error('Delete error:', err);
+            alert('Failed to delete asset.');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleImageSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        // Set preview
+        const reader = new FileReader();
+        reader.onloadend = () => setSearchImagePreview(reader.result as string);
+        reader.readAsDataURL(file);
+
+        setIsVisualSearching(true);
+        setLoading(true);
+        setSearchQuery(''); // Clear text search
+
+        const formData = new FormData();
+        formData.append('image', file);
+
+        try {
+            const res = await fetch('/api/assets/visual-search', {
+                method: 'POST',
+                body: formData
+            });
+            if (!res.ok) throw new Error('Visual search failed');
+            const data = await res.json();
+            
+            // Map visual search results to GTMAsset format
+            const formattedAssets = data.results.map((res: any) => ({
+                id: res.id,
+                assetId: res.assetId,
+                name: `${res.assetName} (Slide ${res.slideNumber})`,
+                url: res.assetUrl || '#',
+                type: res.type || 'PPT',
+                category: res.category || 'PPT',
+                thumbnail_url: res.thumbnail_url,
+                summary: res.description,
+                similarity: res.similarity,
+                created_at: res.created_at || new Date().toISOString()
+            }));
+            
+            setAssets(formattedAssets);
+        } catch (err) {
+            console.error('Visual search error:', err);
+        } finally {
+            setLoading(false);
+            setIsVisualSearching(false);
+        }
+    };
 
     useEffect(() => {
+        if (isVisualSearching || searchImagePreview) return; // Skip text search if visual is active
+
         const isSemantic = searchQuery.trim().length > 2;
         let isCancelled = false;
 
@@ -87,7 +172,7 @@ export default function ExploreGTM() {
             isCancelled = true;
             clearTimeout(timer);
         };
-    }, [searchQuery]);
+    }, [searchQuery, isVisualSearching, searchImagePreview]);
 
     const [selectedType, setSelectedType] = useState<'All' | 'PDF' | 'PPT' | 'Word' | 'Video' | 'Audio'>('All');
 
@@ -99,11 +184,13 @@ export default function ExploreGTM() {
 
     const filteredAssets = assets.filter(asset => {
         const isSemanticSearch = searchQuery.trim().length > 2;
+        const isVisualSearch = !!searchImagePreview;
 
         let matchesSearch = true;
-        if (isSemanticSearch) {
+        if (isVisualSearch) {
+            matchesSearch = true; // Visual search results are already filtered by the API
+        } else if (isSemanticSearch) {
             // STRICT FILTER: Only show what the AI returned as a match
-            // During semantic search, every document SHOULD have a similarity score from the RPC
             matchesSearch = asset.similarity !== undefined && asset.similarity !== null && asset.similarity > 0;
         } else if (searchQuery.trim().length > 0) {
             // Literal string matching for short queries (1-2 chars)
@@ -157,11 +244,83 @@ export default function ExploreGTM() {
                 </div>
             </div>
 
+            {/* Sticky Search Bar Section */}
+            <div className="sticky top-20 z-40 -mt-10 mb-16">
+                <div className="max-w-7xl mx-auto px-6 text-center">
+                    <div className="inline-block w-full max-w-xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-[32px] shadow-2xl border border-slate-100 dark:border-white/5 p-2 transition-all hover:shadow-brand/10 hover:border-brand/30">
+                        <div className="relative w-full group">
+                            <Search className={cn(
+                                "absolute left-6 text-slate-400 group-focus-within:text-brand transition-colors",
+                                isMultiLine ? "top-8" : "top-1/2 -translate-y-1/2"
+                            )} />
+                            
+                            <textarea
+                                placeholder={searchImagePreview ? "Searching by image..." : "Search by text or upload slide..."}
+                                className={cn(
+                                    "w-full bg-transparent text-lg outline-none resize-none overflow-hidden transition-all",
+                                    searchImagePreview ? "pl-28" : "pl-16",
+                                    isMultiLine ? "py-7 pr-36 h-40" : "py-6 pr-36 h-[72px] leading-[24px]"
+                                )}
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                disabled={!!searchImagePreview}
+                                rows={isMultiLine ? 5 : 1}
+                            />
+
+                            {/* Image Search Preview */}
+                            {searchImagePreview && (
+                                <div className={cn(
+                                    "absolute left-14 w-10 h-10 rounded-lg overflow-hidden border-2 border-brand shadow-sm animate-in zoom-in duration-300",
+                                    isMultiLine ? "top-6" : "top-1/2 -translate-y-1/2"
+                                )}>
+                                    <img src={searchImagePreview} alt="Search Preview" className="w-full h-full object-cover" />
+                                </div>
+                            )}
+
+                            <div className={cn(
+                                "absolute right-6 flex items-center gap-2",
+                                isMultiLine ? "top-7" : "top-1/2 -translate-y-1/2"
+                            )}>
+                                <button 
+                                    onClick={() => setIsMultiLine(!isMultiLine)}
+                                    className={cn(
+                                        "p-2 rounded-full transition-colors",
+                                        isMultiLine ? "bg-brand/10 text-brand" : "text-slate-400 hover:text-brand hover:bg-slate-100 dark:hover:bg-white/10"
+                                    )}
+                                    title={isMultiLine ? "Switch to single line" : "Switch to multi-line search"}
+                                >
+                                    <AlignLeft className="w-5 h-5" />
+                                </button>
+
+                                <label className="p-2 hover:bg-slate-100 dark:hover:bg-white/10 rounded-full transition-colors text-slate-400 hover:text-brand cursor-pointer" title="Visual Search (PPT Only)">
+                                    <Camera className="w-6 h-6" />
+                                    <input 
+                                        type="file" 
+                                        className="hidden" 
+                                        accept="image/*" 
+                                        onChange={handleImageSearch}
+                                    />
+                                </label>
+                                {(searchQuery || searchImagePreview) && (
+                                    <button
+                                        onClick={handleClearSearch}
+                                        className="p-2 hover:bg-slate-100 dark:hover:bg-white/10 rounded-full transition-colors text-slate-400 hover:text-brand"
+                                        title="Clear search"
+                                    >
+                                        <X className="w-5 h-5" />
+                                    </button>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             {/* Content Section (Overlapping) */}
-            <div className="relative z-20 -mt-16 max-w-7xl mx-auto px-6 pb-24">
+            <div className="relative z-20 max-w-7xl mx-auto px-6 pb-24">
                 <div className="bg-white dark:bg-[#0F172A]/80 backdrop-blur-2xl rounded-[40px] shadow-2xl dark:shadow-brand/5 border border-slate-100 dark:border-white/5 p-8 md:p-12">
 
-                    {/* Filter Tabs & Search */}
+                    {/* Filter Tabs */}
                     <div className="flex flex-col gap-8 mb-16 border-b border-slate-100 dark:border-white/5 pb-12">
                         <div className="flex flex-col lg:flex-row justify-between items-center gap-8">
                             <div className="flex flex-wrap justify-center lg:justify-start gap-4 md:gap-8">
@@ -182,28 +341,6 @@ export default function ExploreGTM() {
                                         )}
                                     </button>
                                 ))}
-                            </div>
-
-                            <div className="flex flex-col items-center gap-8 w-full lg:w-fit">
-                                <div className="relative w-full lg:w-[500px] group">
-                                    <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-6 h-6 text-slate-400 group-focus-within:text-brand transition-colors" />
-                                    <input
-                                        type="text"
-                                        placeholder="Smart Search..."
-                                        className="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-[24px] py-7 pl-16 pr-6 text-lg outline-none focus:border-brand/50 focus:ring-8 focus:ring-brand/5 transition-all shadow-inner"
-                                        value={searchQuery}
-                                        onChange={(e) => setSearchQuery(e.target.value)}
-                                    />
-                                    {searchQuery && (
-                                        <button
-                                            onClick={() => setSearchQuery('')}
-                                            className="absolute right-6 top-1/2 -translate-y-1/2 p-2 hover:bg-slate-100 dark:hover:bg-white/10 rounded-full transition-colors text-slate-400 hover:text-brand"
-                                            title="Clear search"
-                                        >
-                                            <X className="w-5 h-5" />
-                                        </button>
-                                    )}
-                                </div>
                             </div>
                         </div>
 
@@ -254,6 +391,16 @@ export default function ExploreGTM() {
                                                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                                                 />
                                                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-40 group-hover:opacity-60 transition-opacity" />
+                                                
+                                                {/* Delete Button */}
+                                                <button 
+                                                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleDelete(asset.id); }}
+                                                    className="absolute top-3 left-3 p-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 text-slate-400 hover:text-red-500 z-30"
+                                                    title="Delete Asset"
+                                                >
+                                                    <Trash2 className="w-5 h-5" />
+                                                </button>
+
                                                 <div className="absolute top-3 right-3 p-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
                                                     <div className="relative w-6 h-6">
                                                         <Image src={getTypeIcon(asset.type)} alt={asset.type} fill className="object-contain" />
@@ -263,6 +410,16 @@ export default function ExploreGTM() {
                                         ) : (
                                             <>
                                                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
+                                                
+                                                {/* Delete Button (Fallback) */}
+                                                <button 
+                                                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleDelete(asset.id); }}
+                                                    className="absolute top-3 left-3 p-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 text-slate-400 hover:text-red-500 z-30"
+                                                    title="Delete Asset"
+                                                >
+                                                    <Trash2 className="w-5 h-5" />
+                                                </button>
+
                                                 <div className="absolute inset-0 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
                                                     <div className="relative w-32 h-32 md:w-36 md:h-36 drop-shadow-2xl">
                                                         <Image

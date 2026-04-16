@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { adminDb, adminStorage } from '@/lib/firebase-admin';
 import { FieldValue } from 'firebase-admin/firestore';
-import { getEmbeddings, generativeModel } from '@/lib/vertex';
+import { getEmbeddings, generativeModel, getMultimodalEmbedding } from '@/lib/vertex';
 // Global cache for resource readiness
 let isResourcesReady = true;
 
@@ -27,17 +27,33 @@ export async function POST(req: NextRequest) {
         const bucketName = process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET || '';
         const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || '';
 
-        // --- NEW: Server-Side Storage Upload ---
-        console.log('[Upload] Starting server-side storage upload for:', fileName);
+        // --- NEW: Server-Side Storage Upload via Streaming ---
+        console.log('[Upload] Starting server-side storage upload (Streaming) for:', fileName);
         const bucket = adminStorage.bucket();
         const storagePath = `gtm-assets/${Date.now()}-${fileName.replace(/\s+/g, '_')}`;
         const fileRef = bucket.file(storagePath);
 
         try {
-            const buffer = Buffer.from(await file.arrayBuffer());
-            await fileRef.save(buffer, {
-                metadata: { contentType: file.type || 'application/octet-stream' }
+            // Using streaming to avoid ENOBUFS/memory issues with large buffers
+            const stream = (file as any).stream();
+            const gcsStream = fileRef.createWriteStream({
+                metadata: { contentType: file.type || 'application/octet-stream' },
+                resumable: true
             });
+
+            await new Promise((resolve, reject) => {
+                // @ts-ignore - Web Stream to Node Stream conversion helper
+                import('stream').then(m => {
+                    const { Readable } = m;
+                    Readable.from(stream).pipe(gcsStream)
+                        .on('finish', resolve)
+                        .on('error', (err: any) => {
+                            console.error('[Upload] Stream error:', err);
+                            reject(err);
+                        });
+                }).catch(reject);
+            });
+            
             console.log('[Upload] Server-side storage upload successful:', storagePath);
         } catch (uploadError: any) {
             console.error('[Upload] Server-side storage upload failed:', uploadError);
@@ -101,12 +117,102 @@ export async function POST(req: NextRequest) {
             }
         } else if (materialType === 'word' || materialType === 'ppt') {
             try {
-                const { getTextExtractor } = await import('office-text-extractor');
-                const extractor = getTextExtractor();
-                const [buffer] = await fileRef.download();
-                content = await extractor.extractText({ input: buffer, type: 'buffer' });
+                if (materialType === 'ppt') {
+                    console.log('[Upload] Parsing PPT slides locally using adm-zip...');
+                    const [buffer] = await fileRef.download();
+                    const AdmZipModule = await import('adm-zip');
+                    const AdmZip = AdmZipModule.default || AdmZipModule;
+                    const zip = new AdmZip(buffer);
+                    const zipEntries = zip.getEntries();
+                    
+                    // Filter and sort slide XMLs
+                    const slideEntries = zipEntries
+                        .filter((e: any) => e.entryName.startsWith('ppt/slides/slide') && e.entryName.endsWith('.xml'))
+                        .sort((a: any, b: any) => {
+                            const n1 = parseInt(a.entryName.match(/\d+/)?.[0] || '0');
+                            const n2 = parseInt(b.entryName.match(/\d+/)?.[0] || '0');
+                            return n1 - n2;
+                        });
+
+                    const numSlides = slideEntries.length;
+                    console.log(`[Upload] Manually identified ${numSlides} slides. Processing for Visual Blueprint...`);
+
+                    const processedSlides = [];
+                    const CHUNK_SIZE = 8; // Slightly smaller chunks due to larger XML payloads
+                    const skipGemini = numSlides > 30; // Increased limit - high-quality indexing is worth the wait
+                    
+                    if (skipGemini) {
+                        console.log('[Upload] INFO: Extremely large file detected. Using basic text indexing to avoid timeout.');
+                    }
+
+                    for (let i = 0; i < slideEntries.length; i += CHUNK_SIZE) {
+                        const chunk = slideEntries.slice(i, i + CHUNK_SIZE);
+                        console.log(`[Upload] Indexing slide batch ${Math.floor(i/CHUNK_SIZE) + 1}/${Math.ceil(numSlides/CHUNK_SIZE)}...`);
+                        
+                        const chunkResults = await Promise.all(chunk.map(async (entry: any, chunkIdx: number) => {
+                            const idx = i + chunkIdx;
+                            const fullXml = entry.getData().toString('utf8');
+                            
+                            // 1. Basic text extraction for fallback
+                            const textMatches = fullXml.match(/<a:t>([^<]*)<\/a:t>/g) as string[] | null;
+                            const slideRawText = textMatches ? textMatches.map((m: string) => m.replace(/<\/?a:t>/g, '')).join(' ') : '';
+                            
+                            let visualDescription = slideRawText.slice(0, 1000);
+                            
+                            // 2. Advanced XML Analysis for the "Visual Blueprint"
+                            if (!skipGemini) {
+                                try {
+                                    // Clean XML to save tokens (remove common namespaces)
+                                    const cleanedXml = fullXml
+                                        .replace(/xmlns:[^=]+="[^"]+"/g, '')
+                                        .replace(/<p:nvSpPr[\s\S]*?<\/p:nvSpPr>/g, '') // Remove non-visual metadata
+                                        .slice(0, 5000); // Limit to first 5k chars for prompt safety
+
+                                    const blueprintPrompt = `Analyze this PowerPoint Slide XML and create a high-fidelity "Visual Blueprint" description for image search.
+Slide XML:
+---
+${cleanedXml}
+---
+Focus on:
+1. THE KEY TITLE and specific text content.
+2. Layout structure (e.g. "3-column grid", "centered diagram").
+3. Specific shapes mentioned (e.g. "arrows connecting 4 circles", "a funnel diagram", "a large table").
+4. Visual density and approximate colors/styles inferred from theme tags.
+Return a dense, descriptive paragraph that acts as a visual proxy for this slide.`;
+
+                                    const blueprintResult = await generativeModel.generateContent(blueprintPrompt);
+                                    visualDescription = (blueprintResult.response.candidates?.[0]?.content?.parts?.[0]?.text || slideRawText).slice(0, 1200);
+                                } catch (e) {
+                                    console.warn(`[Upload] XML Blueprint failed for slide ${idx + 1}, falling back.`);
+                                }
+                            }
+
+                            return {
+                                slideNumber: idx + 1,
+                                description: visualDescription,
+                                embedding: await getMultimodalEmbedding({ 
+                                    text: `Visual Blueprint: ${visualDescription}`,
+                                    taskType: 'RETRIEVAL_DOCUMENT'
+                                })
+                            };
+                        }));
+                        processedSlides.push(...chunkResults);
+                    }
+
+                    console.log(`[Upload] Successfully processed ${processedSlides.length} slides.`);
+                    (req as any)._slides = processedSlides;
+                    content = processedSlides.map(s => s.description).join('\n\n');
+                }
+                
+                // Fallback / Word extraction
+                if (!content) {
+                    const { getTextExtractor } = await import('office-text-extractor');
+                    const extractor = getTextExtractor();
+                    const [buffer] = await fileRef.download();
+                    content = await extractor.extractText({ input: buffer, type: 'buffer' });
+                }
             } catch (e) {
-                console.error('Office Extraction Error:', e);
+                console.error('Office/PPT Extraction Error:', e);
                 content = `File: ${fileName}. Extraction failed.`;
             }
         } else if (materialType === 'video' || materialType === 'audio') {
@@ -199,7 +305,7 @@ ${truncatedContent.slice(0, 5000)}`;
 
         // 6. Insert into unified Firestore collection
         try {
-            await adminDb.collection('gtm_assets').add({
+            const assetRef = await adminDb.collection('gtm_assets').add({
                 content: truncatedContent,
                 summary: summary,
                 embedding: FieldValue.vector(embedding),
@@ -212,6 +318,25 @@ ${truncatedContent.slice(0, 5000)}`;
                 type: materialType === 'word' ? 'Word' : materialType === 'ppt' ? 'PPT' : materialType === 'pdf' ? 'PDF' : materialType === 'video' ? 'Video' : 'Audio',
                 created_at: FieldValue.serverTimestamp()
             });
+
+            // 6.1 If PPT slides were processed, save them to a specialized collection
+            const slides = (req as any)._slides;
+            if (slides && slides.length > 0) {
+                console.log(`[Upload] Saving ${slides.length} slides for asset:`, assetRef.id);
+                const batch = adminDb.batch();
+                slides.forEach((slide: any) => {
+                    const slideRef = adminDb.collection('gtm_slides').doc();
+                    batch.set(slideRef, {
+                        assetId: assetRef.id,
+                        assetName: fileName,
+                        slideNumber: slide.slideNumber,
+                        description: slide.description,
+                        multimodal_embedding: FieldValue.vector(slide.embedding),
+                        created_at: FieldValue.serverTimestamp()
+                    });
+                });
+                await batch.commit();
+            }
         } catch (dbError: any) {
             console.error('Firestore insert error:', dbError);
             throw dbError;
