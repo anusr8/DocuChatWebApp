@@ -108,12 +108,36 @@ export async function GET(req: Request) {
 
             finalResults.sort((a, b) => (b.similarity || 0) - (a.similarity || 0));
             debugLog(`Total Search Time: ${Date.now() - startTime}ms | Results: ${finalResults.length}`);
-            return NextResponse.json(finalResults);
+            
+            return NextResponse.json({
+                assets: finalResults,
+                pagination: {
+                    currentPage: 1,
+                    totalPages: 1,
+                    totalAssets: finalResults.length,
+                    pageSize: finalResults.length
+                }
+            });
         }
 
-        // Default: Fetch all assets if no search query
-        const snapshot = await adminDb.collection('gtm_assets').orderBy('created_at', 'desc').get();
-        const allAssets = snapshot.docs.map((doc: any) => {
+        // Default: Fetch paginated assets if no search query
+        const page = parseInt(searchParams.get('page') || '1');
+        const pageSize = parseInt(searchParams.get('limit') || '12');
+        const offset = (page - 1) * pageSize;
+
+        // 1. Get total count for pagination metadata
+        const countSnapshot = await adminDb.collection('gtm_assets').count().get();
+        const totalAssets = countSnapshot.data().count;
+        const totalPages = Math.ceil(totalAssets / pageSize);
+
+        // 2. Fetch paginated data
+        const snapshot = await adminDb.collection('gtm_assets')
+            .orderBy('created_at', 'desc')
+            .offset(offset)
+            .limit(pageSize)
+            .get();
+
+        const assets = snapshot.docs.map((doc: any) => {
             const data = doc.data();
             return {
                 id: doc.id,
@@ -122,7 +146,15 @@ export async function GET(req: Request) {
             };
         });
 
-        return NextResponse.json(allAssets);
+        return NextResponse.json({
+            assets,
+            pagination: {
+                currentPage: page,
+                totalPages,
+                totalAssets,
+                pageSize
+            }
+        });
     } catch (error: any) {
         console.error('Fetch assets error:', error);
         return NextResponse.json({ error: error.message }, { status: 500 });

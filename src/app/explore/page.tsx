@@ -50,12 +50,19 @@ export default function ExploreGTM() {
     const [searchQuery, setSearchQuery] = useState('');
     const [searchImagePreview, setSearchImagePreview] = useState<string | null>(null);
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [paginationData, setPaginationData] = useState<{
+        totalPages: number;
+        totalAssets: number;
+        pageSize: number;
+    } | null>(null);
+
     const handleClearSearch = () => {
         setSearchQuery('');
         setSearchImagePreview(null);
         setIsSearching(false);
         setIsVisualSearching(false);
-        // Effects will trigger re-fetch of all assets
+        setCurrentPage(1);
     };
 
     const handleDelete = async (id: string) => {
@@ -91,6 +98,7 @@ export default function ExploreGTM() {
         setIsVisualSearching(true);
         setLoading(true);
         setSearchQuery(''); // Clear text search
+        setCurrentPage(1);
 
         const formData = new FormData();
         formData.append('image', file);
@@ -118,6 +126,11 @@ export default function ExploreGTM() {
             }));
             
             setAssets(formattedAssets);
+            setPaginationData({
+                totalPages: 1,
+                totalAssets: formattedAssets.length,
+                pageSize: formattedAssets.length
+            });
         } catch (err) {
             console.error('Visual search error:', err);
         } finally {
@@ -145,14 +158,15 @@ export default function ExploreGTM() {
             try {
                 const url = isSemantic
                     ? `/api/assets?q=${encodeURIComponent(searchQuery)}`
-                    : '/api/assets';
+                    : `/api/assets?page=${currentPage}&limit=12`;
 
                 const res = await fetch(url);
                 if (!res.ok) throw new Error('Failed to fetch assets');
                 const data = await res.json();
 
                 if (!isCancelled) {
-                    setAssets(data);
+                    setAssets(data.assets || []);
+                    setPaginationData(data.pagination || null);
                 }
             } catch (err) {
                 if (!isCancelled) console.error(err);
@@ -172,9 +186,14 @@ export default function ExploreGTM() {
             isCancelled = true;
             clearTimeout(timer);
         };
-    }, [searchQuery, isVisualSearching, searchImagePreview]);
+    }, [searchQuery, isVisualSearching, searchImagePreview, currentPage]);
 
     const [selectedType, setSelectedType] = useState<'All' | 'PDF' | 'PPT' | 'Word' | 'Video' | 'Audio'>('All');
+    
+    // Reset to page 1 when type changes
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [selectedType]);
 
     const categories: ('All' | 'PDF' | 'PPT' | 'Word' | 'Video' | 'Audio')[] = ['All', 'PDF', 'Video', 'Audio', 'Word', 'PPT'];
 
@@ -374,127 +393,183 @@ export default function ExploreGTM() {
                                 {isSearching ? 'Analyzing GTM Knowledge...' : 'Accessing GTM Intelligence...'}
                             </p>
                         </div>
-                    ) : (filteredAssets.length > 0 ? (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-                            {filteredAssets.map((asset) => (
-                                <div
-                                    key={`${asset.type}-${asset.id}`}
-                                    className="group flex flex-col bg-white dark:bg-slate-900/50 rounded-3xl overflow-hidden border border-slate-100 dark:border-white/5 hover:border-brand/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand/10"
-                                >
-                                    {/* Card Header (Image/Icon Placeholder) */}
-                                    <div className="relative aspect-[16/10] bg-slate-100 dark:bg-slate-800 flex items-center justify-center overflow-hidden">
-                                        {asset.thumbnail_url ? (
-                                            <>
-                                                <img
-                                                    src={asset.thumbnail_url}
-                                                    alt={asset.name}
-                                                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                                />
-                                                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-40 group-hover:opacity-60 transition-opacity" />
-                                                
-                                                {/* Delete Button */}
-                                                <button 
-                                                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleDelete(asset.id); }}
-                                                    className="absolute top-3 left-3 p-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 text-slate-400 hover:text-red-500 z-30"
-                                                    title="Delete Asset"
-                                                >
-                                                    <Trash2 className="w-5 h-5" />
-                                                </button>
-
-                                                <div className="absolute top-3 right-3 p-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
-                                                    <div className="relative w-6 h-6">
-                                                        <Image src={getTypeIcon(asset.type)} alt={asset.type} fill className="object-contain" />
-                                                    </div>
-                                                </div>
-                                            </>
-                                        ) : (
-                                            <>
-                                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
-                                                
-                                                {/* Delete Button (Fallback) */}
-                                                <button 
-                                                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleDelete(asset.id); }}
-                                                    className="absolute top-3 left-3 p-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 text-slate-400 hover:text-red-500 z-30"
-                                                    title="Delete Asset"
-                                                >
-                                                    <Trash2 className="w-5 h-5" />
-                                                </button>
-
-                                                <div className="absolute inset-0 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-                                                    <div className="relative w-32 h-32 md:w-36 md:h-36 drop-shadow-2xl">
-                                                        <Image
-                                                            src={getTypeIcon(asset.type)}
-                                                            alt={asset.type}
-                                                            fill
-                                                            className="object-contain"
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </>
-                                        )}
-                                    </div>
-
-                                    {/* Card Body */}
-                                    <div className="p-5 flex-1 flex flex-col">
-                                        <div className="flex items-center justify-between mb-3">
-                                            <span className="text-[9px] font-black uppercase tracking-[0.2em] text-brand bg-brand/5 px-2 py-0.5 rounded-full">
-                                                {asset.category || 'GTM'}
-                                            </span>
-                                            <div className="flex items-center gap-1 text-slate-400 text-[9px] font-bold uppercase tracking-widest">
-                                                <Calendar className="w-2.5 h-2.5" />
-                                                <span>{new Date(asset.created_at).toLocaleDateString(undefined, { year: 'numeric' })}</span>
-                                            </div>
-                                        </div>
-
-                                        <h3 className="text-lg font-bold text-slate-900 dark:text-white leading-tight mb-4 line-clamp-2 transition-colors group-hover:text-brand">
-                                            {asset.name}
-                                        </h3>
-
-                                        {asset.tags && asset.tags.length > 0 && (
-                                            <div className="flex flex-wrap gap-1.5 mb-6">
-                                                {asset.tags.slice(0, 3).map(tag => (
-                                                    <span key={tag} className="text-[8px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-white/5 px-2 py-0.5 rounded-md">
-                                                        #{tag}
-                                                    </span>
-                                                ))}
-                                            </div>
-                                        )}
-
-                                        <div className="mt-auto flex flex-col gap-3">
-                                            <div className="flex items-center gap-2 text-slate-400 text-[10px] font-bold uppercase tracking-widest">
-                                                <Calendar className="w-3 h-3" />
-                                                <span>{new Date(asset.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
-                                            </div>
-
-                                            <a
-                                                href={asset.url}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="inline-flex items-center gap-2 text-slate-900 dark:text-white font-black text-[11px] uppercase tracking-widest group/link border-b-2 border-brand pb-1 w-fit hover:border-brand-dark transition-all"
-                                            >
-                                                <span>Read More</span>
-                                                <ExternalLink className="w-3 h-3 group-hover/link:translate-x-1 group-hover/link:-translate-y-1 transition-transform" />
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
                     ) : (
-                        <div className="flex flex-col items-center justify-center py-40 text-center">
-                            <div className="w-24 h-24 bg-slate-50 dark:bg-white/5 rounded-full flex items-center justify-center mb-8">
-                                <Search className="w-10 h-10 text-slate-200 dark:text-slate-700" />
-                            </div>
-                            <h3 className="text-2xl font-bold mb-4">No results found</h3>
-                            <p className="text-slate-500 max-w-xs mx-auto mb-10 text-sm leading-relaxed">We couldn't find any GTM assets matching your current selection.</p>
-                            <button
-                                onClick={() => { setSelectedType('All'); setSearchQuery(''); }}
-                                className="px-10 py-4 bg-brand hover:bg-brand-dark text-white rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all"
-                            >
-                                Reset Filters
-                            </button>
-                        </div>
-                    ))}
+                        <>
+                            {filteredAssets.length > 0 ? (
+                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+                                    {filteredAssets.map((asset) => (
+                                        <div
+                                            key={`${asset.type}-${asset.id}`}
+                                            className="group flex flex-col bg-white dark:bg-slate-900/50 rounded-3xl overflow-hidden border border-slate-100 dark:border-white/5 hover:border-brand/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand/10"
+                                        >
+                                            {/* Card Header (Image/Icon Placeholder) */}
+                                            <div className="relative aspect-[16/10] bg-slate-100 dark:bg-slate-800 flex items-center justify-center overflow-hidden">
+                                                {asset.thumbnail_url ? (
+                                                    <>
+                                                        <img
+                                                            src={asset.thumbnail_url}
+                                                            alt={asset.name}
+                                                            className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                                        />
+                                                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-40 group-hover:opacity-60 transition-opacity" />
+                                                        
+                                                        {/* Delete Button */}
+                                                        <button 
+                                                            onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleDelete(asset.id); }}
+                                                            className="absolute top-3 left-3 p-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 text-slate-400 hover:text-red-500 z-30"
+                                                            title="Delete Asset"
+                                                        >
+                                                            <Trash2 className="w-5 h-5" />
+                                                        </button>
+
+                                                        <div className="absolute top-3 right-3 p-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                                                            <div className="relative w-6 h-6">
+                                                                <Image src={getTypeIcon(asset.type)} alt={asset.type} fill className="object-contain" />
+                                                            </div>
+                                                        </div>
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
+                                                        
+                                                        {/* Delete Button (Fallback) */}
+                                                        <button 
+                                                            onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleDelete(asset.id); }}
+                                                            className="absolute top-3 left-3 p-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 text-slate-400 hover:text-red-500 z-30"
+                                                            title="Delete Asset"
+                                                        >
+                                                            <Trash2 className="w-5 h-5" />
+                                                        </button>
+
+                                                        <div className="absolute inset-0 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                                                            <div className="relative w-32 h-32 md:w-36 md:h-36 drop-shadow-2xl">
+                                                                <Image
+                                                                    src={getTypeIcon(asset.type)}
+                                                                    alt={asset.type}
+                                                                    fill
+                                                                    className="object-contain"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </>
+                                                )}
+                                            </div>
+
+                                            {/* Card Body */}
+                                            <div className="p-5 flex-1 flex flex-col">
+                                                <div className="flex items-center justify-between mb-3">
+                                                    <span className="text-[9px] font-black uppercase tracking-[0.2em] text-brand bg-brand/5 px-2 py-0.5 rounded-full">
+                                                        {asset.category || 'GTM'}
+                                                    </span>
+                                                    <div className="flex items-center gap-1 text-slate-400 text-[9px] font-bold uppercase tracking-widest">
+                                                        <Calendar className="w-2.5 h-2.5" />
+                                                        <span>{new Date(asset.created_at).toLocaleDateString(undefined, { year: 'numeric' })}</span>
+                                                    </div>
+                                                </div>
+
+                                                <h3 className="text-lg font-bold text-slate-900 dark:text-white leading-tight mb-4 line-clamp-2 transition-colors group-hover:text-brand">
+                                                    {asset.name}
+                                                </h3>
+
+                                                {asset.tags && asset.tags.length > 0 && (
+                                                    <div className="flex flex-wrap gap-1.5 mb-6">
+                                                        {asset.tags.slice(0, 3).map(tag => (
+                                                            <span key={tag} className="text-[8px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-white/5 px-2 py-0.5 rounded-md">
+                                                                #{tag}
+                                                            </span>
+                                                        ))}
+                                                    </div>
+                                                )}
+
+                                                <div className="mt-auto flex flex-col gap-3">
+                                                    <div className="flex items-center gap-2 text-slate-400 text-[10px] font-bold uppercase tracking-widest">
+                                                        <Calendar className="w-3 h-3" />
+                                                        <span>{new Date(asset.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                                                    </div>
+
+                                                    <a
+                                                        href={asset.url}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="inline-flex items-center gap-2 text-slate-900 dark:text-white font-black text-[11px] uppercase tracking-widest group/link border-b-2 border-brand pb-1 w-fit hover:border-brand-dark transition-all"
+                                                    >
+                                                        <span>Read More</span>
+                                                        <ExternalLink className="w-3 h-3 group-hover/link:translate-x-1 group-hover/link:-translate-y-1 transition-transform" />
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="flex flex-col items-center justify-center py-40 text-center">
+                                    <div className="w-24 h-24 bg-slate-50 dark:bg-white/5 rounded-full flex items-center justify-center mb-8">
+                                        <Search className="w-10 h-10 text-slate-200 dark:text-slate-700" />
+                                    </div>
+                                    <h3 className="text-2xl font-bold mb-4">No results found</h3>
+                                    <p className="text-slate-500 max-w-xs mx-auto mb-10 text-sm leading-relaxed">We couldn't find any GTM assets matching your current selection.</p>
+                                    <button
+                                        onClick={() => { setSelectedType('All'); setSearchQuery(''); setCurrentPage(1); }}
+                                        className="px-10 py-4 bg-brand hover:bg-brand-dark text-white rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all"
+                                    >
+                                        Reset Filters
+                                    </button>
+                                </div>
+                            )}
+
+                            {/* Pagination Controls */}
+                            {!loading && !isSearching && paginationData && paginationData.totalPages > 1 && (
+                                <div className="mt-16 flex flex-col items-center gap-6 border-t border-slate-100 dark:border-white/5 pt-12">
+                                    <div className="flex items-center gap-2">
+                                        <button
+                                            onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                                            disabled={currentPage === 1}
+                                            className="px-6 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 text-xs font-bold uppercase tracking-widest disabled:opacity-30 disabled:cursor-not-allowed hover:bg-slate-50 dark:hover:bg-white/5 transition-all"
+                                        >
+                                            Previous
+                                        </button>
+                                        
+                                        <div className="flex items-center gap-1 mx-4">
+                                            {Array.from({ length: Math.min(paginationData.totalPages, 5) }, (_, i) => {
+                                                // Show surrounding pages if there are many
+                                                let pageNum = i + 1;
+                                                if (paginationData.totalPages > 5) {
+                                                    if (currentPage > 3) pageNum = currentPage - 3 + i + 1;
+                                                    if (pageNum > paginationData.totalPages) pageNum = paginationData.totalPages - 4 + i;
+                                                }
+                                                return pageNum;
+                                            }).filter(p => p > 0 && p <= paginationData.totalPages).map((pageNum) => (
+                                                <button
+                                                    key={pageNum}
+                                                    onClick={() => setCurrentPage(pageNum)}
+                                                    className={cn(
+                                                        "w-10 h-10 rounded-xl text-xs font-bold transition-all",
+                                                        currentPage === pageNum 
+                                                            ? "bg-brand text-white shadow-lg shadow-brand/20" 
+                                                            : "text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5"
+                                                    )}
+                                                >
+                                                    {pageNum}
+                                                </button>
+                                            ))}
+                                        </div>
+
+                                        <button
+                                            onClick={() => setCurrentPage(prev => Math.min(paginationData.totalPages, prev + 1))}
+                                            disabled={currentPage === paginationData.totalPages}
+                                            className="px-6 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 text-xs font-bold uppercase tracking-widest disabled:opacity-30 disabled:cursor-not-allowed hover:bg-slate-50 dark:hover:bg-white/5 transition-all"
+                                        >
+                                            Next
+                                        </button>
+                                    </div>
+                                    
+                                    <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">
+                                        Page {currentPage} of {paginationData.totalPages} • Total {paginationData.totalAssets} GTM Assets
+                                    </p>
+                                </div>
+                            )}
+                        </>
+                    )}
                 </div>
             </div>
         </main>
