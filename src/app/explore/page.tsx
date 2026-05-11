@@ -23,6 +23,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { useAuth } from '@/lib/AuthContext';
+import { useRouter } from 'next/navigation';
+import { ArrowRight as SearchArrow } from 'lucide-react';
 
 function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
@@ -48,7 +51,38 @@ export default function ExploreGTM() {
     const [assets, setAssets] = useState<GTMAsset[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
+    const [searchInput, setSearchInput] = useState('');
     const [searchImagePreview, setSearchImagePreview] = useState<string | null>(null);
+    const { user, loading: authLoading } = useAuth();
+    const router = useRouter();
+
+    const loadingTexts = [
+        'Searching database...',
+        'Fetching results...',
+        'Analyzing GTM Knowledge...',
+        'Extracting insights...',
+        'Running AI verification...'
+    ];
+    const [loadingTextIndex, setLoadingTextIndex] = useState(0);
+
+    useEffect(() => {
+        let interval: NodeJS.Timeout;
+        if (loading || isSearching || isVisualSearching) {
+            interval = setInterval(() => {
+                setLoadingTextIndex(prev => (prev + 1) % loadingTexts.length);
+            }, 1500);
+        } else {
+            setLoadingTextIndex(0);
+        }
+        return () => clearInterval(interval);
+    }, [loading, isSearching, isVisualSearching]);
+
+    // Redirect to login if not authenticated
+    useEffect(() => {
+        if (!authLoading && !user) {
+            router.push('/login');
+        }
+    }, [user, authLoading, router]);
 
     const [currentPage, setCurrentPage] = useState(1);
     const [paginationData, setPaginationData] = useState<{
@@ -57,12 +91,17 @@ export default function ExploreGTM() {
         pageSize: number;
     } | null>(null);
 
+    const [selectedType, setSelectedType] = useState<'All' | 'PDF' | 'PPT' | 'Word' | 'Video' | 'Audio'>('All');
+    const [selectedCategory, setSelectedCategory] = useState<string>('All');
+
     const handleClearSearch = () => {
         setSearchQuery('');
+        setSearchInput('');
         setSearchImagePreview(null);
         setIsSearching(false);
         setIsVisualSearching(false);
         setCurrentPage(1);
+        fetchAssets('', 1);
     };
 
     const handleDelete = async (id: string) => {
@@ -98,6 +137,7 @@ export default function ExploreGTM() {
         setIsVisualSearching(true);
         setLoading(true);
         setSearchQuery(''); // Clear text search
+        setSearchInput('');
         setCurrentPage(1);
 
         const formData = new FormData();
@@ -139,65 +179,54 @@ export default function ExploreGTM() {
         }
     };
 
-    useEffect(() => {
-        if (isVisualSearching || searchImagePreview) return; // Skip text search if visual is active
-
-        const isSemantic = searchQuery.trim().length > 2;
-        let isCancelled = false;
+    const fetchAssets = async (queryOverride?: string, pageOverride?: number) => {
+        const query = queryOverride !== undefined ? queryOverride : searchInput;
+        const page = pageOverride !== undefined ? pageOverride : currentPage;
+        const isSemantic = query.trim().length > 2;
 
         if (isSemantic) {
             setIsSearching(true);
             setAssets([]); // Clear previous results immediately
-        } else if (searchQuery.trim().length === 0) {
-            // If query is cleared, we show all assets again
+        } else if (query.trim().length === 0) {
             setIsSearching(false);
         }
 
-        const fetchAssets = async () => {
-            setLoading(true);
-            try {
-                const url = isSemantic
-                    ? `/api/assets?q=${encodeURIComponent(searchQuery)}`
-                    : `/api/assets?page=${currentPage}&limit=12`;
+        setLoading(true);
+        try {
+            const url = isSemantic
+                ? `/api/assets?q=${encodeURIComponent(query)}`
+                : `/api/assets?page=${page}&limit=12`;
 
-                const res = await fetch(url);
-                if (!res.ok) throw new Error('Failed to fetch assets');
-                const data = await res.json();
+            const res = await fetch(url);
+            if (!res.ok) throw new Error('Failed to fetch assets');
+            const data = await res.json();
 
-                if (!isCancelled) {
-                    setAssets(data.assets || []);
-                    setPaginationData(data.pagination || null);
-                }
-            } catch (err) {
-                if (!isCancelled) console.error(err);
-            } finally {
-                if (!isCancelled) {
-                    setLoading(false);
-                    setIsSearching(false);
-                }
-            }
-        };
+            setAssets(data.assets || []);
+            setPaginationData(data.pagination || null);
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setLoading(false);
+            setIsSearching(false);
+        }
+    };
 
-        const timer = setTimeout(() => {
-            fetchAssets();
-        }, 500);
-
-        return () => {
-            isCancelled = true;
-            clearTimeout(timer);
-        };
-    }, [searchQuery, isVisualSearching, searchImagePreview, currentPage]);
-
-    const [selectedType, setSelectedType] = useState<'All' | 'PDF' | 'PPT' | 'Word' | 'Video' | 'Audio'>('All');
-    
-    // Reset to page 1 when type changes
+    // Initial fetch and pagination
     useEffect(() => {
-        setCurrentPage(1);
-    }, [selectedType]);
+        if (!isVisualSearching && !searchImagePreview && searchQuery.trim().length === 0) {
+            fetchAssets();
+        }
+    }, [currentPage]);
+
+
+
+    const handleManualSearch = () => {
+        if (isVisualSearching || searchImagePreview) return;
+        setSearchQuery(searchInput); // Update the query used for filtering
+        fetchAssets(searchInput);
+    };
 
     const categories: ('All' | 'PDF' | 'PPT' | 'Word' | 'Video' | 'Audio')[] = ['All', 'PDF', 'Video', 'Audio', 'Word', 'PPT'];
-
-    const [selectedCategory, setSelectedCategory] = useState<string>('All');
 
     const categoriesList = ['All', ...Array.from(new Set(assets.map(a => a.category).filter(Boolean))) as string[]];
 
@@ -238,6 +267,16 @@ export default function ExploreGTM() {
         }
     };
 
+    if (authLoading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-[#020617]">
+                <Loader2 className="w-8 h-8 text-brand animate-spin" />
+            </div>
+        );
+    }
+
+    if (!user) return null;
+
     return (
         <main className="min-h-screen bg-white dark:bg-[#020617] text-slate-900 dark:text-white transition-colors duration-300">
             <Header />
@@ -273,18 +312,24 @@ export default function ExploreGTM() {
                                 isMultiLine ? "top-8" : "top-1/2 -translate-y-1/2"
                             )} />
                             
-                            <textarea
-                                placeholder={searchImagePreview ? "Searching by image..." : "Search by text or upload slide..."}
-                                className={cn(
-                                    "w-full bg-transparent text-lg outline-none resize-none overflow-hidden transition-all",
-                                    searchImagePreview ? "pl-28" : "pl-16",
-                                    isMultiLine ? "py-7 pr-36 h-40" : "py-6 pr-36 h-[72px] leading-[24px]"
-                                )}
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                disabled={!!searchImagePreview}
-                                rows={isMultiLine ? 5 : 1}
-                            />
+                                <textarea
+                                    placeholder={searchImagePreview ? "Searching by image..." : "Search by text or upload slide..."}
+                                    className={cn(
+                                        "w-full bg-transparent text-lg outline-none resize-none overflow-hidden transition-all",
+                                        searchImagePreview ? "pl-28" : "pl-16",
+                                        isMultiLine ? "py-7 pr-44 h-40" : "py-6 pr-44 h-[72px] leading-[24px]"
+                                    )}
+                                    value={searchInput}
+                                    onChange={(e) => setSearchInput(e.target.value)}
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter' && !e.shiftKey) {
+                                            e.preventDefault();
+                                            handleManualSearch();
+                                        }
+                                    }}
+                                    disabled={!!searchImagePreview}
+                                    rows={isMultiLine ? 5 : 1}
+                                />
 
                             {/* Image Search Preview */}
                             {searchImagePreview && (
@@ -297,9 +342,19 @@ export default function ExploreGTM() {
                             )}
 
                             <div className={cn(
-                                "absolute right-6 flex items-center gap-2",
+                                "absolute right-3 flex items-center gap-2",
                                 isMultiLine ? "top-7" : "top-1/2 -translate-y-1/2"
                             )}>
+                                <button 
+                                    onClick={handleManualSearch}
+                                    className="p-2 bg-brand hover:bg-brand-dark text-white rounded-xl transition-all shadow-lg shadow-brand/20 group-hover:scale-105 active:scale-95 flex items-center justify-center"
+                                    title="Search"
+                                >
+                                    <SearchArrow className="w-4 h-4" />
+                                </button>
+
+                                <div className="w-px h-6 bg-slate-200 dark:bg-white/10 mx-1" />
+
                                 <button 
                                     onClick={() => setIsMultiLine(!isMultiLine)}
                                     className={cn(
@@ -389,8 +444,8 @@ export default function ExploreGTM() {
                                     <div className="w-8 h-8 bg-brand/10 rounded-full animate-pulse" />
                                 </div>
                             </div>
-                            <p className="text-slate-500 font-bold uppercase tracking-[0.2em] text-xs">
-                                {isSearching ? 'Analyzing GTM Knowledge...' : 'Accessing GTM Intelligence...'}
+                            <p className="text-slate-500 font-bold uppercase tracking-[0.2em] text-xs animate-pulse">
+                                {loadingTexts[loadingTextIndex]}
                             </p>
                         </div>
                     ) : (
@@ -400,7 +455,8 @@ export default function ExploreGTM() {
                                     {filteredAssets.map((asset) => (
                                         <div
                                             key={`${asset.type}-${asset.id}`}
-                                            className="group flex flex-col bg-white dark:bg-slate-900/50 rounded-3xl overflow-hidden border border-slate-100 dark:border-white/5 hover:border-brand/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand/10"
+                                            onClick={() => window.open(asset.url, '_blank')}
+                                            className="group flex flex-col bg-white dark:bg-slate-900/50 rounded-3xl overflow-hidden border border-slate-100 dark:border-white/5 hover:border-brand/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand/10 cursor-pointer"
                                         >
                                             {/* Card Header (Image/Icon Placeholder) */}
                                             <div className="relative aspect-[16/10] bg-slate-100 dark:bg-slate-800 flex items-center justify-center overflow-hidden">
@@ -487,15 +543,10 @@ export default function ExploreGTM() {
                                                         <span>{new Date(asset.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
                                                     </div>
 
-                                                    <a
-                                                        href={asset.url}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className="inline-flex items-center gap-2 text-slate-900 dark:text-white font-black text-[11px] uppercase tracking-widest group/link border-b-2 border-brand pb-1 w-fit hover:border-brand-dark transition-all"
-                                                    >
+                                                    <div className="inline-flex items-center gap-2 text-slate-900 dark:text-white font-black text-[11px] uppercase tracking-widest group/link border-b-2 border-brand pb-1 w-fit hover:border-brand-dark transition-all">
                                                         <span>Read More</span>
                                                         <ExternalLink className="w-3 h-3 group-hover/link:translate-x-1 group-hover/link:-translate-y-1 transition-transform" />
-                                                    </a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

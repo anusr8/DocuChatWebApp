@@ -17,87 +17,108 @@ export async function POST(req: NextRequest) {
         const queryEmbedding = await getEmbedding(message);
         console.log(`[Chat] Embedding generated (${Date.now() - startTime}ms)`);
         
-        // 1. Initial Vector Search
+        // 1. Dual Vector Search + Keyword Fallback
         let candidates: any[] = [];
         try {
-            const snapshot = await adminDb.collection('gtm_assets')
-                .findNearest('embedding', FieldValue.vector(queryEmbedding), {
-                    limit: 8,
-                    distanceMeasure: 'COSINE',
-                    distanceResultField: 'distance'
-                } as any)
-                .get();
+            // A. Vector searches in parallel
+            const [contentSnapshot, metadataSnapshot, allSnapshot] = await Promise.all([
+                adminDb.collection('gtm_assets')
+                    .findNearest('embedding', FieldValue.vector(queryEmbedding), {
+                        limit: 5, distanceMeasure: 'COSINE', distanceResultField: 'distance'
+                    } as any).get(),
+                adminDb.collection('gtm_assets')
+                    .findNearest('metadata_embedding', FieldValue.vector(queryEmbedding), {
+                        limit: 5, distanceMeasure: 'COSINE', distanceResultField: 'distance'
+                    } as any).get(),
+                adminDb.collection('gtm_assets').limit(100).get() // For keyword fallback
+            ]);
 
-            candidates = snapshot.docs
-                .map((doc: any) => {
-                    const data = doc.data();
-                    const rawDistance = doc.get('distance') ?? 
-                                       data.distance ?? 
-                                       doc.get('vectorDistance') ?? 
-                                       data.vectorDistance ??
-                                       doc.get('__distance__') ?? 
-                                       data.__distance__ ??
-                                       doc.get('vector_distance') ?? 
-                                       data.vector_distance;
-
-                    // Fallback: If distance is missing, assume neutral relevance (0.4)
-                    const distValue = typeof rawDistance === 'number' ? rawDistance : 0.4;
-
-                    return {
+            // B. Process vector results
+            const vectorDocs = new Map();
+            [...contentSnapshot.docs, ...metadataSnapshot.docs].forEach((doc: any) => {
+                const data = doc.data();
+                const dist = doc.get('distance') ?? data.distance ?? 0.4;
+                const existing = vectorDocs.get(doc.id);
+                if (!existing || dist < existing.rawDistance) {
+                    vectorDocs.set(doc.id, {
                         id: doc.id,
                         ...data,
-                        similarity: 1 - distValue,
-                        rawDistance: distValue
-                    };
-                })
-                .filter((c: any) => c.rawDistance <= 0.65);
+                        rawDistance: dist,
+                        similarity: 1 - dist,
+                        matchType: 'vector'
+                    });
+                }
+            });
+
+            // C. Keyword fallback
+            const messageLower = message.toLowerCase();
+            const keywordDocs = allSnapshot.docs
+                .map((doc: any) => ({ id: doc.id, ...doc.data() }))
+                .filter((doc: any) => 
+                    doc.name.toLowerCase().includes(messageLower) || 
+                    (doc.summary || '').toLowerCase().includes(messageLower)
+                )
+                .map((doc: any) => ({
+                    ...doc,
+                    rawDistance: 0.1, // High priority for keyword matches
+                    similarity: 0.9,
+                    matchType: 'keyword'
+                }));
+
+            // D. Merge
+            const mergedMap = new Map(vectorDocs);
+            keywordDocs.forEach((kd: any) => {
+                if (!mergedMap.has(kd.id)) mergedMap.set(kd.id, kd);
+            });
+
+            candidates = Array.from(mergedMap.values())
+                .filter((c: any) => c.rawDistance <= 0.7) // Slightly more relaxed
+                .sort((a, b) => a.rawDistance - b.rawDistance);
+
         } catch (searchError: any) {
-            console.error('[Chat] Vector Search Error:', searchError);
+            console.error('[Chat] Search Error:', searchError);
             throw searchError;
         }
 
-        console.log(`[Chat] Vector search found ${candidates.length} candidates (${Date.now() - startTime}ms)`);
+        console.log(`[Chat] Search found ${candidates.length} candidates (${Date.now() - startTime}ms)`);
 
-        if (candidates.length === 0) {
-            return NextResponse.json({
-                answer: "I'm sorry, I couldn't find any relevant documents in the GTM library to answer that.",
-                recommendations: []
-            });
-        }
-
-        // 2. Focused AI Verification (The "Auditor" Step)
+        // 2. AI Verification (More balanced)
         let verifiedDocs = candidates;
-        const verificationPrompt = `As a strict Search Auditor, evaluate these documents for the query: "${message}"
-Return ONLY IDs that directly and specifically answer the query. 
-If a document is only tangentially related, EXCLUDE it.
+        if (candidates.length > 0) {
+            const verificationPrompt = `As a GTM Search Assistant, evaluate these documents for the query: "${message}"
+Return the IDs of documents that are RELEVANT and can help provide an answer. 
+Include documents that provide context, even if they aren't a perfect match.
 
 Documents:
 ${candidates.map((c: any) => `ID: ${c.id} | Name: ${c.name} | Summary: ${c.summary}`).join('\n')}
 
 Response Format: ["id1", "id2", ...]
-If none are strictly relevant, respond with [].`;
+If none are relevant, respond with [].`;
 
-        try {
-            const aiVerifyResult = await generativeModel.generateContent(verificationPrompt);
-            const aiVerifyText = aiVerifyResult.response.candidates?.[0]?.content?.parts?.[0]?.text || '[]';
-            const verifiedIdsMatch = aiVerifyText.match(/\[.*\]/);
-            const verifiedIds = verifiedIdsMatch ? JSON.parse(verifiedIdsMatch[0]) : [];
-            
-            if (verifiedIds.length > 0) {
-                verifiedDocs = candidates.filter(c => verifiedIds.includes(c.id));
-            } else {
-                // If AI finds nothing, we are very strict and only keep the single best match IF it has high confidence
-                verifiedDocs = candidates[0].rawDistance <= 0.3 ? [candidates[0]] : [];
+            try {
+                const aiVerifyResult = await generativeModel.generateContent(verificationPrompt);
+                const aiVerifyText = aiVerifyResult.response.candidates?.[0]?.content?.parts?.[0]?.text || '[]';
+                const verifiedIdsMatch = aiVerifyText.match(/\[.*\]/);
+                const verifiedIds = verifiedIdsMatch ? JSON.parse(verifiedIdsMatch[0]) : [];
+                
+                if (verifiedIds.length > 0) {
+                    verifiedDocs = candidates.filter(c => verifiedIds.includes(c.id));
+                } else {
+                    // Fallback to top 2 if they are reasonably close
+                    verifiedDocs = candidates.filter(c => c.rawDistance <= 0.45).slice(0, 2);
+                }
+            } catch (pErr) {
+                console.error('[Chat] AI Verification Error, using top candidates');
+                verifiedDocs = candidates.slice(0, 2);
             }
-        } catch (pErr) {
-            console.error('[Chat] AI Verification Error, falling back to top candidates');
-            verifiedDocs = candidates.slice(0, 1);
         }
 
         // 3. Construct Context for LLM Answer
-        const context = verifiedDocs.slice(0, 5).map((doc: any) =>
-            `---\n[Source: ${doc.type} - ${doc.name}]\nSummary: ${doc.summary || 'N/A'}\nContent: ${doc.content}\n---`
-        ).join('\n\n');
+        const context = verifiedDocs.length > 0 
+            ? verifiedDocs.slice(0, 5).map((doc: any) =>
+                `---\n[Source: ${doc.type} - ${doc.name}]\nSummary: ${doc.summary || 'N/A'}\nContent: ${doc.content || 'No detailed content available'}\n---`
+            ).join('\n\n')
+            : 'NO ASSETS FOUND IN THE KNOWLEDGE BASE.';
 
         const recommendations = verifiedDocs.slice(0, 3).map((doc: any) => ({
             id: doc.id,
@@ -107,12 +128,29 @@ If none are strictly relevant, respond with [].`;
             similarity: doc.similarity
         }));
 
-        const prompt = `You are a specialized GTM (Go-To-Market) Assistant.\n\nContext:\n${context || 'NO ASSETS FOUND'}\n\nUser Query: ${message}`;
+        const prompt = `You are a specialized GTM (Go-To-Market) Assistant.
+Use the provided context to answer the user's query. 
+
+GUIDELINES for an Ultra-Clean Response:
+1. MINIMALISM: Provide extremely short summaries (max 1-2 sentences per document).
+2. CLEAN FORMATTING: Do NOT use markdown headers (###). Use a simple numbered list (1, 2, 3).
+3. BOLDING: Bold ONLY the Document/Product name. Do NOT bold labels like "Key Benefit:".
+4. NO SYMBOLS: Avoid excessive asterisks or symbols. Keep it looking like a clean message.
+5. NO BOILERPLATE: Skip all metadata and contact info.
+
+Context:
+${context}
+
+User Query: ${message}`;
+
+
 
         const chatResponse = await generativeModel.generateContent(prompt);
-        const answer = chatResponse.response.candidates?.[0]?.content?.parts?.[0]?.text || "I'm sorry, I couldn't find a clear answer.";
+        const answer = chatResponse.response.candidates?.[0]?.content?.parts?.[0]?.text || "I'm sorry, I couldn't generate a response.";
+
 
         console.log(`[Chat] Completed in ${Date.now() - startTime}ms`);
+
 
         return NextResponse.json({
             answer,

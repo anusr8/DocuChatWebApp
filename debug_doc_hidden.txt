@@ -1,0 +1,210 @@
+QueryDocumentSnapshot {
+  _fieldsProto: {
+    content: {
+      stringValue: 'Cybersecurity Best Practices for Employees\n' +
+        '10xDS\n' +
+        '---\n' +
+        'Password Hygiene\n' +
+        '• Use strong, unique passwords\n' +
+        '• Change passwords regularly\n' +
+        '• Use a password manager\n' +
+        '10xDS\n' +
+        '---\n' +
+        'Phishing Awareness\n' +
+        '• Be cautious of suspicious emails\n' +
+        '• Do not click on unknown links\n' +
+        '• Verify sender information\n' +
+        '10xDS\n' +
+        '---\n' +
+        'Secure Browsing\n' +
+        '• Use secure (HTTPS) websites\n' +
+        '• Avoid downloading from untrusted sources\n' +
+        '• Keep browser updated\n' +
+        '10xDS\n' +
+        '---\n' +
+        'Device Security\n' +
+        '• Lock devices when not in use\n' +
+        '• Install antivirus software\n' +
+        '• Keep operating systems updated\n' +
+        '10xDS\n' +
+        '---\n' +
+        'Reporting Incidents\n' +
+        '• Report suspicious activity immediately\n' +
+        '• Follow company protocols\n' +
+        '• Contact IT support for help\n' +
+        '10xDS\n',
+      valueType: 'stringValue'
+    },
+    summary: {
+      stringValue: "This comprehensive guide from 10xDS outlines essential cybersecurity best practices for employees, designed to significantly enhance organizational security and mitigate digital risks across the enterprise. It provides actionable advice across several critical domains, starting with robust Password Hygiene, which emphasizes creating strong, unique credentials, regular password changes, and leveraging password managers for efficiency and security. Phishing Awareness is another cornerstone, educating employees to identify and cautiously handle suspicious emails, avoid clicking unknown links, and diligently verify sender identities. The document also details Secure Browsing habits, advocating for the exclusive use of HTTPS websites, avoiding downloads from untrusted sources, and regularly updating web browsers. Furthermore, crucial Device Security measures are highlighted, including the imperative to lock devices when unattended, install and maintain antivirus software, and keep operating systems current. Finally, it establishes clear protocols for Reporting Incidents, underscoring the importance of immediately flagging suspicious activity, adhering to company guidelines, and promptly contacting IT support. This strategy empowers every employee to be an active participant in protecting sensitive data and systems, thereby fortifying the company's overall cybersecurity posture.",
+      valueType: 'stringValue'
+    },
+    embedding: { mapValue: { fields: [Object] }, valueType: 'mapValue' },
+    metadata_embedding: { mapValue: { fields: [Object] }, valueType: 'mapValue' },
+    name: {
+      stringValue: 'Cybersecurity_Best_Practices_10xDS.pptx',
+      valueType: 'stringValue'
+    },
+    url: {
+      stringValue: 'https://storage.googleapis.com/tenxds-agents-idp-docuchat/gtm-assets/1773728598301-Cybersecurity_Best_Practices_10xDS.pptx',
+      valueType: 'stringValue'
+    },
+    category: { stringValue: 'Technical', valueType: 'stringValue' },
+    tags: { arrayValue: { values: [Array] }, valueType: 'arrayValue' },
+    thumbnail_url: {
+      stringValue: 'https://storage.googleapis.com/tenxds-agents-idp-docuchat/gtm-assets/thumbnails/thumb-1773728600256-Cybersecurity_Best_Practices_10xDS.jpg',
+      valueType: 'stringValue'
+    },
+    type: { stringValue: 'PPT', valueType: 'stringValue' },
+    created_at: {
+      timestampValue: { seconds: '1773728574', nanos: 506000000 },
+      valueType: 'timestampValue'
+    }
+  },
+  _ref: DocumentReference {
+    _firestore: Firestore {
+      _settings: {
+        credentials: [Object],
+        projectId: 'tenxds-agents-idp',
+        firebaseVersion: '13.7.0',
+        firebaseAdminVersion: '13.7.0',
+        preferRest: undefined,
+        databaseId: '(default)',
+        libName: 'gccl',
+        libVersion: '7.11.6 fire/13.7.0 fire-admin/13.7.0',
+        toJSON: [Function]
+      },
+      _settingsFrozen: true,
+      _serializer: Serializer {
+        createReference: [Function],
+        createInteger: [Function],
+        allowUndefined: false
+      },
+      _projectId: 'tenxds-agents-idp',
+      _databaseId: '(default)',
+      registeredListenersCount: 0,
+      bulkWritersCount: 0,
+      _traceUtil: EnabledTraceUtil {
+        tracerProvider: ProxyTracerProvider {},
+        tracer: [ProxyTracer],
+        settingsAttributes: [Object]
+      },
+      _backoffSettings: { initialDelayMs: 100, maxDelayMs: 60000, backoffFactor: 1.3 },
+      _clientPool: ClientPool {
+        concurrentOperationLimit: 100,
+        maxIdleClients: 1,
+        clientFactory: [Function],
+        clientDestructor: [Function],
+        grpcEnabled: false,
+        activeClients: [Map],
+        failedClients: Set(0) {},
+        clientIdByClient: [WeakMap],
+        terminated: false,
+        terminateDeferred: [Deferred],
+        instanceId: 'cplZgoDx',
+        lazyLogStringForAllClientIds: [LazyLogStringForAllClientIds],
+        [size]: [Getter],
+        [opCount]: [Getter],
+        [_activeClients]: [Getter]
+      },
+      _gax: {
+        [__esModule]: true,
+        GoogleAuth: [Getter],
+        grpc: [Object],
+        OngoingCall: [Getter],
+        createApiCall: [Getter],
+        BundleDescriptor: [Getter],
+        LongrunningDescriptor: [Getter],
+        PageDescriptor: [Getter],
+        StreamDescriptor: [Getter],
+        CallSettings: [Getter],
+        constructSettings: [Getter],
+        RetryOptions: [Getter],
+        createRetryOptions: [Getter],
+        createBundleOptions: [Getter],
+        createBackoffSettings: [Getter],
+        createDefaultBackoffSettings: [Getter],
+        createMaxRetriesBackoffSettings: [Getter],
+        GoogleError: [Getter],
+        ClientStub: [Getter],
+        GoogleProtoFilesRoot: [Getter],
+        GrpcClient: [Getter],
+        Operation: [Getter],
+        operation: [Getter],
+        PathTemplate: [Getter],
+        Status: [Getter],
+        StreamType: [Getter],
+        routingHeader: [Object],
+        operationsProtos: [Object],
+        IamProtos: [Object],
+        LocationProtos: [Object],
+        OperationsClient: [Getter],
+        IamClient: [Getter],
+        LocationsClient: [Getter],
+        createByteLengthFunction: [Function],
+        version: '4.6.1',
+        protobuf: [Object],
+        protobufMinimal: [Object],
+        fallback: [Object],
+        makeUUID: [Getter],
+        ChannelCredentials: [Getter],
+        warn: [Getter],
+        serializer: [Object],
+        lro: [Function]
+      },
+      [projectId]: [Getter],
+      [databaseId]: [Getter],
+      [formattedName]: [Getter]
+    },
+    _path: QualifiedResourcePath {
+      segments: [ 'gtm_assets', 'cqiIkKXpebDkrAeCLlnw', [length]: 2 ],
+      projectId: 'tenxds-agents-idp',
+      databaseId: '(default)',
+      [relativeName]: [Getter],
+      [formattedName]: [Getter],
+      [isDocument]: [Getter],
+      [isCollection]: [Getter],
+      [id]: [Getter],
+      [size]: [Getter]
+    },
+    _converter: {
+      toFirestore: [Function: toFirestore] { [length]: 1, [name]: 'toFirestore' },
+      fromFirestore: [Function: fromFirestore] { [length]: 1, [name]: 'fromFirestore' }
+    },
+    [formattedName]: [Getter],
+    [firestore]: [Getter],
+    [path]: [Getter],
+    [id]: [Getter],
+    [_resourcePath]: [Getter],
+    [parent]: [Getter]
+  },
+  _serializer: Serializer {
+    createReference: [Function (anonymous)] { [length]: 1, [name]: '' },
+    createInteger: [Function (anonymous)] { [length]: 1, [name]: '' },
+    allowUndefined: false
+  },
+  _readTime: Timestamp {
+    _seconds: 1778127499,
+    _nanoseconds: 490397000,
+    [seconds]: [Getter],
+    [nanoseconds]: [Getter]
+  },
+  _createTime: Timestamp {
+    _seconds: 1773728574,
+    _nanoseconds: 552621000,
+    [seconds]: [Getter],
+    [nanoseconds]: [Getter]
+  },
+  _updateTime: Timestamp {
+    _seconds: 1773728574,
+    _nanoseconds: 552621000,
+    [seconds]: [Getter],
+    [nanoseconds]: [Getter]
+  },
+  [createTime]: [Getter],
+  [updateTime]: [Getter],
+  [exists]: [Getter],
+  [ref]: [Getter],
+  [id]: [Getter],
+  [readTime]: [Getter]
+}
