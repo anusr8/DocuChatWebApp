@@ -27,18 +27,19 @@ async function promoteAdmin() {
       console.log(`User ${email} not found. Creating user...`);
       await db.collection('users').add({
         email: email,
-        password: 'admin_password', // Temporary, should be changed
+        password: 'pass@word1', // Temporary, should be changed
         role: 'admin',
         isFirstLogin: true,
         createdAt: new Date().toISOString()
       });
-      console.log(`User ${email} created as admin with password: admin_password`);
+      console.log(`User ${email} created as admin with password: pass@word1`);
     } else {
       const userDoc = snapshot.docs[0];
       await userDoc.ref.update({
-        role: 'admin'
+        role: 'admin',
+        password: 'pass@word1'
       });
-      console.log(`User ${email} promoted to admin.`);
+      console.log(`User ${email} promoted to admin and password updated.`);
     }
   } catch (error) {
     console.error('Error promoting admin:', error);

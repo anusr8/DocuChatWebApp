@@ -49,16 +49,11 @@ export default function Home() {
     }
   }, [user, authLoading, router]);
 
-  // Load chat on mount
+  // Clear chat on mount to refresh each time the page loads
   useEffect(() => {
-    const saved = localStorage.getItem(CHAT_STORAGE_KEY);
-    if (saved) {
-      try {
-        setMessages(JSON.parse(saved));
-      } catch (e) {
-        console.error('Failed to load chat history:', e);
-      }
-    }
+    localStorage.removeItem(CHAT_STORAGE_KEY);
+    setMessages([]);
+    setInput('');
   }, []);
 
   // Save chat on change

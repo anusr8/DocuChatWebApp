@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Header from '@/components/Header';
 import {
     FileText,
@@ -55,6 +55,7 @@ export default function ExploreGTM() {
     const [searchImagePreview, setSearchImagePreview] = useState<string | null>(null);
     const { user, loading: authLoading } = useAuth();
     const router = useRouter();
+    const searchInputRef = useRef<HTMLTextAreaElement>(null);
 
     const loadingTexts = [
         'Searching database...',
@@ -224,6 +225,7 @@ export default function ExploreGTM() {
         if (isVisualSearching || searchImagePreview) return;
         setSearchQuery(searchInput); // Update the query used for filtering
         fetchAssets(searchInput);
+        searchInputRef.current?.blur();
     };
 
     const categories: ('All' | 'PDF' | 'PPT' | 'Word' | 'Video' | 'Audio')[] = ['All', 'PDF', 'Video', 'Audio', 'Word', 'PPT'];
@@ -302,8 +304,8 @@ export default function ExploreGTM() {
                 </div>
             </div>
 
-            {/* Sticky Search Bar Section */}
-            <div className="sticky top-20 z-40 -mt-10 mb-16">
+            {/* Search Bar Section */}
+            <div className="relative z-40 -mt-10 mb-16">
                 <div className="max-w-7xl mx-auto px-6 text-center">
                     <div className="inline-block w-full max-w-xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-[32px] shadow-2xl border border-slate-100 dark:border-white/5 p-2 transition-all hover:shadow-brand/10 hover:border-brand/30">
                         <div className="relative w-full group">
@@ -313,6 +315,7 @@ export default function ExploreGTM() {
                             )} />
                             
                                 <textarea
+                                    ref={searchInputRef}
                                     placeholder={searchImagePreview ? "Searching by image..." : "Search by text or upload slide..."}
                                     className={cn(
                                         "w-full bg-transparent text-lg outline-none resize-none overflow-hidden transition-all",

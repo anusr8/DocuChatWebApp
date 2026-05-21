@@ -18,6 +18,7 @@ import {
   Ban,
   RefreshCw,
   Eye,
+  EyeOff,
   X,
   CheckCircle2,
   CheckCircle,
@@ -40,6 +41,14 @@ export default function AdminUsersPage() {
   const [selectedUser, setSelectedUser] = useState<any>(null);
   const [isResetting, setIsResetting] = useState(false);
   const [newPass, setNewPass] = useState('');
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    if (!selectedUser) {
+      setShowPassword(false);
+    }
+  }, [selectedUser]);
 
   const passwordValidation = validatePassword(newPass);
   const isPasswordValid = passwordValidation.isValid;
@@ -161,11 +170,16 @@ export default function AdminUsersPage() {
     }
   };
 
-  const copyToClipboard = (text: string, label: string) => {
+  const copyToClipboard = (text: string, id: string) => {
     navigator.clipboard.writeText(text);
-    const originalSuccess = success;
-    setSuccess(`${label} copied to clipboard!`);
-    setTimeout(() => setSuccess(originalSuccess), 2000);
+    setCopiedId(id);
+    setTimeout(() => setCopiedId(null), 2000);
+  };
+
+  const maskPassword = (password: string) => {
+    if (!password) return '';
+    if (password.length <= 4) return '*'.repeat(password.length);
+    return '****' + password.slice(4);
   };
 
   const filteredUsers = users.filter(u => 
@@ -359,15 +373,28 @@ export default function AdminUsersPage() {
                           >
                             <Eye className="w-4 h-4" />
                           </button>
+                          <div className="relative inline-flex items-center">
+                            {copiedId === u.id && (
+                              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-green-500 text-white text-[10px] font-bold rounded shadow-lg whitespace-nowrap z-50 animate-in fade-in slide-in-from-bottom-1 duration-150">
+                                Credentials copied to clipboard!
+                                <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-green-500" />
+                              </div>
+                            )}
+                            <button 
+                              onClick={() => copyToClipboard(`${u.email} / ${u.password}`, u.id)}
+                              className="p-2 text-slate-400 hover:text-[#6E3C96] hover:bg-[#6E3C96]/10 rounded-lg transition-all"
+                              title="Copy Credentials"
+                            >
+                              <Copy className="w-4 h-4" />
+                            </button>
+                          </div>
                           <button 
-                            onClick={() => copyToClipboard(`${u.email} / ${u.password}`, 'Credentials')}
-                            className="p-2 text-slate-400 hover:text-[#6E3C96] hover:bg-[#6E3C96]/10 rounded-lg transition-all"
-                            title="Copy Credentials"
-                          >
-                            <Copy className="w-4 h-4" />
-                          </button>
-                          <button 
-                            onClick={() => handleUpdateStatus(u.id, 'block', !u.blocked)}
+                            onClick={() => {
+                              const actionText = u.blocked ? 'unblock' : 'block';
+                              if (window.confirm(`Are you sure you want to ${actionText} user ${u.email}?`)) {
+                                handleUpdateStatus(u.id, 'block', !u.blocked);
+                              }
+                            }}
                             className={`p-2 transition-all rounded-lg ${u.blocked ? 'text-red-500 bg-red-50' : 'text-slate-400 hover:text-red-500 hover:bg-red-50'}`}
                             title={u.blocked ? 'Unblock User' : 'Block User'}
                           >
@@ -448,13 +475,21 @@ export default function AdminUsersPage() {
               <div className="bg-slate-50 rounded-3xl p-6 border border-slate-100">
                 <div className="flex items-center justify-between mb-4">
                   <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">System Credentials</p>
-                  <button 
-                    onClick={() => copyToClipboard(`${selectedUser.email} / ${selectedUser.password}`, 'Credentials')}
-                    className="flex items-center gap-1.5 text-[10px] font-bold text-[#6E3C96] hover:underline"
-                  >
-                    <Copy className="w-3 h-3" />
-                    Copy
-                  </button>
+                  <div className="relative inline-flex items-center">
+                    {copiedId === 'modal' && (
+                      <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-green-500 text-white text-[10px] font-bold rounded shadow-lg whitespace-nowrap z-50 animate-in fade-in slide-in-from-bottom-1 duration-150">
+                        Credentials copied to clipboard!
+                        <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-green-500" />
+                      </div>
+                    )}
+                    <button 
+                      onClick={() => copyToClipboard(`${selectedUser.email} / ${selectedUser.password}`, 'modal')}
+                      className="flex items-center gap-1.5 text-[10px] font-bold text-[#6E3C96] hover:underline"
+                    >
+                      <Copy className="w-3 h-3" />
+                      Copy
+                    </button>
+                  </div>
                 </div>
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
@@ -463,7 +498,23 @@ export default function AdminUsersPage() {
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-medium text-slate-500">Password</span>
-                    <span className="text-xs font-mono font-bold text-slate-900 bg-white px-2 py-1 rounded border border-slate-100">{selectedUser.password}</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-mono font-bold text-slate-900 bg-white px-2 py-1 rounded border border-slate-100">
+                        {showPassword ? selectedUser.password : maskPassword(selectedUser.password)}
+                      </span>
+                      <button 
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="p-1 text-slate-400 hover:text-slate-600 rounded transition-colors"
+                        title={showPassword ? "Hide Password" : "Show Password"}
+                        type="button"
+                      >
+                        {showPassword ? (
+                          <EyeOff className="w-4 h-4" />
+                        ) : (
+                          <Eye className="w-4 h-4" />
+                        )}
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -532,7 +583,12 @@ export default function AdminUsersPage() {
                     Reset Password
                   </button>
                   <button 
-                    onClick={() => handleUpdateStatus(selectedUser.id, 'block', !selectedUser.blocked)}
+                    onClick={() => {
+                      const actionText = selectedUser.blocked ? 'unblock' : 'block';
+                      if (window.confirm(`Are you sure you want to ${actionText} user ${selectedUser.email}?`)) {
+                        handleUpdateStatus(selectedUser.id, 'block', !selectedUser.blocked);
+                      }
+                    }}
                     className={`flex-1 font-bold py-3.5 rounded-xl text-xs transition-colors flex items-center justify-center gap-2 ${selectedUser.blocked ? 'bg-green-500 text-white' : 'bg-red-50 text-red-500 border border-red-100'}`}
                   >
                     <Ban className="w-3.5 h-3.5" />
