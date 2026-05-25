@@ -14,8 +14,24 @@ export async function POST(req: NextRequest) {
         const startTime = Date.now();
         console.log(`[Chat] Request received: "${message.substring(0, 50)}..."`);
 
-        const queryEmbedding = await getEmbedding(message);
-        console.log(`[Chat] Embedding generated (${Date.now() - startTime}ms)`);
+        // Optimize/expand search query to handle acronyms (e.g. CV -> Computer Vision) and typos
+        let searchQuery = message;
+        try {
+            const intentPrompt = `You are a Search Intent Optimizer. Analyze the user's conversational message and extract a concise search query tailored for retrieving corporate GTM documents from a vector database. Expand all industry abbreviations/acronyms to their full names (e.g., expand "CV" to "Computer Vision", "NLP" to "Natural Language Processing", "RPA" to "Robotic Process Automation", "GenAI" to "Generative Artificial Intelligence"). Correct any spelling mistakes.
+User message: "${message}"
+Search Query:`;
+            const intentResult = await generativeModel.generateContent(intentPrompt);
+            const intentText = intentResult.response.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+            if (intentText && intentText.length > 0) {
+                searchQuery = intentText;
+                console.log(`[Chat] Expanded search query: "${searchQuery}"`);
+            }
+        } catch (intentErr) {
+            console.warn('[Chat] Intent extraction failed, using raw message:', intentErr);
+        }
+
+        const queryEmbedding = await getEmbedding(searchQuery);
+        console.log(`[Chat] Embedding generated using search query "${searchQuery.substring(0, 50)}..." (${Date.now() - startTime}ms)`);
         
         // 1. Dual Vector Search + Keyword Fallback
         let candidates: any[] = [];
@@ -52,11 +68,14 @@ export async function POST(req: NextRequest) {
 
             // C. Keyword fallback
             const messageLower = message.toLowerCase();
+            const searchQueryLower = searchQuery.toLowerCase();
             const keywordDocs = allSnapshot.docs
                 .map((doc: any) => ({ id: doc.id, ...doc.data() }))
                 .filter((doc: any) => 
                     doc.name.toLowerCase().includes(messageLower) || 
-                    (doc.summary || '').toLowerCase().includes(messageLower)
+                    (doc.summary || '').toLowerCase().includes(messageLower) ||
+                    doc.name.toLowerCase().includes(searchQueryLower) || 
+                    (doc.summary || '').toLowerCase().includes(searchQueryLower)
                 )
                 .map((doc: any) => ({
                     ...doc,
@@ -85,7 +104,7 @@ export async function POST(req: NextRequest) {
         // 2. AI Verification (More balanced)
         let verifiedDocs = candidates;
         if (candidates.length > 0) {
-            const verificationPrompt = `As a GTM Search Assistant, evaluate these documents for the query: "${message}"
+            const verificationPrompt = `As a GTM Search Assistant, evaluate these documents for the query: "${message}" (specifically looking for context around: "${searchQuery}")
 Return the IDs of documents that are RELEVANT and can help provide an answer. 
 Include documents that provide context, even if they aren't a perfect match.
 
