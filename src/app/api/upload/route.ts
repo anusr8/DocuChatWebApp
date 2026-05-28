@@ -17,70 +17,27 @@ async function ensureResourcesReady(projectId: string, bucketName: string) {
 }
 export async function POST(req: NextRequest) {
     try {
-        const formData = await req.formData();
-        const file = formData.get('file') as File | null;
-        const fileName = formData.get('fileName') as string;
-        const thumbnailFile = formData.get('thumbnail') as File | null;
-        const materialType = formData.get('materialType') as string;
+        const { storagePath, fileName, materialType, thumbnailPath } = await req.json();
 
-        if (!file || !fileName || !materialType) {
-            return NextResponse.json({ error: 'File, File Name and Material Type are required' }, { status: 400 });
+        if (!storagePath || !fileName || !materialType) {
+            return NextResponse.json({ error: 'Storage Path, File Name and Material Type are required' }, { status: 400 });
         }
 
         const bucketName = process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET || '';
         const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || '';
 
-        // 1. Server-Side Storage Upload via Streaming
-        console.log('[Upload] Starting server-side storage upload (Streaming) for:', fileName);
+        console.log('[Upload] Processing uploaded file:', fileName, 'at path:', storagePath);
         const bucket = adminStorage.bucket();
-        const storagePath = `gtm-assets/${Date.now()}-${fileName.replace(/\s+/g, '_')}`;
         const fileRef = bucket.file(storagePath);
-
-        try {
-            // Using streaming to avoid ENOBUFS/memory issues with large buffers
-            const stream = (file as any).stream();
-            const gcsStream = fileRef.createWriteStream({
-                metadata: { contentType: file.type || 'application/octet-stream' },
-                resumable: true
-            });
-
-            await new Promise((resolve, reject) => {
-                // @ts-ignore - Web Stream to Node Stream conversion helper
-                import('stream').then(m => {
-                    const { Readable } = m;
-                    Readable.from(stream).pipe(gcsStream)
-                        .on('finish', resolve)
-                        .on('error', (err: any) => {
-                            console.error('[Upload] Stream error:', err);
-                            reject(err);
-                        });
-                }).catch(reject);
-            });
-            
-            console.log('[Upload] Server-side storage upload successful:', storagePath);
-        } catch (uploadError: any) {
-            console.error('[Upload] Server-side storage upload failed:', uploadError);
-            return NextResponse.json({ error: `Storage upload failed: ${uploadError.message}` }, { status: 500 });
-        }
 
         const gsUri = `gs://${bucketName}/${storagePath}`;
         // Use the standard GCS public URL (works when file is public)
         const publicUrl = `https://storage.googleapis.com/${bucketName}/${storagePath}`;
 
-        // 2. Handle Thumbnail Upload
+        // 2. Handle Thumbnail URL
         let thumbnail_url = null;
-        if (thumbnailFile) {
-            const thumbnailName = `thumb-${Date.now()}-${fileName.split('.')[0]}.jpg`;
-            const thumbRef = bucket.file(`gtm-assets/thumbnails/${thumbnailName}`);
-            try {
-                const thumbBuffer = Buffer.from(await thumbnailFile.arrayBuffer());
-                await thumbRef.save(thumbBuffer, {
-                    metadata: { contentType: 'image/jpeg' }
-                });
-                thumbnail_url = `https://storage.googleapis.com/${bucketName}/${thumbRef.name}`;
-            } catch (thumbError) {
-                console.error('Thumbnail upload error', thumbError);
-            }
+        if (thumbnailPath) {
+            thumbnail_url = `https://storage.googleapis.com/${bucketName}/${thumbnailPath}`;
         }
 
         // 3. Extract Text & Generate Embedding

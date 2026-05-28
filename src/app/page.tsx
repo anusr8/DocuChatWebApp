@@ -18,10 +18,8 @@ import Header from '@/components/Header';
 import Script from 'next/script';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { useAuth } from '@/lib/AuthContext';
 import { useRouter } from 'next/navigation';
-import { storage } from '@/lib/firebase';
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -111,15 +109,9 @@ export default function Home() {
     setUploadProgress(0);
 
     try {
-      const formData = new FormData();
-      formData.append('file', selectedFile);
-      formData.append('fileName', selectedFile.name);
-      formData.append('materialType', materialType);
-
-      // 2. Generate thumbnail if applicable
+      // 1. Generate thumbnail if applicable (first, so we know if we have a thumbnail blob)
+      let thumbnailBlob: Blob | null = null;
       try {
-        let thumbnailBlob: Blob | null = null;
-
         if (materialType === 'pdf') {
           const pdfJS = (window as any).pdfjsLib;
           if (pdfJS) {
@@ -276,20 +268,36 @@ export default function Home() {
             thumbnailBlob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.8));
           }
         }
-
-        if (thumbnailBlob) {
-          formData.append('thumbnail', thumbnailBlob, 'thumbnail.jpg');
-        }
       } catch (thumbErr) {
         console.error('Thumbnail generation failed:', thumbErr);
       }
 
-      // 3. Upload via XHR to get progress tracking
-      console.log('[Upload] Uploading file and metadata to server...');
+      // 2. Request Presigned GCS upload URLs
+      console.log('[Upload] Requesting secure upload links from server...');
+      const presignRes = await fetch('/api/upload/presign', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fileName: selectedFile.name,
+          contentType: selectedFile.type || 'application/octet-stream',
+          hasThumbnail: !!thumbnailBlob
+        })
+      });
+
+      if (!presignRes.ok) {
+        const presignErrorData = await presignRes.json();
+        throw new Error(presignErrorData.error || 'Failed to generate secure upload links');
+      }
+
+      const { fileUploadUrl, storagePath, thumbnailUploadUrl, thumbnailPath } = await presignRes.json();
+
+      // 3. Upload the main file directly to GCS via XHR (with progress tracking)
+      console.log('[Upload] Uploading main file directly to storage...');
       await new Promise<void>((resolve, reject) => {
         const xhr = new XMLHttpRequest();
-        xhr.open('POST', '/api/upload', true);
-        
+        xhr.open('PUT', fileUploadUrl, true);
+        xhr.setRequestHeader('Content-Type', selectedFile.type || 'application/octet-stream');
+
         xhr.upload.onprogress = (event) => {
           if (event.lengthComputable) {
             const progress = (event.loaded / event.total) * 100;
@@ -301,21 +309,51 @@ export default function Home() {
           if (xhr.status >= 200 && xhr.status < 300) {
             resolve();
           } else {
-            let errorMsg = 'Upload failed';
-            try {
-              const res = JSON.parse(xhr.responseText);
-              errorMsg = res.error || errorMsg;
-            } catch (e) {}
-            reject(new Error(errorMsg));
+            reject(new Error(`Direct GCS upload failed with status: ${xhr.status}`));
           }
         };
 
         xhr.onerror = () => {
-          reject(new Error('Network error during upload'));
+          reject(new Error('Network error during direct upload'));
         };
 
-        xhr.send(formData);
+        xhr.send(selectedFile);
       });
+      console.log('[Upload] Main file uploaded successfully.');
+
+      // 4. Upload the thumbnail directly to GCS if applicable
+      if (thumbnailBlob && thumbnailUploadUrl) {
+        console.log('[Upload] Uploading thumbnail directly to storage...');
+        const thumbRes = await fetch(thumbnailUploadUrl, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'image/jpeg' },
+          body: thumbnailBlob
+        });
+
+        if (!thumbRes.ok) {
+          console.warn('[Upload] Thumbnail direct upload failed, continuing without thumbnail.');
+        } else {
+          console.log('[Upload] Thumbnail uploaded successfully.');
+        }
+      }
+
+      // 5. Tell the backend to index the uploaded file and generate AI metadata
+      console.log('[Upload] Submitting file for AI indexing and metadata extraction...');
+      const indexRes = await fetch('/api/upload', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          storagePath,
+          fileName: selectedFile.name,
+          materialType,
+          thumbnailPath: thumbnailBlob ? thumbnailPath : null
+        })
+      });
+
+      if (!indexRes.ok) {
+        const indexErrorData = await indexRes.json();
+        throw new Error(indexErrorData.error || 'Failed to index file details');
+      }
 
       setFile(null);
       alert('GTM Asset uploaded and indexed successfully!');
