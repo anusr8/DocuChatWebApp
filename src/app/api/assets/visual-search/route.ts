@@ -3,6 +3,8 @@ import { adminDb, adminStorage } from '@/lib/firebase-admin';
 import { FieldValue } from 'firebase-admin/firestore';
 import { getMultimodalEmbedding, generativeModel } from '@/lib/vertex';
 
+export const maxDuration = 300;
+
 export async function POST(req: NextRequest) {
     try {
         const formData = await req.formData();

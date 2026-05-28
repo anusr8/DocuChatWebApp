@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { adminDb, adminStorage } from '@/lib/firebase-admin';
 import { FieldValue } from 'firebase-admin/firestore';
 import { getEmbeddings, generativeModel, getMultimodalEmbedding } from '@/lib/vertex';
+
+export const maxDuration = 300;
+
 // Global cache for resource readiness
 let isResourcesReady = true;
 
@@ -27,7 +30,7 @@ export async function POST(req: NextRequest) {
         const bucketName = process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET || '';
         const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || '';
 
-        // --- NEW: Server-Side Storage Upload via Streaming ---
+        // 1. Server-Side Storage Upload via Streaming
         console.log('[Upload] Starting server-side storage upload (Streaming) for:', fileName);
         const bucket = adminStorage.bucket();
         const storagePath = `gtm-assets/${Date.now()}-${fileName.replace(/\s+/g, '_')}`;
@@ -64,9 +67,7 @@ export async function POST(req: NextRequest) {
         // Use the standard GCS public URL (works when file is public)
         const publicUrl = `https://storage.googleapis.com/${bucketName}/${storagePath}`;
 
-        // 2. Handle Thumbnail Upload (Already uploaded to Storage by client if we wanted, or kept as is)
-
-        // 2.1 Handle Thumbnail Upload
+        // 2. Handle Thumbnail Upload
         let thumbnail_url = null;
         if (thumbnailFile) {
             const thumbnailName = `thumb-${Date.now()}-${fileName.split('.')[0]}.jpg`;
@@ -76,7 +77,7 @@ export async function POST(req: NextRequest) {
                 await thumbRef.save(thumbBuffer, {
                     metadata: { contentType: 'image/jpeg' }
                 });
-                thumbnail_url = `https://storage.googleapis.com/${bucket.name}/${thumbRef.name}`;
+                thumbnail_url = `https://storage.googleapis.com/${bucketName}/${thumbRef.name}`;
             } catch (thumbError) {
                 console.error('Thumbnail upload error', thumbError);
             }

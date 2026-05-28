@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { adminDb } from '@/lib/firebase-admin';
 import { FieldValue } from 'firebase-admin/firestore';
 import { getEmbedding, generativeModel } from '@/lib/vertex';
+
+export const maxDuration = 60;
 function debugLog(msg: string) {
     if (process.env.NODE_ENV === 'development') {
         console.log(`[DEBUG] ${msg}`);

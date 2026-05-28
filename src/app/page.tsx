@@ -21,6 +21,7 @@ import { twMerge } from 'tailwind-merge';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { useAuth } from '@/lib/AuthContext';
 import { useRouter } from 'next/navigation';
+import { storage } from '@/lib/firebase';
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -109,15 +110,13 @@ export default function Home() {
     setUploading(true);
     setUploadProgress(0);
 
-    const formData = new FormData();
-    // --- We now send the raw file to the backend instead of uploading from client ---
     try {
+      const formData = new FormData();
       formData.append('file', selectedFile);
       formData.append('fileName', selectedFile.name);
       formData.append('materialType', materialType);
 
-      // (We skip downloadUrl generation here, the backend will return it after uploading)
-
+      // 2. Generate thumbnail if applicable
       try {
         let thumbnailBlob: Blob | null = null;
 
@@ -285,16 +284,38 @@ export default function Home() {
         console.error('Thumbnail generation failed:', thumbErr);
       }
 
-      // --- Metadata & Indexing API Call ---
-      const res = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData,
-      });
+      // 3. Upload via XHR to get progress tracking
+      console.log('[Upload] Uploading file and metadata to server...');
+      await new Promise<void>((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '/api/upload', true);
+        
+        xhr.upload.onprogress = (event) => {
+          if (event.lengthComputable) {
+            const progress = (event.loaded / event.total) * 100;
+            setUploadProgress(progress);
+          }
+        };
 
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || 'Metadata indexing failed');
-      }
+        xhr.onload = () => {
+          if (xhr.status >= 200 && xhr.status < 300) {
+            resolve();
+          } else {
+            let errorMsg = 'Upload failed';
+            try {
+              const res = JSON.parse(xhr.responseText);
+              errorMsg = res.error || errorMsg;
+            } catch (e) {}
+            reject(new Error(errorMsg));
+          }
+        };
+
+        xhr.onerror = () => {
+          reject(new Error('Network error during upload'));
+        };
+
+        xhr.send(formData);
+      });
 
       setFile(null);
       alert('GTM Asset uploaded and indexed successfully!');
