@@ -285,8 +285,10 @@ export default function Home() {
       });
 
       if (!presignRes.ok) {
-        const presignErrorData = await presignRes.json();
-        throw new Error(presignErrorData.error || 'Failed to generate secure upload links');
+        const presignText = await presignRes.text();
+        let presignError = `Failed to generate upload links (${presignRes.status})`;
+        try { presignError = JSON.parse(presignText).error || presignError; } catch {}
+        throw new Error(presignError);
       }
 
       const { fileUploadUrl, storagePath, thumbnailUploadUrl, thumbnailPath } = await presignRes.json();
@@ -309,12 +311,12 @@ export default function Home() {
           if (xhr.status >= 200 && xhr.status < 300) {
             resolve();
           } else {
-            reject(new Error(`Direct GCS upload failed with status: ${xhr.status}`));
+            reject(new Error(`Direct GCS upload failed with status: ${xhr.status}. Check bucket CORS configuration.`));
           }
         };
 
         xhr.onerror = () => {
-          reject(new Error('Network error during direct upload'));
+          reject(new Error('Network error during direct upload — CORS or connectivity issue'));
         };
 
         xhr.send(selectedFile);
@@ -351,15 +353,17 @@ export default function Home() {
       });
 
       if (!indexRes.ok) {
-        const indexErrorData = await indexRes.json();
-        throw new Error(indexErrorData.error || 'Failed to index file details');
+        const indexText = await indexRes.text();
+        let indexError = `Indexing failed (${indexRes.status})`;
+        try { indexError = JSON.parse(indexText).error || indexError; } catch {}
+        throw new Error(indexError);
       }
 
       setFile(null);
       alert('GTM Asset uploaded and indexed successfully!');
     } catch (err: any) {
       console.error('[Upload Workflow Error]', err);
-      const errorMessage = err.code ? `[${err.code}] ${err.message}` : err.message;
+      const errorMessage = err.message || 'An unknown error occurred';
       alert(`Upload Failed: ${errorMessage}\n\nPlease check browser console for details.`);
     } finally {
       setUploading(false);
