@@ -103,12 +103,48 @@ export async function POST(req: NextRequest) {
                         console.log('[Upload] INFO: Extremely large file detected. Using basic text indexing to avoid timeout.');
                     }
 
+                    const MIN_IMAGE_SIZE_BYTES = 50000;
+                    const GEMINI_PROMPT = `Analyze this PowerPoint slide image and create a high-fidelity "Visual Blueprint" description for search.
+Focus on:
+1. THE KEY TITLE and subtitle (copy them verbatim — exact characters).
+2. Layout structure (e.g. "3-column grid", "5-stage funnel", "centered radial diagram").
+3. Specific chart or diagram type and the number of elements.
+4. Every piece of specific text, names, numbers, percentages, dates visible.
+5. Color scheme if distinctive (e.g., purple-on-white, dark gradient).
+Return a dense, descriptive paragraph (200-400 words) that acts as a visual proxy for this slide.
+CRITICAL: Include exact title text in the first sentence.`;
+
+                    const getLargestSlideImage = (zipInstance: any, slideNum: number) => {
+                        const relsEntry = zipInstance.getEntry(`ppt/slides/_rels/slide${slideNum}.xml.rels`);
+                        if (!relsEntry) return null;
+
+                        const relsXml = relsEntry.getData().toString('utf8');
+                        const imageTargets: string[] = [];
+                        for (const match of relsXml.matchAll(/<Relationship\s+[^>]*?Type="[^"]*?\/relationships\/image"[^>]*?Target="([^"]+)"/g)) {
+                            let target = match[1];
+                            if (target.startsWith('../')) target = 'ppt/' + target.substring(3);
+                            imageTargets.push(target);
+                        }
+
+                        let best: any = null;
+                        let bestSize = 0;
+                        for (const target of imageTargets) {
+                            const entry = zipInstance.getEntry(target);
+                            if (entry && entry.header.size > bestSize) {
+                                bestSize = entry.header.size;
+                                best = entry;
+                            }
+                        }
+                        return best && bestSize >= MIN_IMAGE_SIZE_BYTES ? { entry: best, size: bestSize } : null;
+                    };
+
                     for (let i = 0; i < slideEntries.length; i += CHUNK_SIZE) {
                         const chunk = slideEntries.slice(i, i + CHUNK_SIZE);
                         console.log(`[Upload] Indexing slide batch ${Math.floor(i/CHUNK_SIZE) + 1}/${Math.ceil(numSlides/CHUNK_SIZE)}...`);
                         
                         const chunkResults = await Promise.all(chunk.map(async (entry: any, chunkIdx: number) => {
                             const idx = i + chunkIdx;
+                            const slideNumber = parseInt(entry.entryName.match(/\d+/)?.[0] || '0');
                             const fullXml = entry.getData().toString('utf8');
                             
                             // 1. Basic text extraction for fallback
@@ -117,16 +153,33 @@ export async function POST(req: NextRequest) {
                             
                             let visualDescription = slideRawText.slice(0, 1000);
                             
-                            // 2. Advanced XML Analysis for the "Visual Blueprint"
+                            // 2. Advanced Image/XML Analysis for the "Visual Blueprint"
                             if (!skipGemini) {
                                 try {
-                                    // Clean XML to save tokens (remove common namespaces)
-                                    const cleanedXml = fullXml
-                                        .replace(/xmlns:[^=]+="[^"]+"/g, '')
-                                        .replace(/<p:nvSpPr[\s\S]*?<\/p:nvSpPr>/g, '') // Remove non-visual metadata
-                                        .slice(0, 5000); // Limit to first 5k chars for prompt safety
+                                    const img = getLargestSlideImage(zip, slideNumber);
+                                    if (img) {
+                                        const imageBuffer = img.entry.getData();
+                                        const mimeType = img.entry.entryName.endsWith('.jpg') || img.entry.entryName.endsWith('.jpeg')
+                                            ? 'image/jpeg' : 'image/png';
+                                            
+                                        const result = await generativeModel.generateContent({
+                                            contents: [{
+                                                role: 'user',
+                                                parts: [
+                                                    { text: GEMINI_PROMPT },
+                                                    { inlineData: { data: imageBuffer.toString('base64'), mimeType } }
+                                                ]
+                                            }]
+                                        });
+                                        visualDescription = (result.response.candidates?.[0]?.content?.parts?.[0]?.text || slideRawText).trim();
+                                    } else {
+                                        // Fallback to XML analysis
+                                        const cleanedXml = fullXml
+                                            .replace(/xmlns:[^=]+="[^"]+"/g, '')
+                                            .replace(/<p:nvSpPr[\s\S]*?<\/p:nvSpPr>/g, '')
+                                            .slice(0, 5000);
 
-                                    const blueprintPrompt = `Analyze this PowerPoint Slide XML and create a high-fidelity "Visual Blueprint" description for image search.
+                                        const blueprintPrompt = `Analyze this PowerPoint Slide XML and create a high-fidelity "Visual Blueprint" description for image search.
 Slide XML:
 ---
 ${cleanedXml}
@@ -138,15 +191,16 @@ Focus on:
 4. Visual density and approximate colors/styles inferred from theme tags.
 Return a dense, descriptive paragraph that acts as a visual proxy for this slide.`;
 
-                                    const blueprintResult = await generativeModel.generateContent(blueprintPrompt);
-                                    visualDescription = (blueprintResult.response.candidates?.[0]?.content?.parts?.[0]?.text || slideRawText).slice(0, 1200);
+                                        const blueprintResult = await generativeModel.generateContent(blueprintPrompt);
+                                        visualDescription = (blueprintResult.response.candidates?.[0]?.content?.parts?.[0]?.text || slideRawText).trim();
+                                    }
                                 } catch (e) {
-                                    console.warn(`[Upload] XML Blueprint failed for slide ${idx + 1}, falling back.`);
+                                    console.warn(`[Upload] Visual Blueprint failed for slide ${slideNumber}, falling back.`, e);
                                 }
                             }
 
                             return {
-                                slideNumber: idx + 1,
+                                slideNumber,
                                 description: visualDescription,
                                 embedding: await getMultimodalEmbedding({ 
                                     text: `Visual Blueprint: ${visualDescription}`,

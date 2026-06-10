@@ -31,6 +31,8 @@ export default function Home() {
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [materialType, setMaterialType] = useState('pdf');
+  const [showDuplicateModal, setShowDuplicateModal] = useState(false);
+  const [duplicateFileName, setDuplicateFileName] = useState('');
 
   // Chat States
   const [messages, setMessages] = useState<{ role: 'user' | 'bot'; content: string; recommendations?: any[] }[]>([]);
@@ -165,39 +167,72 @@ export default function Home() {
           canvas.height = 500;
           const ctx = canvas.getContext('2d');
           if (ctx) {
+            // Background: deep dark gradient
             const grad = ctx.createLinearGradient(0, 0, 800, 500);
-            grad.addColorStop(0, '#6E3C96');
-            grad.addColorStop(1, '#B45309');
+            grad.addColorStop(0, '#1E1035');
+            grad.addColorStop(0.5, '#3B1D6E');
+            grad.addColorStop(1, '#6E3C96');
             ctx.fillStyle = grad;
             ctx.fillRect(0, 0, 800, 500);
 
-            ctx.strokeStyle = 'rgba(255,255,255,0.1)';
-            ctx.lineWidth = 2;
-            for (let i = 0; i < 10; i++) {
-              ctx.beginPath();
-              ctx.moveTo(Math.random() * 800, 0);
-              ctx.lineTo(Math.random() * 800, 500);
-              ctx.stroke();
+            // Subtle grid pattern for depth
+            ctx.strokeStyle = 'rgba(255,255,255,0.04)';
+            ctx.lineWidth = 1;
+            for (let x = 0; x <= 800; x += 50) {
+              ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, 500); ctx.stroke();
+            }
+            for (let y = 0; y <= 500; y += 50) {
+              ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(800, y); ctx.stroke();
             }
 
-            ctx.fillStyle = 'white';
-            ctx.font = 'bold 40px sans-serif';
-            ctx.textAlign = 'center';
-            const title = selectedFile.name.length > 30 ? selectedFile.name.substring(0, 30) + '...' : selectedFile.name;
-            ctx.fillText(title, 400, 220);
+            // Top accent bar
+            const accentGrad = ctx.createLinearGradient(0, 0, 800, 0);
+            accentGrad.addColorStop(0, '#8B5CF6');
+            accentGrad.addColorStop(1, '#EC4899');
+            ctx.fillStyle = accentGrad;
+            ctx.fillRect(0, 0, 800, 6);
 
-            ctx.font = 'bold 20px sans-serif';
-            ctx.fillStyle = 'rgba(255,255,255,0.7)';
-            ctx.fillText('POWERPOINT PRESENTATION', 400, 270);
-
-            ctx.fillStyle = 'rgba(255,255,255,0.2)';
-            ctx.roundRect(350, 300, 100, 30, 15);
+            // PPT icon area (left side)
+            ctx.fillStyle = 'rgba(255,255,255,0.08)';
+            ctx.beginPath();
+            ctx.roundRect(40, 140, 160, 200, 20);
             ctx.fill();
-            ctx.fillStyle = 'white';
-            ctx.font = 'black 12px sans-serif';
-            ctx.fillText('GTM ASSET', 400, 320);
+            ctx.fillStyle = '#FF6B35';
+            ctx.font = 'bold 52px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('PPT', 120, 265);
 
-            thumbnailBlob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.8));
+            // Divider
+            ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+            ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.moveTo(240, 130); ctx.lineTo(240, 370); ctx.stroke();
+
+            // File name (right side)
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 26px sans-serif';
+            ctx.textAlign = 'left';
+            const baseName = selectedFile.name.replace(/\.(pptx?)/i, '');
+            const displayName = baseName.length > 35 ? baseName.substring(0, 35) + '...' : baseName;
+            // Word-wrap the name
+            const words = displayName.split(' ');
+            let line = '';
+            let lineY = 215;
+            for (const word of words) {
+              const test = line + (line ? ' ' : '') + word;
+              if (ctx.measureText(test).width > 490) {
+                ctx.fillText(line, 270, lineY);
+                line = word;
+                lineY += 36;
+              } else { line = test; }
+            }
+            if (line) ctx.fillText(line, 270, lineY);
+
+            // Sub-label
+            ctx.font = '500 16px sans-serif';
+            ctx.fillStyle = 'rgba(255,255,255,0.45)';
+            ctx.fillText('POWERPOINT PRESENTATION  ·  GTM ASSET', 270, Math.max(lineY + 50, 310));
+
+            thumbnailBlob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.85));
           }
         } else if (materialType === 'video') {
           const video = document.createElement('video');
@@ -287,7 +322,21 @@ export default function Home() {
       if (!presignRes.ok) {
         const presignText = await presignRes.text();
         let presignError = `Failed to generate upload links (${presignRes.status})`;
-        try { presignError = JSON.parse(presignText).error || presignError; } catch {}
+        let exists = false;
+        try {
+          const parsed = JSON.parse(presignText);
+          presignError = parsed.error || presignError;
+          exists = !!parsed.exists;
+        } catch {}
+
+        if (exists) {
+          setDuplicateFileName(selectedFile.name);
+          setShowDuplicateModal(true);
+          setFile(null);
+          setUploading(false);
+          setUploadProgress(0);
+          return;
+        }
         throw new Error(presignError);
       }
 
@@ -640,6 +689,30 @@ export default function Home() {
         </section>
       </main>
 
+      {showDuplicateModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 p-6 rounded-[24px] max-w-sm w-full shadow-2xl flex flex-col gap-4 animate-in zoom-in-95 duration-200">
+            <div className="w-12 h-12 rounded-full bg-amber-500/10 dark:bg-amber-500/20 flex items-center justify-center text-amber-500 mx-auto">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+            </div>
+            <div className="text-center space-y-2">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-white">Duplicate File Blocked</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400">
+                A Go-To-Market document named <span className="font-semibold text-slate-800 dark:text-slate-200">"{duplicateFileName}"</span> already exists in the repository.
+              </p>
+            </div>
+            <button
+              onClick={() => {
+                setShowDuplicateModal(false);
+                setDuplicateFileName('');
+              }}
+              className="mt-2 w-full py-2.5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-xl font-bold text-sm hover:opacity-90 transition-opacity cursor-pointer"
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
 
     </div>
   );

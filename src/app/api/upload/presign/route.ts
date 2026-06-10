@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Storage } from '@google-cloud/storage';
 import path from 'path';
+import { adminDb } from '@/lib/firebase-admin';
 
 export const maxDuration = 60;
 
@@ -27,6 +28,18 @@ export async function POST(req: NextRequest) {
 
         if (!fileName || !contentType) {
             return NextResponse.json({ error: 'fileName and contentType are required' }, { status: 400 });
+        }
+
+        // Duplicate GTM Check
+        const duplicateQuery = await adminDb.collection('gtm_assets')
+            .where('name', '==', fileName)
+            .get();
+
+        if (!duplicateQuery.empty) {
+            return NextResponse.json({ 
+                error: 'Same GTM already exists', 
+                exists: true 
+            }, { status: 409 });
         }
 
         const bucketName = process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET || '';
