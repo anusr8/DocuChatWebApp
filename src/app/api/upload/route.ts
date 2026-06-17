@@ -227,12 +227,17 @@ Return a dense, descriptive paragraph that acts as a visual proxy for this slide
                 console.error('Office/PPT Extraction Error:', e);
                 content = `File: ${fileName}. Extraction failed.`;
             }
-        } else if (materialType === 'video' || materialType === 'audio') {
-            // Use Gemini for Video/Audio via GCS URI (No local memory limit)
+        } else if (materialType === 'video' || materialType === 'audio' || materialType === 'image') {
+            // Use Gemini for Video/Audio/Image via GCS URI (No local memory limit)
             try {
-                const prompt = materialType === 'video'
-                    ? "Please transcribe and summarize the key Go-To-Market (GTM) points from this video. Focus on the product features, value proposition, and strategy mentioned."
-                    : "Please transcribe and summarize the key Go-To-Market (GTM) points from this audio file. Focus on the product features, value proposition, and strategy mentioned.";
+                let prompt = '';
+                if (materialType === 'video') {
+                    prompt = "Please transcribe and summarize the key Go-To-Market (GTM) points from this video. Focus on the product features, value proposition, and strategy mentioned.";
+                } else if (materialType === 'audio') {
+                    prompt = "Please transcribe and summarize the key Go-To-Market (GTM) points from this audio file. Focus on the product features, value proposition, and strategy mentioned.";
+                } else {
+                    prompt = "Please extract all text from this image and provide a highly detailed description of its contents, layout, key charts, features, colors, and design elements, focusing on Go-To-Market (GTM) context.";
+                }
 
                 const result = await generativeModel.generateContent({
                     contents: [
@@ -251,7 +256,7 @@ Return a dense, descriptive paragraph that acts as a visual proxy for this slide
                     ]
                 });
 
-                content = result.response.candidates?.[0]?.content?.parts?.[0]?.text || `File: ${fileName}. Transcription returned empty.`;
+                content = result.response.candidates?.[0]?.content?.parts?.[0]?.text || `File: ${fileName}. Content extraction returned empty.`;
             } catch (e) {
                 console.error('Gemini GCS Parsing Error:', e);
                 content = `File: ${fileName}. Parsing failed.`;
@@ -327,7 +332,7 @@ ${truncatedContent.slice(0, 5000)}`;
                 category: category,
                 tags: tags,
                 thumbnail_url: thumbnail_url,
-                type: materialType === 'word' ? 'Word' : materialType === 'ppt' ? 'PPT' : materialType === 'pdf' ? 'PDF' : materialType === 'video' ? 'Video' : 'Audio',
+                type: materialType === 'word' ? 'Word' : materialType === 'ppt' ? 'PPT' : materialType === 'pdf' ? 'PDF' : materialType === 'video' ? 'Video' : materialType === 'image' ? 'Image' : 'Audio',
                 created_at: FieldValue.serverTimestamp()
             });
 

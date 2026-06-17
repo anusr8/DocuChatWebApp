@@ -35,7 +35,7 @@ interface GTMAsset {
     id: string; // Changed to string for Firestore compatibility
     name: string;
     url: string;
-    type: 'PDF' | 'PPT' | 'Word' | 'Video' | 'Audio';
+    type: 'PDF' | 'PPT' | 'Word' | 'Video' | 'Audio' | 'Image';
     category?: string;
     tags?: string[];
     thumbnail_url?: string;
@@ -92,7 +92,7 @@ export default function ExploreGTM() {
         pageSize: number;
     } | null>(null);
 
-    const [selectedType, setSelectedType] = useState<'All' | 'PDF' | 'PPT' | 'Word' | 'Video' | 'Audio'>('All');
+    const [selectedType, setSelectedType] = useState<'All' | 'PDF' | 'PPT' | 'Word' | 'Video' | 'Audio' | 'Image'>('All');
     const [selectedCategory, setSelectedCategory] = useState<string>('All');
 
     const handleClearSearch = () => {
@@ -228,7 +228,7 @@ export default function ExploreGTM() {
         searchInputRef.current?.blur();
     };
 
-    const categories: ('All' | 'PDF' | 'PPT' | 'Word' | 'Video' | 'Audio')[] = ['All', 'PDF', 'Video', 'Audio', 'Word', 'PPT'];
+    const categories: ('All' | 'PDF' | 'PPT' | 'Word' | 'Video' | 'Audio' | 'Image')[] = ['All', 'PDF', 'Video', 'Audio', 'Word', 'PPT', 'Image'];
 
     const categoriesList = ['All', ...Array.from(new Set(assets.map(a => a.category).filter(Boolean))) as string[]];
 
@@ -265,6 +265,7 @@ export default function ExploreGTM() {
             case 'Word': return '/assets/icon_word.png';
             case 'Video': return '/assets/icon_video.png';
             case 'Audio': return '/assets/icon_audio.png';
+            case 'Image': return '/assets/icon_image.png';
             default: return '/assets/icon_pdf.png';
         }
     };

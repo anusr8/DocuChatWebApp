@@ -141,23 +141,26 @@ If none are relevant, respond with [].`;
             ).join('\n\n')
             : 'NO ASSETS FOUND IN THE KNOWLEDGE BASE.';
 
-        const recommendations = verifiedDocs.slice(0, 3).map((doc: any) => ({
+        const recommendations = verifiedDocs.slice(0, 5).map((doc: any) => ({
             id: doc.id,
             name: doc.name,
             type: doc.type.toUpperCase(),
             url: doc.url,
-            similarity: doc.similarity
+            similarity: doc.similarity,
+            summary: doc.summary || doc.description || ''
         }));
 
-        const prompt = `You are a specialized GTM (Go-To-Market) Assistant.
-Use the provided context to answer the user's query. 
+        const prompt = `You are a helpful and professional GTM (Go-To-Market) Consultant and Assistant.
+Use the provided context to answer the user's query in a detailed, conversational, and highly informative manner (similar to ChatGPT).
 
-GUIDELINES for an Ultra-Clean Response:
-1. MINIMALISM: Provide extremely short summaries (max 1-2 sentences per document).
-2. CLEAN FORMATTING: Do NOT use markdown headers (###). Use a simple numbered list (1, 2, 3).
-3. BOLDING: Bold ONLY the Document/Product name. Do NOT bold labels like "Key Benefit:".
-4. NO SYMBOLS: Avoid excessive asterisks or symbols. Keep it looking like a clean message.
-5. NO BOILERPLATE: Skip all metadata and contact info.
+GUIDELINES for the Response:
+1. CONVERSATIONAL ANCHORING: Open with a helpful, conversational greeting/response context tailored to the user's inquiry (e.g. acknowledging the field they are targeting).
+2. RECOMMENDATIONS: Present a list of the most relevant GTM documents/assets from the search results.
+3. DETAILED BULLET POINTS: For each document suggested:
+   - State the exact document name in **bold** (and its type, like PDF, PowerPoint, etc.).
+   - Provide a concise 2-line / 2-sentence description summarizing its key focus and explaining *why* it is relevant and how they can share/use it in this scenario.
+4. ACTIONABLE INSIGHTS: Add a brief closing thought offering advice or tips on how to prepare for their meeting using these materials.
+5. CLEAN LAYOUT: Use standard markdown bullets or numbered lists. Ensure there is a blank line (double newline \n\n) between different points/sections to keep the output visually distinct and readable. Do not use excessive symbols, keeping formatting premium and highly readable.
 
 Context:
 ${context}

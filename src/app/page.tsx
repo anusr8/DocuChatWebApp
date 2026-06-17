@@ -94,6 +94,9 @@ export default function Home() {
     } else if (materialType === 'audio') {
       isValid = fileName.endsWith('.mp3') || fileName.endsWith('.wav') || fileName.endsWith('.m4a') || fileName.endsWith('.aac');
       expectedFormat = 'Audio (.mp3, .wav, .m4a, .aac)';
+    } else if (materialType === 'image') {
+      isValid = fileName.endsWith('.png') || fileName.endsWith('.jpg') || fileName.endsWith('.jpeg') || fileName.endsWith('.gif') || fileName.endsWith('.webp');
+      expectedFormat = 'Image (.png, .jpg, .jpeg, .gif, .webp)';
     }
 
     if (!isValid) {
@@ -302,6 +305,45 @@ export default function Home() {
 
             thumbnailBlob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.8));
           }
+        } else if (materialType === 'image') {
+          thumbnailBlob = await new Promise((resolve) => {
+            const img = new window.Image();
+            img.src = URL.createObjectURL(selectedFile);
+            img.onload = () => {
+              const canvas = document.createElement('canvas');
+              const ctx = canvas.getContext('2d');
+              const maxDim = 400;
+              let width = img.width;
+              let height = img.height;
+              if (width > height) {
+                if (width > maxDim) {
+                  height = Math.round((height * maxDim) / width);
+                  width = maxDim;
+                }
+              } else {
+                if (height > maxDim) {
+                  width = Math.round((width * maxDim) / height);
+                  height = maxDim;
+                }
+              }
+              canvas.width = width;
+              canvas.height = height;
+              if (ctx) {
+                ctx.drawImage(img, 0, 0, width, height);
+                canvas.toBlob((blob) => {
+                  URL.revokeObjectURL(img.src);
+                  resolve(blob);
+                }, 'image/jpeg', 0.85);
+              } else {
+                URL.revokeObjectURL(img.src);
+                resolve(null);
+              }
+            };
+            img.onerror = () => {
+              URL.revokeObjectURL(img.src);
+              resolve(null);
+            };
+          });
         }
       } catch (thumbErr) {
         console.error('Thumbnail generation failed:', thumbErr);
@@ -508,6 +550,7 @@ export default function Home() {
                     <option value="word">Word Document / Brief</option>
                     <option value="video">Video / Multimedia</option>
                     <option value="audio">Audio / Podcast</option>
+                    <option value="image">Image / Graphic</option>
                   </select>
                   <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -518,7 +561,7 @@ export default function Home() {
                   <span className="text-sm">{file ? file.name : 'Choose GTM to Upload'}</span>
                   <input
                     type="file"
-                    accept=".pdf,.ppt,.pptx,.doc,.docx,.mp4,.mov,.avi,.mp3,.wav,.m4a,.aac"
+                    accept=".pdf,.ppt,.pptx,.doc,.docx,.mp4,.mov,.avi,.mp3,.wav,.m4a,.aac,.png,.jpg,.jpeg,.gif,.webp"
                     className="hidden"
                     onChange={handleUpload}
                     disabled={uploading}
@@ -606,12 +649,21 @@ export default function Home() {
                   )}
                 >
                   <div className={cn(
-                    "px-6 py-4 rounded-[24px] text-sm leading-relaxed shadow-sm",
+                    "px-6 py-4 rounded-[24px] text-sm leading-relaxed shadow-sm whitespace-pre-wrap",
                     m.role === 'user'
                       ? "bg-[#6E3C96] text-white rounded-tr-none"
                       : "bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-white/5 text-slate-800 dark:text-slate-200 rounded-tl-none"
                   )}>
-                    {m.content}
+                    {m.content.split(/(\*\*.*?\*\*)/g).map((part, idx) => {
+                      if (part.startsWith('**') && part.endsWith('**')) {
+                        return (
+                          <strong key={idx} className={cn("font-extrabold", m.role === 'bot' && "text-slate-950 dark:text-white")}>
+                            {part.slice(2, -2)}
+                          </strong>
+                        );
+                      }
+                      return part;
+                    })}
                   </div>
 
                   {/* Recommendations */}
@@ -623,23 +675,30 @@ export default function Home() {
                           href={rec.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-4 p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 hover:border-[#6E3C96]/50 hover:shadow-lg transition-all group"
+                          className="flex items-start gap-4 p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 hover:border-[#6E3C96]/50 hover:shadow-lg transition-all group"
                         >
-                          <div className="w-12 h-12 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-[#6E3C96] shrink-0 group-hover:bg-[#6E3C96] group-hover:text-white transition-colors">
-                            {rec.type === 'PDF' && <FileText className="w-6 h-6" />}
-                            {rec.type === 'PPT' && <span className="font-black text-xs">PPT</span>}
-                            {rec.type === 'Word' && <span className="font-black text-xs">DOC</span>}
-                            {rec.type === 'Audio' && <span className="font-black text-xs">AUD</span>}
+                          <div className="w-12 h-12 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-[#6E3C96] shrink-0 group-hover:bg-[#6E3C96] group-hover:text-white transition-colors mt-0.5">
+                            {rec.type?.toUpperCase() === 'PDF' && <FileText className="w-6 h-6" />}
+                            {rec.type?.toUpperCase() === 'PPT' && <span className="font-black text-xs">PPT</span>}
+                            {rec.type?.toUpperCase() === 'WORD' && <span className="font-black text-xs">DOC</span>}
+                            {rec.type?.toUpperCase() === 'AUDIO' && <span className="font-black text-xs">AUD</span>}
+                            {rec.type?.toUpperCase() === 'VIDEO' && <span className="font-black text-xs">VID</span>}
+                            {rec.type?.toUpperCase() === 'IMAGE' && <span className="font-black text-xs">IMG</span>}
                           </div>
                           <div className="flex-1 min-w-0">
                             <p className="font-bold text-sm truncate text-slate-900 dark:text-white group-hover:text-[#6E3C96] transition-colors">{rec.name}</p>
-                            <div className="flex items-center gap-2 mt-0.5">
+                            {rec.summary && (
+                              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2 leading-relaxed">
+                                {rec.summary}
+                              </p>
+                            )}
+                            <div className="flex items-center gap-2 mt-2">
                               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{rec.type}</span>
                               <span className="w-1 h-1 bg-slate-300 rounded-full" />
                               <span className="text-[10px] text-[#6E3C96] font-bold">{Math.round(rec.similarity * 100)}% Relevancy</span>
                             </div>
                           </div>
-                          <ExternalLink className="w-4 h-4 text-slate-300 group-hover:text-[#6E3C96] shrink-0" />
+                          <ExternalLink className="w-4 h-4 text-slate-300 group-hover:text-[#6E3C96] shrink-0 mt-1" />
                         </a>
                       ))}
                     </div>
