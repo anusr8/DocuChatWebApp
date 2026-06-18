@@ -42,6 +42,9 @@ export async function GET(request: Request) {
       // Skip directory objects
       if (file.name.endsWith('/')) return;
 
+      // Skip thumbnails to count primary GTM assets
+      if (file.name.includes('/thumbnails/')) return;
+
       const size = parseInt(file.metadata.size || '0', 10);
       totalSize += size;
       totalFiles++;
