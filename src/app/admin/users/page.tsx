@@ -22,7 +22,8 @@ import {
   X,
   CheckCircle2,
   CheckCircle,
-  XCircle
+  XCircle,
+  Database
 } from 'lucide-react';
 import { validatePassword, passwordPolicy } from '@/lib/validation';
 
@@ -36,6 +37,32 @@ export default function AdminUsersPage() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
+
+  // Storage report states
+  const [storageData, setStorageData] = useState<any>(null);
+  const [loadingStorage, setLoadingStorage] = useState(true);
+
+  const fetchStorageReport = async () => {
+    try {
+      const res = await fetch(`/api/admin/storage?adminEmail=${user?.email}`);
+      const data = await res.json();
+      if (res.ok) {
+        setStorageData(data);
+      }
+    } catch (err) {
+      console.error('Failed to fetch storage report', err);
+    } finally {
+      setLoadingStorage(false);
+    }
+  };
+
+  const formatBytes = (bytes: number) => {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  };
   
   // Modal states
   const [selectedUser, setSelectedUser] = useState<any>(null);
@@ -60,6 +87,7 @@ export default function AdminUsersPage() {
         router.push('/login');
       } else {
         fetchUsers();
+        fetchStorageReport();
       }
     }
   }, [user, authLoading, router]);
@@ -300,6 +328,70 @@ export default function AdminUsersPage() {
                 )}
               </button>
             </form>
+          </div>
+
+          {/* Storage Usage Report */}
+          <div className="bg-white rounded-[32px] border border-slate-200 p-8 shadow-sm mt-8">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-[#6E3C96]/10 rounded-lg flex items-center justify-center">
+                  <Database className="w-4 h-4 text-[#6E3C96]" />
+                </div>
+                <h2 className="text-xl font-extrabold text-slate-900">Storage Report</h2>
+              </div>
+              <button
+                onClick={fetchStorageReport}
+                className="p-1.5 hover:bg-slate-50 rounded-lg text-slate-400 hover:text-[#6E3C96] transition-colors"
+                title="Refresh Report"
+              >
+                <RefreshCw className={`w-4 h-4 ${loadingStorage ? 'animate-spin' : ''}`} />
+              </button>
+            </div>
+
+            {loadingStorage ? (
+              <div className="flex justify-center py-6">
+                <Loader2 className="w-6 h-6 animate-spin text-[#6E3C96]" />
+              </div>
+            ) : storageData ? (
+              <div className="space-y-6">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="bg-slate-50 rounded-2xl p-4 border border-slate-100">
+                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Total Space</p>
+                    <p className="text-base font-bold text-slate-900">{formatBytes(storageData.totalSize)}</p>
+                  </div>
+                  <div className="bg-slate-50 rounded-2xl p-4 border border-slate-100">
+                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Total Files</p>
+                    <p className="text-base font-bold text-slate-900">{storageData.totalFiles}</p>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest ml-2">Breakdown by Type</p>
+                  {Object.entries(storageData.typeBreakdown || {}).map(([type, stats]: any) => {
+                    if (stats.count === 0) return null;
+                    const percentage = storageData.totalSize > 0 ? (stats.size / storageData.totalSize) * 100 : 0;
+                    return (
+                      <div key={type} className="space-y-1">
+                        <div className="flex justify-between text-xs font-bold text-slate-700 capitalize">
+                          <span>{type === 'ppt' ? 'PPT Decks' : type === 'word' ? 'Word Docs' : type}</span>
+                          <span className="text-[10px] text-slate-400 font-medium">
+                            {stats.count} files · {formatBytes(stats.size)} ({percentage.toFixed(1)}%)
+                          </span>
+                        </div>
+                        <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                          <div
+                            className="h-full bg-[#6E3C96] rounded-full transition-all duration-500"
+                            style={{ width: `${percentage}%` }}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            ) : (
+              <p className="text-xs text-slate-400 text-center py-4">Failed to load report</p>
+            )}
           </div>
         </div>
 
