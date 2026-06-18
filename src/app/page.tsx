@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import Header from '@/components/Header';
 import Script from 'next/script';
+import Link from 'next/link';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { useAuth } from '@/lib/AuthContext';
@@ -556,17 +557,25 @@ export default function Home() {
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
                   </div>
                 </div>
-                <label className="flex items-center justify-center gap-3 px-6 py-3.5 bg-[#6E3C96] hover:bg-[#5A2E7B] text-white rounded-xl font-bold transition-all shadow-lg shadow-[#6E3C96]/20 cursor-pointer group">
-                  {uploading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4 group-hover:scale-110 transition-transform" />}
-                  <span className="text-sm">{file ? file.name : 'Choose GTM to Upload'}</span>
-                  <input
-                    type="file"
-                    accept=".pdf,.ppt,.pptx,.doc,.docx,.mp4,.mov,.avi,.mp3,.wav,.m4a,.aac,.png,.jpg,.jpeg,.gif,.webp"
-                    className="hidden"
-                    onChange={handleUpload}
-                    disabled={uploading}
-                  />
-                </label>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <label className="flex-1 flex items-center justify-center gap-3 px-6 py-3.5 bg-[#6E3C96] hover:bg-[#5A2E7B] text-white rounded-xl font-bold transition-all shadow-lg shadow-[#6E3C96]/20 cursor-pointer group">
+                    {uploading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4 group-hover:scale-110 transition-transform" />}
+                    <span className="text-sm">{file ? file.name : 'Choose GTM to Upload'}</span>
+                    <input
+                      type="file"
+                      accept=".pdf,.ppt,.pptx,.doc,.docx,.mp4,.mov,.avi,.mp3,.wav,.m4a,.aac,.png,.jpg,.jpeg,.gif,.webp"
+                      className="hidden"
+                      onChange={handleUpload}
+                      disabled={uploading}
+                    />
+                  </label>
+                  <Link
+                    href="/bulk-upload"
+                    className="flex items-center justify-center gap-2 px-6 py-3.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-900 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 rounded-xl font-bold transition-all border border-slate-200 dark:border-white/10 text-sm"
+                  >
+                    <span>Bulk Upload</span>
+                  </Link>
+                </div>
 
                 {uploading && (
                   <div className="w-full space-y-2 animate-in fade-in duration-300">
