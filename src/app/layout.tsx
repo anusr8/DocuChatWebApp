@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { AuthProvider } from "@/lib/AuthContext";
+import { BulkUploadProvider } from "@/lib/BulkUploadContext";
+import UploadProgressWidget from "@/components/UploadProgressWidget";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,7 +38,10 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <AuthProvider>
-            {children}
+            <BulkUploadProvider>
+              {children}
+              <UploadProgressWidget />
+            </BulkUploadProvider>
           </AuthProvider>
         </ThemeProvider>
       </body>
