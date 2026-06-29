@@ -21,6 +21,7 @@ export default function Header() {
     const navItems = [
         { label: 'Home', href: '/' },
         { label: 'Explore GTM', href: '/explore' },
+        { label: 'Bulk Upload', href: '/bulk-upload' },
         ...(user?.email === 'admin@10xds.com' || user?.role === 'admin' 
             ? [{ label: 'Manage Users', href: '/admin/users' }] 
             : [])
