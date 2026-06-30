@@ -471,36 +471,11 @@ export default function ExploreGTM() {
                                                             alt={asset.name}
                                                             className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                                                         />
-                                                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-40 group-hover:opacity-60 transition-opacity" />
-                                                        
-                                                        {/* Delete Button */}
-                                                        <button 
-                                                            onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleDelete(asset.id); }}
-                                                            className="absolute top-3 left-3 p-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 text-slate-400 hover:text-red-500 z-30"
-                                                            title="Delete Asset"
-                                                        >
-                                                            <Trash2 className="w-5 h-5" />
-                                                        </button>
-
-                                                        <div className="absolute top-3 right-3 p-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
-                                                            <div className="relative w-6 h-6">
-                                                                <Image src={getTypeIcon(asset.type)} alt={asset.type} fill className="object-contain" />
-                                                            </div>
-                                                        </div>
+                                                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/30 via-transparent to-transparent opacity-40 group-hover:opacity-60 transition-opacity" />
                                                     </>
                                                 ) : (
                                                     <>
-                                                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
-                                                        
-                                                        {/* Delete Button (Fallback) */}
-                                                        <button 
-                                                            onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleDelete(asset.id); }}
-                                                            className="absolute top-3 left-3 p-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 text-slate-400 hover:text-red-500 z-30"
-                                                            title="Delete Asset"
-                                                        >
-                                                            <Trash2 className="w-5 h-5" />
-                                                        </button>
-
+                                                        <div className="absolute inset-0 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900" />
                                                         <div className="absolute inset-0 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
                                                             <div className="relative w-32 h-32 md:w-36 md:h-36 drop-shadow-2xl">
                                                                 <Image
@@ -517,14 +492,25 @@ export default function ExploreGTM() {
 
                                             {/* Card Body */}
                                             <div className="p-5 flex-1 flex flex-col">
+                                                {/* Icon row: file type | category | delete */}
                                                 <div className="flex items-center justify-between mb-3">
-                                                    <span className="text-[9px] font-black uppercase tracking-[0.2em] text-brand bg-brand/5 px-2 py-0.5 rounded-full">
-                                                        {asset.category || 'GTM'}
-                                                    </span>
-                                                    <div className="flex items-center gap-1 text-slate-400 text-[9px] font-bold uppercase tracking-widest">
-                                                        <Calendar className="w-2.5 h-2.5" />
-                                                        <span>{new Date(asset.created_at).toLocaleDateString(undefined, { year: 'numeric' })}</span>
+                                                    {/* File format icon */}
+                                                    <div className="flex items-center gap-2">
+                                                        <div className="relative w-6 h-6 flex-shrink-0">
+                                                            <Image src={getTypeIcon(asset.type)} alt={asset.type} fill className="object-contain" />
+                                                        </div>
+                                                        <span className="text-[9px] font-black uppercase tracking-[0.2em] text-brand bg-brand/5 px-2 py-0.5 rounded-full">
+                                                            {asset.category || 'GTM'}
+                                                        </span>
                                                     </div>
+                                                    {/* Delete button */}
+                                                    <button
+                                                        onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleDelete(asset.id); }}
+                                                        className="p-1.5 rounded-lg text-slate-300 dark:text-slate-600 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-all duration-200"
+                                                        title="Delete Asset"
+                                                    >
+                                                        <Trash2 className="w-4 h-4" />
+                                                    </button>
                                                 </div>
 
                                                 <h3 className="text-lg font-bold text-slate-900 dark:text-white leading-tight mb-4 line-clamp-2 transition-colors group-hover:text-brand">
