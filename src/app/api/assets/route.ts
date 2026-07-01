@@ -146,31 +146,61 @@ export async function GET(req: Request) {
         const pageSize = parseInt(searchParams.get('limit') || '12');
         const offset = (page - 1) * pageSize;
 
-        let baseQuery = adminDb.collection('gtm_assets');
+        let assets: any[];
+        let totalAssets: number;
+        let totalPages: number;
+
         if (type && type !== 'All') {
-            baseQuery = baseQuery.where('type', '==', type) as any;
+            // When filtering by type: fetch all matching docs without orderBy to avoid
+            // needing a composite index (type + created_at). Sort in-memory then paginate.
+            const snapshot = await adminDb
+                .collection('gtm_assets')
+                .where('type', '==', type)
+                .get();
+
+            const allDocs = snapshot.docs
+                .map((doc: any) => {
+                    const data = doc.data();
+                    return {
+                        id: doc.id,
+                        ...data,
+                        created_at: data.created_at?.toDate
+                            ? data.created_at.toDate().toISOString()
+                            : new Date().toISOString()
+                    };
+                })
+                .sort((a: any, b: any) =>
+                    new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+                );
+
+            totalAssets = allDocs.length;
+            totalPages = Math.ceil(totalAssets / pageSize);
+            assets = allDocs.slice(offset, offset + pageSize);
+        } else {
+            // No type filter: use efficient indexed query with server-side pagination
+            const baseQuery = adminDb.collection('gtm_assets');
+
+            const countSnapshot = await baseQuery.count().get();
+            totalAssets = countSnapshot.data().count;
+            totalPages = Math.ceil(totalAssets / pageSize);
+
+            const snapshot = await baseQuery
+                .orderBy('created_at', 'desc')
+                .offset(offset)
+                .limit(pageSize)
+                .get();
+
+            assets = snapshot.docs.map((doc: any) => {
+                const data = doc.data();
+                return {
+                    id: doc.id,
+                    ...data,
+                    created_at: data.created_at?.toDate
+                        ? data.created_at.toDate().toISOString()
+                        : new Date().toISOString()
+                };
+            });
         }
-
-        // 1. Get total count for pagination metadata
-        const countSnapshot = await baseQuery.count().get();
-        const totalAssets = countSnapshot.data().count;
-        const totalPages = Math.ceil(totalAssets / pageSize);
-
-        // 2. Fetch paginated data
-        const snapshot = await baseQuery
-            .orderBy('created_at', 'desc')
-            .offset(offset)
-            .limit(pageSize)
-            .get();
-
-        const assets = snapshot.docs.map((doc: any) => {
-            const data = doc.data();
-            return {
-                id: doc.id,
-                ...data,
-                created_at: data.created_at?.toDate ? data.created_at.toDate().toISOString() : new Date().toISOString()
-            };
-        });
 
         return NextResponse.json({
             assets,

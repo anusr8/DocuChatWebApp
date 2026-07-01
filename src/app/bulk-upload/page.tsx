@@ -70,6 +70,7 @@ export default function BulkUpload() {
   const handleDrag = (e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
+    if (importing) return;
     if (e.type === 'dragenter' || e.type === 'dragover') setDragActive(true);
     else if (e.type === 'dragleave') setDragActive(false);
   };
@@ -78,6 +79,7 @@ export default function BulkUpload() {
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
+    if (importing) return;
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
       addFiles(e.dataTransfer.files);
     }
@@ -267,27 +269,40 @@ export default function BulkUpload() {
           {/* LEFT: Dropzone & Stats */}
           <div className="flex flex-col gap-6">
             {/* Drag and Drop Zone */}
-            <div
-              onDragEnter={handleDrag}
-              onDragOver={handleDrag}
-              onDragLeave={handleDrag}
-              onDrop={handleDrop}
-              onClick={() => fileInputRef.current?.click()}
-              className={`flex-1 min-h-[200px] border-2 border-dashed rounded-[32px] p-8 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 ${
-                dragActive
-                  ? 'border-[#6E3C96] bg-[#6E3C96]/5'
-                  : 'border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-slate-900/10 hover:border-slate-300 dark:hover:border-white/20'
-              }`}
-            >
-              <div className="w-12 h-12 rounded-2xl bg-[#6E3C96]/10 flex items-center justify-center border border-[#6E3C96]/20 text-brand mb-4">
-                <FileUp className="w-6 h-6" />
+            <div className="relative">
+              <div
+                onDragEnter={handleDrag}
+                onDragOver={handleDrag}
+                onDragLeave={handleDrag}
+                onDrop={handleDrop}
+                onClick={() => !importing && fileInputRef.current?.click()}
+                className={`flex-1 min-h-[200px] border-2 border-dashed rounded-[32px] p-8 flex flex-col items-center justify-center text-center transition-all duration-300 ${
+                  importing
+                    ? 'border-slate-200 dark:border-white/5 bg-slate-100/60 dark:bg-slate-900/20 cursor-not-allowed opacity-60'
+                    : dragActive
+                    ? 'border-[#6E3C96] bg-[#6E3C96]/5 cursor-pointer'
+                    : 'border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-slate-900/10 hover:border-slate-300 dark:hover:border-white/20 cursor-pointer'
+                }`}
+              >
+                <div className={`w-12 h-12 rounded-2xl flex items-center justify-center border mb-4 ${
+                  importing
+                    ? 'bg-slate-200/60 dark:bg-white/5 border-slate-300/40 dark:border-white/10 text-slate-400'
+                    : 'bg-[#6E3C96]/10 border-[#6E3C96]/20 text-brand'
+                }`}>
+                  <FileUp className="w-6 h-6" />
+                </div>
+                <p className="text-sm font-bold text-slate-800 dark:text-slate-200 mb-1">
+                  Drag & drop files or folders here
+                </p>
+                <p className="text-xs text-slate-400 dark:text-slate-500">
+                  Supports PDF, PPT, Word, Video, Audio, and Images up to 50MB
+                </p>
+                {importing && (
+                  <p className="mt-3 text-[10px] font-bold uppercase tracking-widest text-amber-500 bg-amber-500/10 border border-amber-500/20 px-3 py-1 rounded-full">
+                    Import in progress — please wait
+                  </p>
+                )}
               </div>
-              <p className="text-sm font-bold text-slate-800 dark:text-slate-200 mb-1">
-                Drag & drop files or folders here
-              </p>
-              <p className="text-xs text-slate-400 dark:text-slate-500">
-                Supports PDF, PPT, Word, Video, Audio, and Images up to 50MB
-              </p>
             </div>
 
             {/* Import Summary Stats Card */}

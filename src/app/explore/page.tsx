@@ -17,7 +17,9 @@ import {
     Trash2,
     Camera,
     AlignLeft,
-    ChevronDown
+    ChevronDown,
+    AlertTriangle,
+    CheckCircle2
 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -95,6 +97,11 @@ export default function ExploreGTM() {
     const [selectedType, setSelectedType] = useState<'All' | 'PDF' | 'PPT' | 'Word' | 'Video' | 'Audio' | 'Image'>('All');
     const [selectedCategory, setSelectedCategory] = useState<string>('All');
 
+    // Delete confirmation modal state
+    const [pendingDelete, setPendingDelete] = useState<{ id: string; name: string } | null>(null);
+    const [deleteToast, setDeleteToast] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
+    const [isDeleting, setIsDeleting] = useState(false);
+
     const handleClearSearch = () => {
         setSearchQuery('');
         setSearchInput('');
@@ -105,24 +112,26 @@ export default function ExploreGTM() {
         fetchAssets('', 1);
     };
 
-    const handleDelete = async (id: string) => {
-        if (!window.confirm('Are you sure you want to delete this asset? This will also remove all indexed slides.')) return;
+    const openDeleteModal = (asset: GTMAsset) => {
+        setPendingDelete({ id: asset.id, name: asset.name });
+    };
 
-        setLoading(true);
+    const confirmDelete = async () => {
+        if (!pendingDelete) return;
+        setIsDeleting(true);
         try {
-            const res = await fetch(`/api/assets/${id}`, {
-                method: 'DELETE'
-            });
+            const res = await fetch(`/api/assets/${pendingDelete.id}`, { method: 'DELETE' });
             if (!res.ok) throw new Error('Delete failed');
-            
-            // Update UI
-            setAssets(prev => prev.filter(a => a.id !== id));
-            alert('Asset deleted successfully.');
+            setAssets(prev => prev.filter(a => a.id !== pendingDelete.id));
+            setPendingDelete(null);
+            setDeleteToast({ type: 'success', message: 'Asset deleted successfully.' });
         } catch (err) {
             console.error('Delete error:', err);
-            alert('Failed to delete asset.');
+            setPendingDelete(null);
+            setDeleteToast({ type: 'error', message: 'Failed to delete asset. Please try again.' });
         } finally {
-            setLoading(false);
+            setIsDeleting(false);
+            setTimeout(() => setDeleteToast(null), 3500);
         }
     };
 
@@ -180,9 +189,10 @@ export default function ExploreGTM() {
         }
     };
 
-    const fetchAssets = async (queryOverride?: string, pageOverride?: number) => {
+    const fetchAssets = async (queryOverride?: string, pageOverride?: number, typeOverride?: string) => {
         const query = queryOverride !== undefined ? queryOverride : searchInput;
         const page = pageOverride !== undefined ? pageOverride : currentPage;
+        const type = typeOverride !== undefined ? typeOverride : selectedType;
         const isSemantic = query.trim().length > 2;
 
         if (isSemantic) {
@@ -194,9 +204,10 @@ export default function ExploreGTM() {
 
         setLoading(true);
         try {
+            const typeParam = type && type !== 'All' ? `&type=${encodeURIComponent(type)}` : '';
             const url = isSemantic
-                ? `/api/assets?q=${encodeURIComponent(query)}`
-                : `/api/assets?page=${page}&limit=12`;
+                ? `/api/assets?q=${encodeURIComponent(query)}${typeParam}`
+                : `/api/assets?page=${page}&limit=12${typeParam}`;
 
             const res = await fetch(url);
             if (!res.ok) throw new Error('Failed to fetch assets');
@@ -215,9 +226,17 @@ export default function ExploreGTM() {
     // Initial fetch and pagination
     useEffect(() => {
         if (!isVisualSearching && !searchImagePreview && searchQuery.trim().length === 0) {
-            fetchAssets();
+            fetchAssets(undefined, currentPage);
         }
     }, [currentPage]);
+
+    // Re-fetch when type filter changes
+    useEffect(() => {
+        if (!isVisualSearching && !searchImagePreview) {
+            setCurrentPage(1);
+            fetchAssets(searchQuery || undefined, 1, selectedType);
+        }
+    }, [selectedType]);
 
 
 
@@ -252,10 +271,9 @@ export default function ExploreGTM() {
             matchesSearch = true;
         }
 
-        const matchesType = selectedType === 'All' || asset.type === selectedType;
         const matchesCategory = selectedCategory === 'All' || asset.category === selectedCategory;
 
-        return matchesSearch && matchesType && matchesCategory;
+        return matchesSearch && matchesCategory;
     });
 
     const getTypeIcon = (type: GTMAsset['type']) => {
@@ -505,8 +523,8 @@ export default function ExploreGTM() {
                                                     </div>
                                                     {/* Delete button */}
                                                     <button
-                                                        onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleDelete(asset.id); }}
-                                                        className="p-1.5 rounded-lg text-slate-300 dark:text-slate-600 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-all duration-200"
+                                                        onClick={(e) => { e.preventDefault(); e.stopPropagation(); openDeleteModal(asset); }}
+                                                        className="p-1.5 rounded-lg text-blue-500 hover:text-black hover:bg-slate-100 dark:hover:bg-white/10 transition-all duration-200"
                                                         title="Delete Asset"
                                                     >
                                                         <Trash2 className="w-4 h-4" />
@@ -613,6 +631,73 @@ export default function ExploreGTM() {
                     )}
                 </div>
             </div>
-        </main>
+        {/* ── Delete Confirmation Modal ── */}
+        {pendingDelete && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm animate-in fade-in duration-200">
+                <div className="bg-white dark:bg-[#0F172A] w-full max-w-md rounded-[32px] shadow-2xl border border-slate-100 dark:border-white/10 overflow-hidden animate-in zoom-in-95 duration-200">
+                    {/* Header */}
+                    <div className="p-8 pb-6">
+                        <div className="w-14 h-14 rounded-2xl bg-red-500/10 flex items-center justify-center mb-5 mx-auto">
+                            <Trash2 className="w-7 h-7 text-red-500" />
+                        </div>
+                        <h3 className="text-xl font-extrabold text-slate-900 dark:text-white text-center mb-2">
+                            Delete Asset?
+                        </h3>
+                        <p className="text-sm text-slate-500 dark:text-slate-400 text-center leading-relaxed">
+                            You are about to permanently delete
+                        </p>
+                        <p className="text-sm font-bold text-slate-800 dark:text-slate-200 text-center mt-1 px-4 line-clamp-2">
+                            &ldquo;{pendingDelete.name}&rdquo;
+                        </p>
+                        <div className="mt-4 flex items-start gap-2.5 p-3 rounded-xl bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20">
+                            <AlertTriangle className="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" />
+                            <p className="text-xs text-amber-700 dark:text-amber-400 font-medium leading-relaxed">
+                                This will also remove all indexed slides and AI embeddings. This action cannot be undone.
+                            </p>
+                        </div>
+                    </div>
+                    {/* Actions */}
+                    <div className="px-8 pb-8 flex gap-3">
+                        <button
+                            onClick={() => setPendingDelete(null)}
+                            disabled={isDeleting}
+                            className="flex-1 py-3.5 rounded-xl border border-slate-200 dark:border-white/10 text-sm font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 transition-all disabled:opacity-50"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            onClick={confirmDelete}
+                            disabled={isDeleting}
+                            className="flex-1 py-3.5 rounded-xl bg-red-500 hover:bg-red-600 text-white text-sm font-bold transition-all shadow-lg shadow-red-500/20 flex items-center justify-center gap-2 disabled:opacity-70"
+                        >
+                            {isDeleting ? (
+                                <><Loader2 className="w-4 h-4 animate-spin" /> Deleting...</>
+                            ) : (
+                                <><Trash2 className="w-4 h-4" /> Delete Asset</>
+                            )}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        )}
+
+        {/* ── Toast Notification ── */}
+        {deleteToast && (
+            <div className={`fixed bottom-6 right-6 z-50 flex items-center gap-3 px-5 py-4 rounded-2xl shadow-2xl border animate-in slide-in-from-bottom-4 fade-in duration-300 ${
+                deleteToast.type === 'success'
+                    ? 'bg-white dark:bg-slate-900 border-green-200 dark:border-green-500/30'
+                    : 'bg-white dark:bg-slate-900 border-red-200 dark:border-red-500/30'
+            }`}>
+                {deleteToast.type === 'success'
+                    ? <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
+                    : <AlertTriangle className="w-5 h-5 text-red-500 flex-shrink-0" />}
+                <p className={`text-sm font-semibold ${
+                    deleteToast.type === 'success' ? 'text-slate-800 dark:text-slate-200' : 'text-slate-800 dark:text-slate-200'
+                }`}>
+                    {deleteToast.message}
+                </p>
+            </div>
+        )}
+    </main>
     );
 }
