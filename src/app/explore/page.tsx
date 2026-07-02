@@ -589,28 +589,32 @@ export default function ExploreGTM() {
                                         </button>
                                         
                                         <div className="flex items-center gap-1 mx-4">
-                                            {Array.from({ length: Math.min(paginationData.totalPages, 5) }, (_, i) => {
-                                                // Show surrounding pages if there are many
-                                                let pageNum = i + 1;
-                                                if (paginationData.totalPages > 5) {
-                                                    if (currentPage > 3) pageNum = currentPage - 3 + i + 1;
-                                                    if (pageNum > paginationData.totalPages) pageNum = paginationData.totalPages - 4 + i;
-                                                }
-                                                return pageNum;
-                                            }).filter(p => p > 0 && p <= paginationData.totalPages).map((pageNum) => (
-                                                <button
-                                                    key={pageNum}
-                                                    onClick={() => setCurrentPage(pageNum)}
-                                                    className={cn(
-                                                        "w-10 h-10 rounded-xl text-xs font-bold transition-all",
-                                                        currentPage === pageNum 
-                                                            ? "bg-brand text-white shadow-lg shadow-brand/20" 
-                                                            : "text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5"
-                                                    )}
-                                                >
-                                                    {pageNum}
-                                                </button>
-                                            ))}
+                                            {(() => {
+                                                const total = paginationData.totalPages;
+                                                const windowSize = Math.min(total, 5);
+                                                // Clamp start so we always show a full window without going out of bounds
+                                                const rawStart = currentPage - Math.floor(windowSize / 2);
+                                                const start = Math.max(1, Math.min(rawStart, total - windowSize + 1));
+                                                // Use Set to guarantee uniqueness
+                                                const pages = Array.from(new Set(
+                                                    Array.from({ length: windowSize }, (_, i) => start + i)
+                                                        .filter(p => p >= 1 && p <= total)
+                                                ));
+                                                return pages.map((pageNum) => (
+                                                    <button
+                                                        key={pageNum}
+                                                        onClick={() => setCurrentPage(pageNum)}
+                                                        className={cn(
+                                                            "w-10 h-10 rounded-xl text-xs font-bold transition-all",
+                                                            currentPage === pageNum
+                                                                ? "bg-brand text-white shadow-lg shadow-brand/20"
+                                                                : "text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5"
+                                                        )}
+                                                    >
+                                                        {pageNum}
+                                                    </button>
+                                                ));
+                                            })()}
                                         </div>
 
                                         <button
