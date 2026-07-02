@@ -59,6 +59,9 @@ export default function ExploreGTM() {
     const router = useRouter();
     const searchInputRef = useRef<HTMLTextAreaElement>(null);
 
+    // Admin check — same pattern used across the app
+    const isAdmin = user?.email === 'admin@10xds.com' || user?.role === 'admin';
+
     const loadingTexts = [
         'Searching database...',
         'Fetching results...',
@@ -499,8 +502,8 @@ export default function ExploreGTM() {
                                     ))}
                                 </select>
                             </div>
-                            {/* Select All / Deselect All */}
-                            {filteredAssets.length > 0 && (
+                            {/* Select All / Deselect All — admin only */}
+                            {isAdmin && filteredAssets.length > 0 && (
                                 <button
                                     onClick={toggleSelectAll}
                                     className={cn(
@@ -581,19 +584,21 @@ export default function ExploreGTM() {
                                                         </div>
                                                     </>
                                                 )}
-                                                {/* Selection checkbox overlay */}
-                                                <button
-                                                    onClick={(e) => toggleSelect(e, asset.id)}
-                                                    className={cn(
-                                                        "absolute top-3 left-3 z-10 w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all duration-200 shadow-sm",
-                                                        isSelected
-                                                            ? "bg-brand border-brand opacity-100"
-                                                            : "bg-white/90 dark:bg-slate-800/90 border-slate-300 dark:border-white/30 opacity-0 group-hover:opacity-100"
-                                                    )}
-                                                    title={isSelected ? 'Deselect' : 'Select'}
-                                                >
-                                                    {isSelected && <span className="text-white text-[11px] font-black leading-none">✓</span>}
-                                                </button>
+                                                {/* Selection checkbox overlay — admin only */}
+                                                {isAdmin && (
+                                                    <button
+                                                        onClick={(e) => toggleSelect(e, asset.id)}
+                                                        className={cn(
+                                                            "absolute top-3 left-3 z-10 w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all duration-200 shadow-sm",
+                                                            isSelected
+                                                                ? "bg-brand border-brand opacity-100"
+                                                                : "bg-white/90 dark:bg-slate-800/90 border-slate-300 dark:border-white/30 opacity-0 group-hover:opacity-100"
+                                                        )}
+                                                        title={isSelected ? 'Deselect' : 'Select'}
+                                                    >
+                                                        {isSelected && <span className="text-white text-[11px] font-black leading-none">✓</span>}
+                                                    </button>
+                                                )}
                                             </div>
 
                                             {/* Card Body */}
@@ -609,14 +614,16 @@ export default function ExploreGTM() {
                                                             {asset.category || 'GTM'}
                                                         </span>
                                                     </div>
-                                                    {/* Delete button */}
-                                                    <button
-                                                        onClick={(e) => { e.preventDefault(); e.stopPropagation(); openDeleteModal(asset); }}
-                                                        className="p-1.5 rounded-lg text-blue-500 hover:text-black hover:bg-slate-100 dark:hover:bg-white/10 transition-all duration-200"
-                                                        title="Delete Asset"
-                                                    >
-                                                        <Trash2 className="w-4 h-4" />
-                                                    </button>
+                                                    {/* Delete button — admin only */}
+                                                    {isAdmin && (
+                                                        <button
+                                                            onClick={(e) => { e.preventDefault(); e.stopPropagation(); openDeleteModal(asset); }}
+                                                            className="p-1.5 rounded-lg text-blue-500 hover:text-black hover:bg-slate-100 dark:hover:bg-white/10 transition-all duration-200"
+                                                            title="Delete Asset"
+                                                        >
+                                                            <Trash2 className="w-4 h-4" />
+                                                        </button>
+                                                    )}
                                                 </div>
 
                                                 <h3 className="text-lg font-bold text-slate-900 dark:text-white leading-tight mb-4 line-clamp-2 transition-colors group-hover:text-brand">
@@ -724,8 +731,8 @@ export default function ExploreGTM() {
                     )}
                 </div>
             </div>
-        {/* ── Floating Bulk Selection Bar ── */}
-        {selectedIds.size > 0 && (
+        {/* ── Floating Bulk Selection Bar — admin only ── */}
+        {isAdmin && selectedIds.size > 0 && (
             <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-40 animate-in slide-in-from-bottom-4 fade-in duration-300">
                 <div className="flex items-center gap-4 px-6 py-4 rounded-2xl bg-slate-900 dark:bg-white shadow-2xl border border-white/10 dark:border-slate-200">
                     <div className="flex items-center gap-2">
