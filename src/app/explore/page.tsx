@@ -102,6 +102,40 @@ export default function ExploreGTM() {
     const [deleteToast, setDeleteToast] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
     const [isDeleting, setIsDeleting] = useState(false);
 
+    // Bulk selection state
+    const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+    const [showBulkDeleteModal, setShowBulkDeleteModal] = useState(false);
+    const [isBulkDeleting, setIsBulkDeleting] = useState(false);
+
+    const toggleSelect = (e: React.MouseEvent, id: string) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setSelectedIds(prev => {
+            const next = new Set(prev);
+            next.has(id) ? next.delete(id) : next.add(id);
+            return next;
+        });
+    };
+
+    const confirmBulkDelete = async () => {
+        setIsBulkDeleting(true);
+        const ids = Array.from(selectedIds);
+        try {
+            await Promise.all(ids.map(id => fetch(`/api/assets/${id}`, { method: 'DELETE' })));
+            setAssets(prev => prev.filter(a => !selectedIds.has(a.id)));
+            setSelectedIds(new Set());
+            setShowBulkDeleteModal(false);
+            setDeleteToast({ type: 'success', message: `${ids.length} asset${ids.length > 1 ? 's' : ''} deleted successfully.` });
+        } catch (err) {
+            console.error('Bulk delete error:', err);
+            setShowBulkDeleteModal(false);
+            setDeleteToast({ type: 'error', message: 'Some assets could not be deleted. Please try again.' });
+        } finally {
+            setIsBulkDeleting(false);
+            setTimeout(() => setDeleteToast(null), 3500);
+        }
+    };
+
     const handleClearSearch = () => {
         setSearchQuery('');
         setSearchInput('');
@@ -276,6 +310,17 @@ export default function ExploreGTM() {
         return matchesSearch && matchesCategory;
     });
 
+    // Derived selection helpers (placed after filteredAssets)
+    const isAllSelected = filteredAssets.length > 0 && filteredAssets.every(a => selectedIds.has(a.id));
+
+    const toggleSelectAll = () => {
+        if (isAllSelected) {
+            setSelectedIds(new Set());
+        } else {
+            setSelectedIds(new Set(filteredAssets.map(a => a.id)));
+        }
+    };
+
     const getTypeIcon = (type: GTMAsset['type']) => {
         switch (type) {
             case 'PDF': return '/assets/icon_pdf.png';
@@ -440,8 +485,8 @@ export default function ExploreGTM() {
                             </div>
                         </div>
 
-                        {/* Category & Tag Filters */}
-                        <div className="flex flex-wrap gap-4">
+                        {/* Category & Selection Controls */}
+                        <div className="flex flex-wrap items-center justify-between gap-4">
                             <div className="flex items-center gap-2">
                                 <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Category:</span>
                                 <select
@@ -454,6 +499,29 @@ export default function ExploreGTM() {
                                     ))}
                                 </select>
                             </div>
+                            {/* Select All / Deselect All */}
+                            {filteredAssets.length > 0 && (
+                                <button
+                                    onClick={toggleSelectAll}
+                                    className={cn(
+                                        "flex items-center gap-2 px-4 py-1.5 rounded-xl text-xs font-bold border transition-all",
+                                        isAllSelected
+                                            ? "bg-brand/10 border-brand/30 text-brand"
+                                            : "bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/10 text-slate-500 hover:border-brand/30 hover:text-brand"
+                                    )}
+                                >
+                                    <span className={cn(
+                                        "w-4 h-4 rounded border-2 flex items-center justify-center flex-shrink-0 transition-all",
+                                        isAllSelected ? "bg-brand border-brand" : "border-slate-300 dark:border-white/20"
+                                    )}>
+                                        {isAllSelected && <span className="text-white text-[10px] font-black">✓</span>}
+                                    </span>
+                                    {isAllSelected ? 'Deselect All' : 'Select All'}
+                                    {selectedIds.size > 0 && !isAllSelected && (
+                                        <span className="ml-1 px-1.5 py-0.5 rounded-md bg-brand/10 text-brand text-[9px] font-black">{selectedIds.size}</span>
+                                    )}
+                                </button>
+                            )}
                         </div>
                     </div>
 
@@ -474,11 +542,18 @@ export default function ExploreGTM() {
                         <>
                             {filteredAssets.length > 0 ? (
                                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-                                    {filteredAssets.map((asset) => (
+                                    {filteredAssets.map((asset) => {
+                                        const isSelected = selectedIds.has(asset.id);
+                                        return (
                                         <div
                                             key={`${asset.type}-${asset.id}`}
-                                            onClick={() => window.open(asset.url, '_blank')}
-                                            className="group flex flex-col bg-white dark:bg-slate-900/50 rounded-3xl overflow-hidden border border-slate-100 dark:border-white/5 hover:border-brand/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand/10 cursor-pointer"
+                                            onClick={() => selectedIds.size > 0 ? toggleSelect({ preventDefault: () => {}, stopPropagation: () => {} } as any, asset.id) : window.open(asset.url, '_blank')}
+                                            className={cn(
+                                                "group flex flex-col rounded-3xl overflow-hidden border transition-all duration-500 cursor-pointer",
+                                                isSelected
+                                                    ? "bg-brand/5 dark:bg-brand/10 border-brand shadow-lg shadow-brand/10 -translate-y-1"
+                                                    : "bg-white dark:bg-slate-900/50 border-slate-100 dark:border-white/5 hover:border-brand/30 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand/10"
+                                            )}
                                         >
                                             {/* Card Header (Image/Icon Placeholder) */}
                                             <div className="relative aspect-[16/10] bg-slate-100 dark:bg-slate-800 flex items-center justify-center overflow-hidden">
@@ -506,6 +581,19 @@ export default function ExploreGTM() {
                                                         </div>
                                                     </>
                                                 )}
+                                                {/* Selection checkbox overlay */}
+                                                <button
+                                                    onClick={(e) => toggleSelect(e, asset.id)}
+                                                    className={cn(
+                                                        "absolute top-3 left-3 z-10 w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all duration-200 shadow-sm",
+                                                        isSelected
+                                                            ? "bg-brand border-brand opacity-100"
+                                                            : "bg-white/90 dark:bg-slate-800/90 border-slate-300 dark:border-white/30 opacity-0 group-hover:opacity-100"
+                                                    )}
+                                                    title={isSelected ? 'Deselect' : 'Select'}
+                                                >
+                                                    {isSelected && <span className="text-white text-[11px] font-black leading-none">✓</span>}
+                                                </button>
                                             </div>
 
                                             {/* Card Body */}
@@ -558,7 +646,8 @@ export default function ExploreGTM() {
                                                 </div>
                                             </div>
                                         </div>
-                                    ))}
+                                        );
+                                    })}
                                 </div>
                             ) : (
                                 <div className="flex flex-col items-center justify-center py-40 text-center">
@@ -635,6 +724,36 @@ export default function ExploreGTM() {
                     )}
                 </div>
             </div>
+        {/* ── Floating Bulk Selection Bar ── */}
+        {selectedIds.size > 0 && (
+            <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-40 animate-in slide-in-from-bottom-4 fade-in duration-300">
+                <div className="flex items-center gap-4 px-6 py-4 rounded-2xl bg-slate-900 dark:bg-white shadow-2xl border border-white/10 dark:border-slate-200">
+                    <div className="flex items-center gap-2">
+                        <span className="w-7 h-7 rounded-lg bg-brand flex items-center justify-center text-white text-xs font-black">
+                            {selectedIds.size}
+                        </span>
+                        <span className="text-white dark:text-slate-900 text-sm font-semibold">
+                            asset{selectedIds.size > 1 ? 's' : ''} selected
+                        </span>
+                    </div>
+                    <div className="w-px h-6 bg-white/20 dark:bg-slate-300" />
+                    <button
+                        onClick={() => setSelectedIds(new Set())}
+                        className="text-slate-400 dark:text-slate-500 hover:text-white dark:hover:text-slate-900 text-xs font-bold transition-colors"
+                    >
+                        Clear
+                    </button>
+                    <button
+                        onClick={() => setShowBulkDeleteModal(true)}
+                        className="flex items-center gap-2 px-4 py-2 rounded-xl bg-red-500 hover:bg-red-600 text-white text-xs font-bold transition-all shadow-lg shadow-red-500/30"
+                    >
+                        <Trash2 className="w-3.5 h-3.5" />
+                        Delete Selected
+                    </button>
+                </div>
+            </div>
+        )}
+
         {/* ── Delete Confirmation Modal ── */}
         {pendingDelete && (
             <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm animate-in fade-in duration-200">
@@ -678,6 +797,51 @@ export default function ExploreGTM() {
                                 <><Loader2 className="w-4 h-4 animate-spin" /> Deleting...</>
                             ) : (
                                 <><Trash2 className="w-4 h-4" /> Delete Asset</>
+                            )}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        )}
+
+        {/* ── Bulk Delete Confirmation Modal ── */}
+        {showBulkDeleteModal && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm animate-in fade-in duration-200">
+                <div className="bg-white dark:bg-[#0F172A] w-full max-w-md rounded-[32px] shadow-2xl border border-slate-100 dark:border-white/10 overflow-hidden animate-in zoom-in-95 duration-200">
+                    <div className="p-8 pb-6">
+                        <div className="w-14 h-14 rounded-2xl bg-red-500/10 flex items-center justify-center mb-5 mx-auto">
+                            <Trash2 className="w-7 h-7 text-red-500" />
+                        </div>
+                        <h3 className="text-xl font-extrabold text-slate-900 dark:text-white text-center mb-2">
+                            Delete {selectedIds.size} Asset{selectedIds.size > 1 ? 's' : ''}?
+                        </h3>
+                        <p className="text-sm text-slate-500 dark:text-slate-400 text-center leading-relaxed">
+                            You are about to permanently delete <span className="font-bold text-slate-800 dark:text-slate-200">{selectedIds.size} selected asset{selectedIds.size > 1 ? 's' : ''}</span>.
+                        </p>
+                        <div className="mt-4 flex items-start gap-2.5 p-3 rounded-xl bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20">
+                            <AlertTriangle className="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" />
+                            <p className="text-xs text-amber-700 dark:text-amber-400 font-medium leading-relaxed">
+                                This will also remove all indexed slides and AI embeddings for each asset. This action cannot be undone.
+                            </p>
+                        </div>
+                    </div>
+                    <div className="px-8 pb-8 flex gap-3">
+                        <button
+                            onClick={() => setShowBulkDeleteModal(false)}
+                            disabled={isBulkDeleting}
+                            className="flex-1 py-3.5 rounded-xl border border-slate-200 dark:border-white/10 text-sm font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 transition-all disabled:opacity-50"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            onClick={confirmBulkDelete}
+                            disabled={isBulkDeleting}
+                            className="flex-1 py-3.5 rounded-xl bg-red-500 hover:bg-red-600 text-white text-sm font-bold transition-all shadow-lg shadow-red-500/20 flex items-center justify-center gap-2 disabled:opacity-70"
+                        >
+                            {isBulkDeleting ? (
+                                <><Loader2 className="w-4 h-4 animate-spin" /> Deleting...</>
+                            ) : (
+                                <><Trash2 className="w-4 h-4" /> Delete {selectedIds.size} Asset{selectedIds.size > 1 ? 's' : ''}</>
                             )}
                         </button>
                     </div>
