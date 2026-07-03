@@ -95,34 +95,40 @@ export async function GET(req: Request) {
                     matchType: 'semantic',
                     rawDistance: distValue
                 };
-            }).filter((c: any) => c.rawDistance === undefined || c.rawDistance <= 0.40);
+            }).filter((c: any) => c.rawDistance === undefined || c.rawDistance <= 0.55);
 
-            // 5. Faster Merge & Deduction
+            // 5. Merge keyword + semantic candidates
             const seenIds = new Set(keywordMatches.map((m: any) => m.id));
             const mergedResults = [...keywordMatches];
             semanticCandidates.forEach(c => { if (!seenIds.has(c.id)) { mergedResults.push(c); seenIds.add(c.id); } });
 
-            // 6. Strict AI Verification
+            // 6. AI Verification — always applied so empty results are honoured
             let finalResults = mergedResults;
             if (semanticCandidates.length > 0) {
                 const candidatesForAI = mergedResults.filter(r => r.matchType === 'semantic').slice(0, 10);
                 const verificationPrompt =
-                    `You are a strict Search Quality Auditor. Your job is to filter search results and ONLY keep results that are genuinely relevant to the user's query.\n\nUser Query: "${query}"\n\nFor each candidate below, decide if it is TRULY relevant to the query.\n- If the query is nonsense, misspelled beyond recognition, or completely unrelated to any candidate, return an empty array [].\n- Do NOT return results just because they are close in vector space — only return results with real topical relevance.\n- Return ONLY a JSON array of relevant IDs, nothing else.\n\nResponse Format: ["id1", "id2"] or [] if nothing is relevant.\n\nCandidates:\n` + candidatesForAI.map((c: any) => `ID: ${c.id} | Name: ${c.name} | Summary: ${c.summary}`).join('\n');
+                    `You are a GTM Search Quality Auditor. Evaluate these documents for the user's query and return only the IDs of documents that are RELEVANT.\n\nUser Query: "${query}"\n\nRules:\n- Include documents that are genuinely related to the query topic, even if the query is misspelled or uses domain-specific terms.\n- Exclude documents that are clearly unrelated to the topic.\n- If NOTHING is relevant at all, return [].\n- Return ONLY a JSON array of relevant IDs, nothing else.\n\nResponse Format: ["id1", "id2"] or [] if nothing is relevant.\n\nCandidates:\n` + candidatesForAI.map((c: any) => `ID: ${c.id} | Name: ${c.name} | Summary: ${c.summary}`).join('\n');
 
                 try {
                     const aiResult = await generativeModel.generateContent(verificationPrompt);
                     const aiText = aiResult.response.candidates?.[0]?.content?.parts?.[0]?.text || '[]';
                     const match = aiText.match(/\[[\s\S]*?\]/);
                     const verifiedIds: string[] = match ? JSON.parse(match[0]) : [];
-                    // ALWAYS apply the AI verdict — even if it returns [] (nothing relevant)
-                    finalResults = [...keywordMatches, ...mergedResults.filter(r => r.matchType === 'semantic' && verifiedIds.includes(r.id))];
+
+                    if (verifiedIds.length > 0) {
+                        // AI found relevant results — use them
+                        finalResults = [...keywordMatches, ...mergedResults.filter(r => r.matchType === 'semantic' && verifiedIds.includes(r.id))];
+                    } else {
+                        // AI returned [] — fallback: show top candidates that are reasonably close
+                        // (distance <= 0.45, same threshold as the chat API)
+                        const closeCandidates = semanticCandidates.filter(c => c.rawDistance !== undefined && c.rawDistance <= 0.45).slice(0, 3);
+                        finalResults = [...keywordMatches, ...closeCandidates];
+                    }
                 } catch (e) {
-                    debugLog('Verification failed, falling back to keyword matches only');
-                    // On AI failure: only keep keyword matches (strict fallback)
-                    finalResults = keywordMatches;
+                    debugLog('AI verification failed, using keyword matches + close semantic results');
+                    finalResults = [...keywordMatches, ...semanticCandidates.filter(c => c.rawDistance !== undefined && c.rawDistance <= 0.45).slice(0, 3)];
                 }
             }
-
 
             finalResults.sort((a, b) => (b.similarity || 0) - (a.similarity || 0));
             debugLog(`Total Search Time: ${Date.now() - startTime}ms | Results: ${finalResults.length}`);
