@@ -95,7 +95,7 @@ export async function GET(req: Request) {
                     matchType: 'semantic',
                     rawDistance: distValue
                 };
-            }).filter((c: any) => c.rawDistance === undefined || c.rawDistance <= 0.55);
+            }).filter((c: any) => c.rawDistance === undefined || c.rawDistance <= 0.40);
 
             // 5. Faster Merge & Deduction
             const seenIds = new Set(keywordMatches.map((m: any) => m.id));
@@ -104,25 +104,22 @@ export async function GET(req: Request) {
 
             // 6. Strict AI Verification
             let finalResults = mergedResults;
-            if (mergedResults.length > 3 && semanticCandidates.length > 0) {
+            if (semanticCandidates.length > 0) {
                 const candidatesForAI = mergedResults.filter(r => r.matchType === 'semantic').slice(0, 10);
-                const verificationPrompt = `As a Search Quality Auditor, filter these results for: "${query}"\n` + 
-                    `Return a JSON array of IDs that are RELEVANT. \n` +
-                    `Be precise but not overly restrictive. Exclude obvious mismatches like "Talking Avatar" for "Computer Vision" if they don't mention vision technologies.\n` +
-                    `Response Format: ["id1", "id2", ...]\n\n` +
-                    candidatesForAI.map((c: any) => `ID: ${c.id} | Name: ${c.name} | Summary: ${c.summary}`).join('\n');
-                
+                const verificationPrompt =
+                    `You are a strict Search Quality Auditor. Your job is to filter search results and ONLY keep results that are genuinely relevant to the user's query.\n\nUser Query: "${query}"\n\nFor each candidate below, decide if it is TRULY relevant to the query.\n- If the query is nonsense, misspelled beyond recognition, or completely unrelated to any candidate, return an empty array [].\n- Do NOT return results just because they are close in vector space — only return results with real topical relevance.\n- Return ONLY a JSON array of relevant IDs, nothing else.\n\nResponse Format: ["id1", "id2"] or [] if nothing is relevant.\n\nCandidates:\n` + candidatesForAI.map((c: any) => `ID: ${c.id} | Name: ${c.name} | Summary: ${c.summary}`).join('\n');
+
                 try {
                     const aiResult = await generativeModel.generateContent(verificationPrompt);
                     const aiText = aiResult.response.candidates?.[0]?.content?.parts?.[0]?.text || '[]';
-                    const match = aiText.match(/\[[\s\S]*\]/);
-                    const verifiedIds = match ? JSON.parse(match[0]) : [];
-                    if (verifiedIds.length > 0) {
-                        finalResults = [...keywordMatches, ...mergedResults.filter(r => r.matchType === 'semantic' && verifiedIds.includes(r.id))];
-                    }
+                    const match = aiText.match(/\[[\s\S]*?\]/);
+                    const verifiedIds: string[] = match ? JSON.parse(match[0]) : [];
+                    // ALWAYS apply the AI verdict — even if it returns [] (nothing relevant)
+                    finalResults = [...keywordMatches, ...mergedResults.filter(r => r.matchType === 'semantic' && verifiedIds.includes(r.id))];
                 } catch (e) {
-                    debugLog('Verification failed');
-                    finalResults = mergedResults.slice(0, 5); 
+                    debugLog('Verification failed, falling back to keyword matches only');
+                    // On AI failure: only keep keyword matches (strict fallback)
+                    finalResults = keywordMatches;
                 }
             }
 
