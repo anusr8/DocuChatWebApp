@@ -20,29 +20,27 @@ export async function GET(req: Request) {
             const startTime = Date.now();
             debugLog(`--- Search Start: "${query}" (Type: ${type || 'All'}) ---`);
 
-            // 1. Faster Query Intent Extraction (Minimal or Skip for speed)
+            // 1. Strong Query Intent Extraction — matches the chat API approach
             let optimizedQuery = query;
             try {
-                // Only optimize if the query is long/complex to save time
-                if (query.split(' ').length > 2 || query.toLowerCase().includes('gtn')) {
-                    const intentPrompt = `Extract core search keywords. Correct typos like "GTN" to "GTM". Query: "${query}" Output ONLY keywords:`;
-                    const intentResult = await generativeModel.generateContent(intentPrompt);
-                    const intentText = intentResult.response.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
-                    if (intentText && intentText.length > 0) optimizedQuery = intentText;
-                }
+                const intentPrompt = `You are a Search Intent Optimizer. Analyze the user's message and extract a concise search query for retrieving corporate GTM documents from a vector database.\n- Expand abbreviations/acronyms (e.g. "CV" → "Computer Vision", "NLP" → "Natural Language Processing").\n- Correct spelling mistakes (e.g. "andesron" → "Anderson", "GTN" → "GTM").\n- If the message is conversational (e.g. "is there anything about X?"), extract just the core topic.\n- Output ONLY the cleaned search query, nothing else.\n\nUser message: "${query}"\nSearch Query:`;
+                const intentResult = await generativeModel.generateContent(intentPrompt);
+                const intentText = intentResult.response.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+                if (intentText && intentText.length > 0) optimizedQuery = intentText;
                 debugLog(`Optimized Query: "${optimizedQuery}" (${Date.now() - startTime}ms)`);
             } catch (intentErr) {
-                console.warn('Intent extraction failed or timed out, skipping optimization');
+                console.warn('Intent extraction failed or timed out, using raw query');
             }
 
-            // 2. Parallel Semantic & Keyword Search (Much faster than sequential)
+            // 2. Parallel Embedding + Keyword Fetch
             const queryEmbeddingPromise = getEmbedding(optimizedQuery);
-            
+
             let allAssetsRef = adminDb.collection('gtm_assets');
             if (type && type !== 'All') {
                 allAssetsRef = allAssetsRef.where('type', '==', type);
             }
-            const allAssetsSnapshotPromise = allAssetsRef.orderBy('created_at', 'desc').limit(50).get();
+            // Fetch more docs so keyword search covers older assets too
+            const allAssetsSnapshotPromise = allAssetsRef.orderBy('created_at', 'desc').limit(200).get();
 
             const [queryEmbedding, allSnapshot] = await Promise.all([queryEmbeddingPromise, allAssetsSnapshotPromise]);
             debugLog(`Embeddings & Keyword data fetched (${Date.now() - startTime}ms)`);
@@ -55,9 +53,12 @@ export async function GET(req: Request) {
 
             // 3. Keyword Matching (Fallback)
             const queryLower = optimizedQuery.toLowerCase();
+            const rawQueryLower = query.toLowerCase();
             const keywordMatches = allAssets.filter((a: any) => 
                 a.name.toLowerCase().includes(queryLower) || 
-                (a.summary || '').toLowerCase().includes(queryLower)
+                (a.summary || '').toLowerCase().includes(queryLower) ||
+                a.name.toLowerCase().includes(rawQueryLower) || 
+                (a.summary || '').toLowerCase().includes(rawQueryLower)
             ).map((a: any) => ({ ...a, similarity: 1.0, matchType: 'keyword' }));
 
             // 4. Semantic Search in Parallel

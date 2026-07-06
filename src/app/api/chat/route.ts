@@ -42,11 +42,11 @@ Search Query:`;
             const [contentSnapshot, metadataSnapshot, allSnapshot] = await Promise.all([
                 adminDb.collection('gtm_assets')
                     .findNearest('embedding', FieldValue.vector(queryEmbedding), {
-                        limit: 5, distanceMeasure: 'COSINE', distanceResultField: 'distance'
+                        limit: 20, distanceMeasure: 'COSINE', distanceResultField: 'distance'
                     } as any).get(),
                 adminDb.collection('gtm_assets')
                     .findNearest('metadata_embedding', FieldValue.vector(queryEmbedding), {
-                        limit: 5, distanceMeasure: 'COSINE', distanceResultField: 'distance'
+                        limit: 20, distanceMeasure: 'COSINE', distanceResultField: 'distance'
                     } as any).get(),
                 adminDb.collection('gtm_assets').limit(100).get() // For keyword fallback
             ]);
@@ -119,7 +119,7 @@ If none are relevant, respond with [].`;
             try {
                 const aiVerifyResult = await generativeModel.generateContent(verificationPrompt);
                 const aiVerifyText = aiVerifyResult.response.candidates?.[0]?.content?.parts?.[0]?.text || '[]';
-                const verifiedIdsMatch = aiVerifyText.match(/\[.*\]/);
+                const verifiedIdsMatch = aiVerifyText.match(/\[[\s\S]*?\]/);
                 const verifiedIds = verifiedIdsMatch ? JSON.parse(verifiedIdsMatch[0]) : [];
                 
                 if (verifiedIds.length > 0) {
@@ -136,12 +136,12 @@ If none are relevant, respond with [].`;
 
         // 3. Construct Context for LLM Answer
         const context = verifiedDocs.length > 0 
-            ? verifiedDocs.slice(0, 5).map((doc: any) =>
+            ? verifiedDocs.map((doc: any) =>
                 `---\n[Source: ${doc.type} - ${doc.name}]\nSummary: ${doc.summary || 'N/A'}\nContent: ${doc.content || 'No detailed content available'}\n---`
             ).join('\n\n')
             : 'NO ASSETS FOUND IN THE KNOWLEDGE BASE.';
 
-        const recommendations = verifiedDocs.slice(0, 5).map((doc: any) => ({
+        const recommendations = verifiedDocs.map((doc: any) => ({
             id: doc.id,
             name: doc.name,
             type: doc.type.toUpperCase(),
@@ -150,17 +150,21 @@ If none are relevant, respond with [].`;
             summary: doc.summary || doc.description || ''
         }));
 
-        const prompt = `You are a helpful and professional GTM (Go-To-Market) Consultant and Assistant.
-Use the provided context to answer the user's query in a detailed, conversational, and highly informative manner (similar to ChatGPT).
+        const isMeetingQuery = /\b(meeting|pitch|presentation|demo|client|customer|prepare|preparing|prep)\b/i.test(message);
 
-GUIDELINES for the Response:
-1. CONVERSATIONAL ANCHORING: Open with a helpful, conversational greeting/response context tailored to the user's inquiry (e.g. acknowledging the field they are targeting).
-2. RECOMMENDATIONS: Present a list of the most relevant GTM documents/assets from the search results.
-3. DETAILED BULLET POINTS: For each document suggested:
-   - State the exact document name in **bold** (and its type, like PDF, PowerPoint, etc.).
-   - Provide a concise 2-line / 2-sentence description summarizing its key focus and explaining *why* it is relevant and how they can share/use it in this scenario.
-4. ACTIONABLE INSIGHTS: Add a brief closing thought offering advice or tips on how to prepare for their meeting using these materials.
-5. CLEAN LAYOUT: Use standard markdown bullets or numbered lists. Ensure there is a blank line (double newline \n\n) between different points/sections to keep the output visually distinct and readable. Do not use excessive symbols, keeping formatting premium and highly readable.
+        const prompt = `You are a helpful and professional GTM (Go-To-Market) Consultant and Assistant.
+Use the provided context to answer the user's query in a detailed, conversational, and highly informative manner.
+
+GUIDELINES:
+1. CONVERSATIONAL ANCHORING: Open with a natural, helpful response directly addressing the user's query. Do NOT use a generic greeting.
+2. DOCUMENT RECOMMENDATIONS: Present only the GTM documents from the context that are genuinely relevant to the user's query. For each:
+   - State the exact document name in **bold** with its type (PDF, PPT, etc.).
+   - Write a concise 2-sentence description of what it covers and why it is relevant to this specific query.
+3. ${isMeetingQuery
+    ? 'ACTIONABLE INSIGHTS: Add a brief, practical closing section with tips on how to use these materials to prepare for the meeting/presentation.'
+    : 'DIRECT ANSWER: If the context contains factual information that directly answers the query, summarise it clearly after listing the documents. Skip any meeting-prep advice — it is not relevant here.'
+}
+4. CLEAN LAYOUT: Use standard markdown bullets or numbered lists. Keep formatting premium and readable. Do NOT add sections that are not relevant to the user's actual question.
 
 Context:
 ${context}

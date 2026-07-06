@@ -614,16 +614,14 @@ export default function ExploreGTM() {
                                                             {asset.category || 'GTM'}
                                                         </span>
                                                     </div>
-                                                    {/* Delete button — admin only */}
-                                                    {isAdmin && (
-                                                        <button
-                                                            onClick={(e) => { e.preventDefault(); e.stopPropagation(); openDeleteModal(asset); }}
-                                                            className="p-1.5 rounded-lg text-blue-500 hover:text-black hover:bg-slate-100 dark:hover:bg-white/10 transition-all duration-200"
-                                                            title="Delete Asset"
-                                                        >
-                                                            <Trash2 className="w-4 h-4" />
-                                                        </button>
-                                                    )}
+                                                    {/* Delete button — all authenticated users */}
+                                                    <button
+                                                        onClick={(e) => { e.preventDefault(); e.stopPropagation(); openDeleteModal(asset); }}
+                                                        className="p-1.5 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-all duration-200"
+                                                        title="Delete Asset"
+                                                    >
+                                                        <Trash2 className="w-4 h-4" />
+                                                    </button>
                                                 </div>
 
                                                 <h3 className="text-lg font-bold text-slate-900 dark:text-white leading-tight mb-4 line-clamp-2 transition-colors group-hover:text-brand">
