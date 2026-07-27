@@ -18,13 +18,13 @@ import Link from 'next/link';
 import { validatePassword, passwordPolicy } from '@/lib/validation';
 
 export default function LoginPage() {
-  const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { login } = useAuth();
+  const [sessionToken, setSessionToken] = useState<string | null>(null);
 
   const [showResetModal, setShowResetModal] = useState(false);
   const [newPassword, setNewPassword] = useState('');
@@ -51,7 +51,7 @@ export default function LoginPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          action: isLogin ? 'login' : 'signup',
+          action: 'login',
           email,
           password
         })
@@ -65,13 +65,14 @@ export default function LoginPage() {
 
       if (data.requiresPasswordReset) {
         setTempUser(data.user);
+        setSessionToken(data.sessionToken); // keep token for reset-password call
         setShowResetModal(true);
         setLoading(false);
         return;
       }
 
-      // Save user to context & redirect
-      login(data.user);
+      // Save user + token to context & redirect
+      login(data.user, data.sessionToken);
       router.push('/');
     } catch (err: any) {
       setError(err.message);
@@ -95,11 +96,11 @@ export default function LoginPage() {
     try {
       const res = await fetch('/api/auth/reset-password', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: tempUser.email,
-          newPassword
-        })
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${sessionToken}`,
+        },
+        body: JSON.stringify({ newPassword })
       });
 
       if (!res.ok) {
@@ -107,8 +108,8 @@ export default function LoginPage() {
         throw new Error(data.error || 'Failed to reset password');
       }
 
-      // After reset, log them in
-      login(tempUser);
+      // After reset, log them in with the session token
+      login(tempUser, sessionToken!);
       router.push('/');
     } catch (err: any) {
       setError(err.message);

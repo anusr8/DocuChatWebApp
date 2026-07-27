@@ -1,25 +1,16 @@
 import { NextResponse } from 'next/server';
-import { adminStorage, adminDb } from '@/lib/firebase-admin';
+import { adminStorage } from '@/lib/firebase-admin';
+import { getSessionFromRequest } from '@/lib/auth-token';
 
 export async function GET(request: Request) {
   try {
-    const { searchParams } = new URL(request.url);
-    const adminEmail = searchParams.get('adminEmail');
-
-    if (!adminEmail) {
-      return NextResponse.json({ error: 'Missing adminEmail' }, { status: 400 });
+    // Verify JWT session and admin role
+    const session = getSessionFromRequest(request);
+    if (!session) {
+      return NextResponse.json({ error: 'Unauthorized: valid session required' }, { status: 401 });
     }
-
-    // Authorization check
-    if (adminEmail !== 'admin@10xds.com') {
-      const adminSnapshot = await adminDb.collection('users')
-        .where('email', '==', adminEmail)
-        .where('role', '==', 'admin')
-        .get();
-      
-      if (adminSnapshot.empty) {
-        return NextResponse.json({ error: 'Unauthorized: Admin access required' }, { status: 403 });
-      }
+    if (session.role !== 'admin') {
+      return NextResponse.json({ error: 'Forbidden: admin access required' }, { status: 403 });
     }
 
     const bucket = adminStorage.bucket();

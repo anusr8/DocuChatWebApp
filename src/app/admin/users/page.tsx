@@ -28,7 +28,7 @@ import {
 import { validatePassword, passwordPolicy } from '@/lib/validation';
 
 export default function AdminUsersPage() {
-  const { user, loading: authLoading } = useAuth();
+  const { user, sessionToken, loading: authLoading } = useAuth();
   const router = useRouter();
   const [users, setUsers] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -44,7 +44,9 @@ export default function AdminUsersPage() {
 
   const fetchStorageReport = async () => {
     try {
-      const res = await fetch(`/api/admin/storage?adminEmail=${user?.email}`);
+      const res = await fetch('/api/admin/storage', {
+        headers: { Authorization: `Bearer ${sessionToken}` },
+      });
       const data = await res.json();
       if (res.ok) {
         setStorageData(data);
@@ -94,7 +96,9 @@ export default function AdminUsersPage() {
 
   const fetchUsers = async () => {
     try {
-      const res = await fetch(`/api/admin/users?adminEmail=${user?.email}`);
+      const res = await fetch('/api/admin/users', {
+        headers: { Authorization: `Bearer ${sessionToken}` },
+      });
       const data = await res.json();
       if (res.ok) {
         setUsers(data.users);
@@ -117,9 +121,11 @@ export default function AdminUsersPage() {
     try {
       const res = await fetch('/api/admin/users', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${sessionToken}`,
+        },
         body: JSON.stringify({
-          adminEmail: user?.email,
           userEmail: newUser.email,
           tempPassword: newUser.tempPassword
         })
@@ -149,8 +155,9 @@ export default function AdminUsersPage() {
     if (!window.confirm(`Are you sure you want to delete user ${email}?`)) return;
 
     try {
-      const res = await fetch(`/api/admin/users?adminEmail=${user?.email}&id=${id}`, {
-        method: 'DELETE'
+      const res = await fetch(`/api/admin/users?id=${id}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${sessionToken}` },
       });
 
       if (res.ok) {
@@ -170,9 +177,11 @@ export default function AdminUsersPage() {
     try {
       const res = await fetch('/api/admin/users', {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${sessionToken}`,
+        },
         body: JSON.stringify({
-          adminEmail: user?.email,
           userId,
           action,
           newValue
@@ -434,7 +443,9 @@ export default function AdminUsersPage() {
                               {u.email}
                               {u.role === 'admin' && <Shield className="w-3 h-3 text-[#6E3C96]" />}
                             </p>
-                            <p className="text-[10px] text-slate-400 font-medium">Added on {new Date(u.createdAt).toLocaleDateString()}</p>
+                            <p className="text-[10px] text-slate-400 font-medium">
+                              Added on {u.createdAt ? new Date(u.createdAt).toLocaleDateString() : <span className="italic text-amber-500">Date unknown</span>}
+                            </p>
                           </div>
                         </div>
                       </td>
@@ -556,7 +567,9 @@ export default function AdminUsersPage() {
                 </div>
                 <div className="space-y-1">
                   <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Joined Date</p>
-                  <p className="text-sm font-bold text-slate-700">{new Date(selectedUser.createdAt).toLocaleDateString()}</p>
+                  <p className="text-sm font-bold text-slate-700">
+                    {selectedUser.createdAt ? new Date(selectedUser.createdAt).toLocaleDateString() : <span className="italic text-amber-500">Unknown — legacy account</span>}
+                  </p>
                 </div>
                 <div className="space-y-1">
                   <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">First Login</p>

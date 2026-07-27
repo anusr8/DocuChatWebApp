@@ -1,39 +1,46 @@
 import { NextResponse } from 'next/server';
 import { adminDb } from '@/lib/firebase-admin';
+import bcrypt from 'bcryptjs';
+import { validatePassword } from '@/lib/validation';
+import { getSessionFromRequest } from '@/lib/auth-token';
 
+// ── Helper: verify caller is an admin via session token ────────────────────────
+function requireAdmin(request: Request) {
+  const session = getSessionFromRequest(request);
+  if (!session) {
+    return NextResponse.json({ error: 'Unauthorized: valid session token required' }, { status: 401 });
+  }
+  if (session.role !== 'admin') {
+    return NextResponse.json({ error: 'Forbidden: admin access required' }, { status: 403 });
+  }
+  return session; // caller must type-narrow to check it's not a Response
+}
+
+// ── POST: create a new user (admin only) ───────────────────────────────────────
 export async function POST(request: Request) {
   try {
-    const { adminEmail, userEmail, tempPassword } = await request.json();
+    const authResult = requireAdmin(request);
+    if (authResult instanceof NextResponse) return authResult;
 
-    if (!adminEmail || !userEmail || !tempPassword) {
+    const { userEmail, tempPassword } = await request.json();
+
+    if (!userEmail || !tempPassword) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
-    }
-
-    // Authorization check
-    if (adminEmail !== 'admin@10xds.com') {
-      // Also check firestore to be sure
-      const adminSnapshot = await adminDb.collection('users')
-        .where('email', '==', adminEmail)
-        .where('role', '==', 'admin')
-        .get();
-      
-      if (adminSnapshot.empty) {
-        return NextResponse.json({ error: 'Unauthorized: Admin access required' }, { status: 403 });
-      }
     }
 
     if (!userEmail.endsWith('@10xds.com')) {
       return NextResponse.json({ error: 'Only @10xds.com email addresses are allowed' }, { status: 400 });
     }
 
-    const usersRef = adminDb.collection('users');
-
     const validation = validatePassword(tempPassword);
     if (!validation.isValid) {
-      return NextResponse.json({ 
-        error: 'Initial password policy not met: ' + validation.errors.join(', ') 
-      }, { status: 400 });
+      return NextResponse.json(
+        { error: 'Initial password policy not met: ' + validation.errors.join(', ') },
+        { status: 400 }
+      );
     }
+
+    const usersRef = adminDb.collection('users');
 
     // Check if user already exists
     const snapshot = await usersRef.where('email', '==', userEmail).get();
@@ -41,44 +48,44 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'User already exists' }, { status: 400 });
     }
 
-    // Create new user
+    // Hash the temporary password before storing
+    const hashedPassword = await bcrypt.hash(tempPassword, 12);
+
     const newUser = {
       email: userEmail,
-      password: tempPassword,
+      password: hashedPassword,
       role: 'user',
       isFirstLogin: true,
       createdAt: new Date().toISOString(),
     };
 
     const docRef = await usersRef.add(newUser);
-    
-    return NextResponse.json({ 
-      success: true, 
-      user: { id: docRef.id, email: newUser.email } 
-    });
 
+    return NextResponse.json({
+      success: true,
+      user: { id: docRef.id, email: newUser.email },
+    });
   } catch (error: any) {
-    console.error('[Admin API Error]', error);
+    console.error('[Admin POST API Error]', error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
 
+// ── GET: list all users (admin only) ──────────────────────────────────────────
 export async function GET(request: Request) {
   try {
-    const { searchParams } = new URL(request.url);
-    const adminEmail = searchParams.get('adminEmail');
-
-    if (adminEmail !== 'admin@10xds.com') {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
-    }
+    const authResult = requireAdmin(request);
+    if (authResult instanceof NextResponse) return authResult;
 
     const usersRef = adminDb.collection('users');
     const snapshot = await usersRef.get();
-    
-    const users = snapshot.docs.map((doc: any) => ({
-      id: doc.id,
-      ...doc.data()
-    }));
+
+    const users = snapshot.docs.map((doc: any) => {
+      const data = doc.data();
+      // Never expose the hashed password to the client
+      const { password: _pw, ...safeData } = data;
+      return { id: doc.id, ...safeData };
+    });
 
     return NextResponse.json({ users });
   } catch (error: any) {
@@ -86,26 +93,17 @@ export async function GET(request: Request) {
   }
 }
 
+// ── DELETE: remove a user (admin only) ────────────────────────────────────────
 export async function DELETE(request: Request) {
   try {
+    const authResult = requireAdmin(request);
+    if (authResult instanceof NextResponse) return authResult;
+
     const { searchParams } = new URL(request.url);
-    const adminEmail = searchParams.get('adminEmail');
     const userId = searchParams.get('id');
 
-    if (!adminEmail || !userId) {
-      return NextResponse.json({ error: 'Missing adminEmail or userId' }, { status: 400 });
-    }
-
-    // Authorization check
-    if (adminEmail !== 'admin@10xds.com') {
-      const adminSnapshot = await adminDb.collection('users')
-        .where('email', '==', adminEmail)
-        .where('role', '==', 'admin')
-        .get();
-      
-      if (adminSnapshot.empty) {
-        return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
-      }
+    if (!userId) {
+      return NextResponse.json({ error: 'Missing userId' }, { status: 400 });
     }
 
     // Prevent deleting the main admin
@@ -118,40 +116,30 @@ export async function DELETE(request: Request) {
 
     return NextResponse.json({ success: true });
   } catch (error: any) {
-    console.error('[Admin Delete API Error]', error);
+    console.error('[Admin DELETE API Error]', error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
 
-import { validatePassword } from '@/lib/validation';
-
+// ── PATCH: block/unblock or reset password (admin only) ───────────────────────
 export async function PATCH(request: Request) {
   try {
-    const { adminEmail, userId, action, newValue } = await request.json();
+    const authResult = requireAdmin(request);
+    if (authResult instanceof NextResponse) return authResult;
 
-    if (!adminEmail || !userId || !action) {
+    const { userId, action, newValue } = await request.json();
+
+    if (!userId || !action) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
     if (action === 'reset_password') {
       const validation = validatePassword(newValue);
       if (!validation.isValid) {
-        return NextResponse.json({ 
-          error: 'Password policy not met: ' + validation.errors.join(', ') 
-        }, { status: 400 });
-      }
-    }
-
-
-    // Authorization check
-    if (adminEmail !== 'admin@10xds.com') {
-      const adminSnapshot = await adminDb.collection('users')
-        .where('email', '==', adminEmail)
-        .where('role', '==', 'admin')
-        .get();
-      
-      if (adminSnapshot.empty) {
-        return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
+        return NextResponse.json(
+          { error: 'Password policy not met: ' + validation.errors.join(', ') },
+          { status: 400 }
+        );
       }
     }
 
@@ -169,9 +157,10 @@ export async function PATCH(request: Request) {
       }
       await userRef.update({ blocked: newValue });
     } else if (action === 'reset_password') {
-      await userRef.update({ 
-        password: newValue,
-        isFirstLogin: true // Force reset on next login
+      const hashedPassword = await bcrypt.hash(newValue, 12);
+      await userRef.update({
+        password: hashedPassword,
+        isFirstLogin: true, // Force reset on next login
       });
     }
 
@@ -181,5 +170,3 @@ export async function PATCH(request: Request) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
-
-
